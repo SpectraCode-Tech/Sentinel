@@ -142,6 +142,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Prints emails to console
+DEFAULT_FROM_EMAIL = 'no-reply@fastspeednews.com'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

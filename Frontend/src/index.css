@@ -1,1 +1,25 @@
-@import 'tailwindcss()';
+@import "tailwindcss";
+
+:root {
+  /* High-end Editorial Palette */
+  --color-bg: #ffffff;           /* Clean white background */
+  --color-surface: #f9f7f2;      /* Slight cream for sidebars/cards */
+  --color-text: #292929;         /* Softer black for readability */
+  --color-headline: #121212;     /* Rich black for titles */
+  --color-accent: #a31f1f;       /* Editorial "News" Red */
+  --color-border: #e2e2e2;       /* Subtle dividers */
+}
+
+@theme {
+  /* Colors */
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-text: var(--color-text);
+  --color-headline: var(--color-headline);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+
+  /* Font Families - Modern News Pairings */
+  --font-serif: "Playfair Display", "Merriweather", serif;
+  --font-sans: "Source Sans 3", "Inter", sans-serif;
+}
