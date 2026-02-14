@@ -38,10 +38,31 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "Users",
+    "accounts",
+    "news",
+    "ads",
+    "analytics",
+    "comments",
+    "rest_framework",
+    'django_filters',
+
+    
 ]
 
-AUTH_USER_MODEL = "Users.User"
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ]
+}
+
+
+
+AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -88,9 +109,20 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'USER': 'postgres',
+        'PASSWORD': 'your_password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#                 'NAME': 'news_platform',
+
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
