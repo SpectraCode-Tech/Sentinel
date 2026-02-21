@@ -53,6 +53,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
+    
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
@@ -78,7 +79,9 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "http://localhost:5174",
     "http://127.0.0.1:5173",
+    "http://127.0.0.1:5174",
 ]
 
 
@@ -145,6 +148,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Prints emails to console
 DEFAULT_FROM_EMAIL = 'no-reply@fastspeednews.com'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 # Internationalization

@@ -1,17 +1,22 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import ArticleDetail from "./Pages/ArticleDetail";
+import SearchResults from "./Pages/SearchResults";
+import CategoryPage from "./Pages/CategoryPage";
+import Footer from "./Components/Footer";
 
-function App() {
+export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/articles/:id" element={<ArticleDetail />} />
+        <Route path="/search" element={<SearchResults />} />
+        <Route path="/category/:slug" element={<CategoryPage />} />
+
       </Routes>
-    </Router>
+      <Footer />
+    </BrowserRouter>
+
   );
 }
-
-export default App;

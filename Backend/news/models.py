@@ -26,11 +26,6 @@ class Tag(models.Model):
 
 class Article(models.Model):
 
-    class Status(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        PUBLISHED = "published", "Published"
-        SCHEDULED = "scheduled", "Scheduled"
-
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -51,12 +46,20 @@ class Article(models.Model):
     )
 
     tags = models.ManyToManyField(Tag, blank=True)
+    image = models.ImageField(upload_to="articles/", blank=True, null=True)
+
+
+    class Status(models.TextChoices):
+        DRAFT = "draft", "Draft"
+        REVIEW = "review", "In Review"
+        PUBLISHED = "published", "Published"
+        REJECTED = "rejected", "Rejected"
 
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
         default=Status.DRAFT
-    )
+)
 
     publish_at = models.DateTimeField(null=True, blank=True)
 
