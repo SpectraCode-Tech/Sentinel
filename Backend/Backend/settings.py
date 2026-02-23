@@ -25,7 +25,9 @@ SECRET_KEY = "django-insecure-5+&%d%l2=2-hm_x-tt6#z&n60276!jn%*zg!caeej9o+fxs94f
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://sentinel-hu53.onrender.com",
+]
 
 
 # Application definition
@@ -82,6 +84,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:5174",
+    "https://sentinel-pi-one.vercel.app",
 ]
 
 
