@@ -7,7 +7,7 @@ export default function ArticleCard({ article }) {
     ? new Date(article.publish_at).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       }).toUpperCase()
     : "RECENTLY";
 
@@ -53,7 +53,7 @@ export default function ArticleCard({ article }) {
           {/* Left Side: Author */}
           <div className="flex flex-col">
             <span className="text-[11px] uppercase tracking-widest font-bold text-headline">
-              {article.author?.username || "Staff"}
+              {article.author_name || "Staff"}
             </span>
             <span className="text-[10px] text-gray-400 font-serif italic">
               Staff Reporter

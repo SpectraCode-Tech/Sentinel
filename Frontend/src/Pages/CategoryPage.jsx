@@ -12,17 +12,33 @@ export default function CategoryPage() {
     const [loading, setLoading] = useState(true);
     const [nextPage, setNextPage] = useState(null);
     const [prevPage, setPrevPage] = useState(null);
-
-    const fetchArticles = async (url) => {
+    const fetchArticles = async (url = null) => {
         try {
             setLoading(true);
-            const res = await axios.get(url);
-            setArticles(res.data.results || []);
-            setNextPage(res.data.next);
-            setPrevPage(res.data.previous);
-            window.scrollTo(0, 0); // Scroll to top on page change
+
+            console.log("Slug:", slug);
+
+            const res = url
+                ? await axios.get(url)
+                : await axios.get(
+                    "http://127.0.0.1:8000/api/articles/articles/",
+                    {
+                        params: {
+                            category__slug: slug,
+                            status: "published",
+                        },
+                    }
+                );
+
+            console.log("FULL RESPONSE:", res.data);
+
+            setArticles(res.data.results || res.data);
+            setNextPage(res.data.next || null);
+            setPrevPage(res.data.previous || null);
+
+            window.scrollTo(0, 0);
         } catch (err) {
-            console.error(err);
+            console.error("ERROR:", err.response || err);
             setArticles([]);
         } finally {
             setLoading(false);
@@ -31,7 +47,7 @@ export default function CategoryPage() {
 
     useEffect(() => {
         if (slug) {
-            fetchArticles(`http://127.0.0.1:8000/articles/?category=${slug}`);
+            fetchArticles();
         }
     }, [slug]);
 
@@ -50,14 +66,19 @@ export default function CategoryPage() {
             <Navbar />
 
             <main className="container mx-auto px-4 py-12">
+
                 {/* Back Button */}
                 <button
                     onClick={() => navigate("/")}
                     className="group mb-8 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-accent transition-colors"
                 >
-                    <span className="transition-transform group-hover:-translate-x-1">←</span> Front Page
+                    <span className="transition-transform group-hover:-translate-x-1">
+                        ←
+                    </span>
+                    Front Page
                 </button>
 
+                {/* Header */}
                 <header className="mb-12 border-b-2 border-headline pb-6">
                     <h1 className="text-5xl md:text-7xl font-serif font-black capitalize tracking-tighter text-headline">
                         {slug}
@@ -69,14 +90,16 @@ export default function CategoryPage() {
 
                 {articles.length > 0 ? (
                     <>
+                        {/* Articles Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                             {articles.map((article) => (
                                 <ArticleCard key={article.id} article={article} />
                             ))}
                         </div>
 
-                        {/* Professional Pagination */}
+                        {/* Pagination */}
                         <div className="flex justify-between items-center mt-16 pt-8 border-t border-border">
+
                             {prevPage ? (
                                 <button
                                     onClick={() => fetchArticles(prevPage)}
@@ -84,7 +107,9 @@ export default function CategoryPage() {
                                 >
                                     Previous
                                 </button>
-                            ) : <div />}
+                            ) : (
+                                <div />
+                            )}
 
                             {nextPage && (
                                 <button

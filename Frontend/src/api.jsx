@@ -1,15 +1,47 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000", // your DRF backend
+  baseURL: "http://127.0.0.1:8000/api/",
 });
 
-export const fetchArticles = (params = {}) => API.get("/articles/", { params });
-export const fetchTrending = () => API.get("/articles/trending/");
-export const fetchPopular = () => API.get("/articles/popular/");
-export const fetchArticleDetail = (id) => API.get(`/articles/${id}/`);
-export const fetchAdvertisements = () => API.get("/ads/advertisements/");
-export const fetchSidebarBlocks = () => API.get("/ads/sidebar-blocks/");
-export const fetchCategories = () => axios.get("/articles/categories/");
+/* ===========================
+   ARTICLES
+=========================== */
 
+export const fetchArticles = () => {
+  return API.get("articles/articles/?status=published");
+};
 
+export const fetchByUrl = (url) => {
+  return axios.get(url);
+};
+
+export const fetchByCategory = (slug, url = null) => {
+  return axios.get(
+    url || `http://127.0.0.1:8000/api/articles/articles/?status=published&category__slug=${slug}`
+  );
+};
+
+export const fetchCategories = () => {
+  return API.get("articles/categories/");
+};
+
+export const fetchArticleDetail = (slug) => {
+  return API.get(`articles/articles/${slug}/`);
+};
+
+/* ===========================
+   ADS
+=========================== */
+
+export const fetchAdvertisements = (placement) => {
+  return API.get(`ads/advertisements/?placement=${placement}`);
+};
+
+/* ===========================
+   SIDEBAR BLOCKS
+=========================== */
+
+export const fetchSidebarBlocks = () => {
+  return API.get("/ads/sidebar-blocks/");
+};

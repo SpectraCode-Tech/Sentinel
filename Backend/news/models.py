@@ -1,36 +1,45 @@
 from django.db import models
+from django.conf import settings
 from django.utils.text import slugify
 from django.utils import timezone
-from django.conf import settings
+import uuid
+
+class SoftDeleteModel(models.Model):
+    is_deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+    def soft_delete(self):
+        self.is_deleted = True
+        self.deleted_at = timezone.now()
+        self.save()
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=120)
-    slug = models.SlugField(unique=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super().save(*args, **kwargs)
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
-class Article(models.Model):
+class Article(SoftDeleteModel):
 
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="articles"
-    )
+    class Status(models.TextChoices):
+        DRAFT = "draft"
+        REVIEW = "review"
+        PUBLISHED = "published"
+        REJECTED = "rejected"
+        SCHEDULED = "scheduled"
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
@@ -38,46 +47,26 @@ class Article(models.Model):
     content = models.TextField()
     excerpt = models.TextField(blank=True)
 
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="articles"
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to="articles/", blank=True, null=True)
 
+    image = models.ImageField(upload_to="articles/", null=True, blank=True)
 
-    class Status(models.TextChoices):
-        DRAFT = "draft", "Draft"
-        REVIEW = "review", "In Review"
-        PUBLISHED = "published", "Published"
-        REJECTED = "rejected", "Rejected"
-
-    status = models.CharField(
-        max_length=20,
-        choices=Status.choices,
-        default=Status.DRAFT
-)
+    status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
 
     publish_at = models.DateTimeField(null=True, blank=True)
 
-    view_count = models.PositiveIntegerField(default=0)
+    view_count = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # ✅ auto slug
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
-
-        # ✅ auto publish if scheduled time reached
-        if self.status == "scheduled" and self.publish_at:
-            if self.publish_at <= timezone.now():
-                self.status = "published"
-
+            base_slug = slugify(self.title)
+            self.slug = f"{base_slug}-{uuid.uuid4().hex[:6]}"
         super().save(*args, **kwargs)
 
     def __str__(self):

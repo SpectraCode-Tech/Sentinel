@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
+import { fetchCategories } from "../api"; // Import your API helper
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [categories, setCategories] = useState([]); // State for backend categories
   const navigate = useNavigate();
 
-  const navLinks = ["Politics", "Economy", "Culture"];
+  // Fetch categories from Django on mount
+  useEffect(() => {
+    fetchCategories()
+      .then(res => {
+        // Handle both paginated and direct list responses
+        const data = res.data.results || res.data;
+        setCategories(data);
+      })
+      .catch(err => console.error("Could not fetch categories:", err));
+  }, []);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -36,12 +47,15 @@ export default function Navbar() {
             <div className="h-0.5 w-4 bg-current" />
           </button>
 
-          {/* Desktop Links & Search */}
+          {/* Desktop Links: Mapping over dynamic categories */}
           <nav className="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-gray-400">
-            {navLinks.map(link => (
-              <Link key={link} to={`/category/${link.toLowerCase()}`}
-                 className="hover:text-accent transition-colors">
-                {link}
+            {categories.map(cat => (
+              <Link
+                key={cat.id}
+                to={`/category/${cat.slug}`} // Links to slug from backend
+                className="hover:text-accent transition-colors"
+              >
+                {cat.name}
               </Link>
             ))}
 
@@ -84,9 +98,8 @@ export default function Navbar() {
           </form>
         )}
 
-        {/* Mobile Sidebar Menu with "X" Close */}
+        {/* Mobile Sidebar Menu: Also using dynamic categories */}
         <div className={`fixed inset-0 bg-headline text-white z-[60] transition-transform duration-500 md:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-          {/* Close Button "X" */}
           <button
             onClick={() => setIsOpen(false)}
             className="absolute top-8 right-8 p-2 text-white/70 hover:text-white transition-colors"
@@ -98,14 +111,14 @@ export default function Navbar() {
 
           <div className="flex flex-col items-start justify-center h-full px-12 gap-8">
             <span className="text-accent text-xs font-bold tracking-[0.4em] uppercase">Sections</span>
-            {navLinks.map(link => (
+            {categories.map(cat => (
               <Link
-                key={link}
-                to={`/category/${link.toLowerCase()}`}
+                key={cat.id}
+                to={`/category/${cat.slug}`}
                 onClick={() => setIsOpen(false)}
                 className="text-4xl font-serif font-black uppercase italic hover:text-accent transition-colors"
               >
-                {link}
+                {cat.name}
               </Link>
             ))}
           </div>

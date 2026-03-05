@@ -5,73 +5,43 @@ from .models import Article, Category, Tag
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'name', 'slug']
-
+        fields = "__all__"
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ['id', 'name']
-
+        fields = "__all__"
 
 class ArticleSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=True)
-    tags = TagSerializer(many=True, read_only=True)
+    category_name = serializers.ReadOnlyField(source='category.name')
+    author_name = serializers.SerializerMethodField()
 
-    can_edit = serializers.SerializerMethodField()
-    can_publish = serializers.SerializerMethodField()
-    status = serializers.SerializerMethodField()
-
-    # Add this line if you want full URL to the image
-    image = serializers.SerializerMethodField()
+    tags = serializers.PrimaryKeyRelatedField(
+        many=True,
+        queryset=Tag.objects.all()
+    )
 
     class Meta:
         model = Article
         fields = [
-            'id',
-            'title',
-            'content',
-            'excerpt',
-            'author',
-            'category',
-            'tags',
-            'image',       # ✅ include image here
-            'status',
-            'publish_at',
-            'view_count',
-            'created_at',
-            'updated_at',
-            'can_edit',
-            'can_publish',
+            "id", "title", "slug", "author", "author_name", 
+            "category", "category_name", "excerpt", "content", 
+            "image", "tags", "status", "view_count", "created_at", "publish_at"
         ]
-        read_only_fields = [
-            'author',
-            'view_count',
-            'created_at',
-            'updated_at',
-            'can_edit',
-            'can_publish',
-        ]
+        read_only_fields = ["author", "slug", "view_count", "created_at"]
 
-    def get_can_edit(self, obj):
-        user = self.context['request'].user
-        return user.is_staff or (user.is_authenticated and obj.author == user)
+    def is_valid(self, raise_exception=False):
 
-    def get_can_publish(self, obj):
-        user = self.context['request'].user
-        return user.is_staff
-
-    def get_status(self, obj):
-        user = self.context['request'].user
-        if obj.status == "published":
-            return obj.status
-        elif user.is_staff or (user.is_authenticated and obj.author == user):
-            return obj.status
-        else:
-            return "published"
-
-    def get_image(self, obj):
-        request = self.context.get('request')
-        if obj.image and hasattr(obj.image, 'url'):
-            return request.build_absolute_uri(obj.image.url)
-        return None
+        # 2. Cleanup: Remove fields that are empty strings but expect IDs or Objects
+        # This prevents "Invalid PK" or "Must be an integer" errors
+        mutable_data = self.initial_data.copy()
+        for field in ['category', 'image']:
+            if field in mutable_data and (mutable_data[field] in ['', 'null', 'undefined']):
+                mutable_data.pop(field)
+        
+        self.initial_data = mutable_data
+        return super().is_valid(raise_exception=raise_exception)
+    
+    def get_author_name(self, obj):
+        full_name = f"{obj.author.first_name} {obj.author.last_name}".strip()
+        return full_name if full_name else obj.author.username

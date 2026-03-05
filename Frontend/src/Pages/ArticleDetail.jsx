@@ -67,11 +67,11 @@ export default function ArticleDetail() {
               <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-y border-border gap-4 mb-10">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl">
-                    {article.author?.username?.charAt(0) || "S"}
+                    {article.author_name?.charAt(0) || "S"}
                   </div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-tight text-headline">
-                      By {article.author?.username || "Staff Reporter"}
+                      By {article.author_name || "Staff Reporter"}
                     </p>
                     <p className="text-[10px] text-gray-500 font-serif italic">Sentinel Staff Reporter</p>
                   </div>
