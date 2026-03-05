@@ -6,7 +6,7 @@ User = get_user_model()
 
 def notify_editors_new_draft(article):
     # Get all staff users (editors)
-    editors = User.objects.filter(is_staff=True)
+    editors = User.objects.filter(role="EDITOR")
     emails = [editor.email for editor in editors if editor.email]
     
     if not emails:

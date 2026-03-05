@@ -25,7 +25,7 @@ export default function MyArticles() {
     }, []);
 
     useEffect(() => {
-        api.get("articles/articles/")
+        api.get("articles/")
             .then((res) => {
                 const data = Array.isArray(res.data) ? res.data : (res.data.results || []);
                 // Sort by newest first immediately on load
@@ -52,7 +52,7 @@ export default function MyArticles() {
         if (!window.confirm("Permanently delete this article?")) return;
         const loadToast = toast.loading("Deleting...");
         try {
-            await api.delete(`/articles/articles/${id}/`);
+            await api.delete(`/articles/${id}/`);
             setArticles(prev => prev.filter(a => a.id !== id));
             toast.success("Deleted", { id: loadToast });
         } catch (err) {

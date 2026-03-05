@@ -13,7 +13,7 @@ urlpatterns = [
     path("api/token/refresh/", TokenRefreshView.as_view()),
 
     # News
-    path("api/articles/", include("news.urls")),
+    path("api/", include("news.urls")),
 
     # Ads
     path("api/ads/", include("ads.urls")),

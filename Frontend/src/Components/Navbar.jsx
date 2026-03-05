@@ -65,7 +65,7 @@ export default function Navbar() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="SEARCH DISPATCHES..."
+                placeholder="SEARCH ARTICLES..."
                 className="bg-transparent text-[10px] tracking-widest focus:outline-none w-28 lg:w-40 placeholder:text-gray-300"
               />
               <button type="submit" className="ml-2 text-gray-400 group-hover:text-accent">

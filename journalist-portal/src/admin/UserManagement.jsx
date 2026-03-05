@@ -66,7 +66,7 @@ export default function UserManagement() {
 
     const fetchUsers = async () => {
         try {
-            const res = await API.get("articles/admin/users/");
+            const res = await API.get("admin/users/");
             const journalistsOnly = res.data.filter(
                 user => user.role?.toUpperCase() === "JOURNALIST"
             );
@@ -82,7 +82,7 @@ export default function UserManagement() {
         e.preventDefault();
         setIsCreating(true);
         try {
-            await API.post("articles/admin/users/", newUser);
+            await API.post("admin/users/", newUser);
             toast.success("Journalist account created!");
             setShowCreateModal(false);
             setNewUser({
@@ -105,7 +105,7 @@ export default function UserManagement() {
         if (!adminPassword || !newPassword) return toast.error("All fields required");
         setIsChangingPassword(true);
         try {
-            await API.post(`articles/admin/users/${selectedUser.id}/change-password/`, {
+            await API.post(`admin/users/${selectedUser.id}/change-password/`, {
                 admin_password: adminPassword,
                 new_password: newPassword,
             });
@@ -125,7 +125,7 @@ export default function UserManagement() {
         setLoadingArticles(true);
         setIsMobileView(true);
 
-        API.get(`articles/articles/?author=${user.id}`)
+        API.get(`articles/?author=${user.id}`)
             .then(res => {
                 const data = Array.isArray(res.data) ? res.data : res.data.results || [];
                 setUserArticles(data);
@@ -137,7 +137,7 @@ export default function UserManagement() {
     const updateRole = async (id, newRole) => {
         const loadingToast = toast.loading("Updating role...");
         try {
-            await API.patch(`articles/admin/users/${id}/`, { role: newRole });
+            await API.patch(`admin/users/${id}/`, { role: newRole });
             toast.success("Role updated", { id: loadingToast });
             fetchUsers();
             if (newRole !== "JOURNALIST") {
@@ -149,7 +149,7 @@ export default function UserManagement() {
 
     const toggleActive = async (id, currentStatus) => {
         try {
-            await API.patch(`articles/admin/users/${id}/`, { is_active: !currentStatus });
+            await API.patch(`admin/users/${id}/`, { is_active: !currentStatus });
             toast.success(`User ${!currentStatus ? "activated" : "deactivated"}`);
             setUsers(prev => prev.map(u => u.id === id ? { ...u, is_active: !currentStatus } : u));
             setSelectedUser(prev => ({ ...prev, is_active: !currentStatus }));
@@ -161,7 +161,7 @@ export default function UserManagement() {
         if (!userToDelete) return;
         setIsDeleting(true);
         try {
-            await API.delete(`articles/admin/users/${userToDelete.id}/`);
+            await API.delete(`admin/users/${userToDelete.id}/`);
             toast.success("User removed");
             setSelectedUser(null);
             setIsMobileView(false);

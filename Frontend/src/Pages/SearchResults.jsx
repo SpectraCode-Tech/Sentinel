@@ -19,9 +19,14 @@ export default function SearchResults() {
         try {
             setLoading(true);
             const res = await axios.get(url);
-            setArticles(res.data.results || []);
-            setNextPage(res.data.next);
-            setPrevPage(res.data.previous);
+
+            // If your backend has pagination enabled, data.results exists.
+            // If pagination is NOT enabled, res.data is the array itself.
+            const data = res.data.results ? res.data.results : res.data;
+
+            setArticles(data || []);
+            setNextPage(res.data.next || null);
+            setPrevPage(res.data.previous || null);
         } catch (err) {
             console.error(err);
             setArticles([]);
@@ -32,7 +37,7 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (searchQuery.trim()) {
-            fetchArticles(`http://127.0.0.1:8000/articles/?search=${encodeURIComponent(searchQuery)}`);
+            fetchArticles(`http://127.0.0.1:8000/api/articles/?search=${encodeURIComponent(searchQuery)}`);
         } else {
             setArticles([]);
             setLoading(false);

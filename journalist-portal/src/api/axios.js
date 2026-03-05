@@ -12,7 +12,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-export const fetchMyArticles = () => api.get("articles/articles/");
+export const fetchMyArticles = () => api.get("articles/");
 
 export const fetchMe = () => api.get("accounts/me/"); // adjust if your endpoint is different
 

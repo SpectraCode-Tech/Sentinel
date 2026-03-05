@@ -10,7 +10,7 @@ export default function ArticleReader() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        API.get(`articles/articles/${id}/`)
+        API.get(`articles/${id}/`)
             .then(res => {
                 setArticle(res.data);
                 setLoading(false);

@@ -21,7 +21,7 @@ export default function CategoryPage() {
             const res = url
                 ? await axios.get(url)
                 : await axios.get(
-                    "http://127.0.0.1:8000/api/articles/articles/",
+                    "http://127.0.0.1:8000/api/articles/",
                     {
                         params: {
                             category__slug: slug,

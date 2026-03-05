@@ -6,12 +6,13 @@ import Editor from "./journalist/Editor";
 import MyArticles from "./journalist/MyArticles";
 import EditorDashboard from "./editor/EditorDashboard";
 import ReviewQueue from "./editor/ReviewQueue";
-import ArticleReader from "./journalist/ArticleReader";
 import EditorArticleWorkspace from "./editor/EditorArticleWorkspace";
 import StaffDirectory from "./editor/StaffDirectory";
 import AdminDashboard from "./admin/AdminDashboard";
 import UserManagement from "./admin/UserManagement";
 import ArticleView from "./admin/ArticleView";
+import AdminCategories from "./admin/CategoryManagement";
+import AdminArticles from "./admin/ArticleManagement";
 
 function App() {
   return (
@@ -107,12 +108,16 @@ function App() {
           <ArticleView />
         </ProtectedRoute>} />
 
+        <Route path="/admin/articles" element={<ProtectedRoute role="ADMIN">
+          <AdminArticles />
+        </ProtectedRoute>} />
+
         <Route path="/admin/users" element={<ProtectedRoute role="ADMIN">
           <UserManagement />
         </ProtectedRoute>} />
 
-          <Route path="/article/:id" element={<ProtectedRoute role="ADMIN"><ArticleReader />
-            <ArticleReader />
+          <Route path="/admin/categories" element={<ProtectedRoute role="ADMIN">
+            <AdminCategories />
           </ProtectedRoute>} />
       </Routes>
     </BrowserRouter>

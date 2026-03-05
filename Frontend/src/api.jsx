@@ -9,7 +9,7 @@ const API = axios.create({
 =========================== */
 
 export const fetchArticles = () => {
-  return API.get("articles/articles/?status=published");
+  return API.get("articles/?status=published");
 };
 
 export const fetchByUrl = (url) => {
@@ -18,16 +18,16 @@ export const fetchByUrl = (url) => {
 
 export const fetchByCategory = (slug, url = null) => {
   return axios.get(
-    url || `http://127.0.0.1:8000/api/articles/articles/?status=published&category__slug=${slug}`
+    url || `http://127.0.0.1:8000/api/articles/?status=published&category__slug=${slug}`
   );
 };
 
 export const fetchCategories = () => {
-  return API.get("articles/categories/");
+  return API.get("categories/");
 };
 
 export const fetchArticleDetail = (slug) => {
-  return API.get(`articles/articles/${slug}/`);
+  return API.get(`articles/${slug}/`);
 };
 
 /* ===========================

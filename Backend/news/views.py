@@ -1,5 +1,7 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from django.utils import timezone
+
+from .utils import notify_editors_new_draft, notify_author_article_published
 from .models import Article, Category, Tag
 from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -8,12 +10,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     
     filterset_fields = {
         'status': ['exact'],
         'category__slug': ['exact'],
     }
+
+    search_fields = ['title', 'content', 'excerpt', 'category__name']
 
     def get_queryset(self):
         queryset = Article.objects.filter(is_deleted=False)
@@ -31,7 +35,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
     # Admin & Editor → everything
         if user.role in ["ADMIN", "EDITOR"]:
-            return queryset
+            return queryset.exclude(status="draft")
 
     # Journalist → only their own
         if user.role == "JOURNALIST":
@@ -42,18 +46,27 @@ class ArticleViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Check if the user specifically sent 'draft' status from the frontend
         status = self.request.data.get('status', 'review')
-        serializer.save(
+        article=serializer.save(
             author=self.request.user,
             status=status
         )
+        if status == 'review':
+            notify_editors_new_draft(article)
 
     def perform_update(self, serializer):
+        old_status = self.get_object().status
         article = serializer.save()
 
         #if status changes to publish and no publish date, set it to now
         if article.status == "published" and not article.publish_at:
             article.publish_at = timezone.now()
             article.save()
+            
+        if old_status != "published" and article.status == "published":
+            notify_author_article_published(article)
+            
+        if old_status == "draft" and article.status == "review":
+            notify_editors_new_draft(article)
             
         # Auto publish scheduled posts
         if article.status == "scheduled" and article.publish_at:

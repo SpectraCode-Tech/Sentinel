@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-    Shield,
-    Users,
-    FileText,
-    Layers,
-    BarChart3,
-    LogOut,
-    Menu,
-    X
-} from "lucide-react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Users, FileText, Layers, BarChart3, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
+import AdminSidebar from "./sidebar";
 
 export default function AdminDashboard() {
     const [stats, setStats] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
 
     const handleLogout = () => {
         localStorage.removeItem("access_token");
@@ -25,91 +16,26 @@ export default function AdminDashboard() {
     };
 
     useEffect(() => {
-        API.get("articles/dashboard/admin/")
+        API.get("dashboard/admin/")
             .then(res => setStats(res.data))
             .catch(err => console.error(err));
     }, []);
 
-    // Helper to highlight active link
-    const isActive = (path) => location.pathname === path;
-
     return (
-        <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900 relative">
+        <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900">
 
-            {/* MOBILE OVERLAY */}
-            {isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-slate-900/50 z-40 lg:hidden transition-opacity"
-                    onClick={() => setIsSidebarOpen(false)}
-                />
-            )}
-
-            {/* SIDEBAR */}
-            <aside className={`
-                fixed inset-y-0 left-0 z-50 w-72 bg-slate-950 text-white p-6 flex flex-col transform transition-transform duration-300 ease-in-out
-                lg:relative lg:translate-x-0 ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
-            `}>
-                <div className="flex items-center justify-between mb-10">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
-                            <Shield className="w-6 h-6" />
-                        </div>
-                        <span className="font-bold text-lg tracking-tight">Admin Panel</span>
-                    </div>
-                    {/* Close button for mobile */}
-                    <button className="lg:hidden" onClick={() => setIsSidebarOpen(false)}>
-                        <X className="w-6 h-6 text-slate-400" />
-                    </button>
-                </div>
-
-                <nav className="space-y-1.5 flex-1">
-                    {[
-                        { name: "Dashboard", path: "/admin", icon: BarChart3 },
-                        { name: "Users", path: "/admin/users/", icon: Users },
-                        { name: "Articles", path: "/admin/articles", icon: FileText },
-                        { name: "Categories", path: "/admin/categories", icon: Layers },
-                    ].map((item) => (
-                        <Link
-                            key={item.name}
-                            to={item.path}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${isActive(item.path)
-                                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-900/20"
-                                    : "text-slate-400 hover:bg-white/5 hover:text-white"
-                                }`}
-                        >
-                            <item.icon className="w-5 h-5" />
-                            {item.name}
-                        </Link>
-                    ))}
-                </nav>
-
-                <button
-                    onClick={handleLogout}
-                    className="mt-6 flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white transition-all group"
-                >
-                    <LogOut className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    <span className="font-semibold">Logout</span>
-                </button>
-            </aside>
+            <AdminSidebar
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+                handleLogout={handleLogout}
+            />
 
             {/* MAIN CONTENT */}
             <main className="flex-1 flex flex-col min-w-0">
+                {/* Spacer for mobile because top nav is 'fixed' */}
+                <div className="h-16 lg:hidden" />
 
-                {/* TOP MOBILE NAV */}
-                <div className="lg:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
-                    <div className="flex items-center gap-2">
-                        <Shield className="w-6 h-6 text-indigo-600" />
-                        <span className="font-bold">Admin</span>
-                    </div>
-                    <button
-                        onClick={() => setIsSidebarOpen(true)}
-                        className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
-                    >
-                        <Menu className="w-6 h-6" />
-                    </button>
-                </div>
-
-                <div className="p-6 md:p-10 lg:p-12 overflow-y-auto">
+                <div className="p-6 md:p-10 lg:p-12">
                     <header className="mb-10">
                         <h1 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
                             System Overview
@@ -118,50 +44,18 @@ export default function AdminDashboard() {
                     </header>
 
                     {!stats ? (
-                        <div className="flex items-center gap-3 text-slate-400 font-medium">
+                        <div className="flex items-center gap-3 text-slate-400 font-medium py-10">
                             <div className="w-4 h-4 border-2 border-slate-300 border-t-indigo-600 rounded-full animate-spin" />
-                            Loading system metrics...
+                            Synchronizing metrics...
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-
-                            <StatCard
-                                icon={Users}
-                                label="Total Users"
-                                value={stats.total_users}
-                                color="indigo"
-                            />
-                            <StatCard
-                                icon={FileText}
-                                label="Total Articles"
-                                value={stats.total_articles}
-                                color="emerald"
-                            />
-                            <StatCard
-                                icon={Layers}
-                                label="Pending Review"
-                                value={stats.pending}
-                                color="amber"
-                            />
-                            <StatCard
-                                icon={BarChart3}
-                                label="Published"
-                                value={stats.published}
-                                color="blue"
-                            />
-                            <StatCard
-                                icon={Shield}
-                                label="Editors"
-                                value={stats.editors}
-                                color="purple"
-                            />
-                            <StatCard
-                                icon={Users}
-                                label="Journalists"
-                                value={stats.journalists}
-                                color="indigo"
-                            />
-
+                            <StatCard icon={Users} label="Total Users" value={stats.total_users} color="indigo" />
+                            <StatCard icon={FileText} label="Total Articles" value={stats.total_articles} color="emerald" />
+                            <StatCard icon={Layers} label="Pending Review" value={stats.pending} color="amber" />
+                            <StatCard icon={BarChart3} label="Published" value={stats.published} color="blue" />
+                            <StatCard icon={Shield} label="Editors" value={stats.editors} color="purple" />
+                            <StatCard icon={Users} label="Journalists" value={stats.journalists} color="indigo" />
                         </div>
                     )}
                 </div>
@@ -170,7 +64,8 @@ export default function AdminDashboard() {
     );
 }
 
-// Sub-component for clean organization
+// StatCard sub-component remains the same...
+
 function StatCard({ icon: Icon, label, value, color }) {
     const colors = {
         indigo: "text-indigo-600 bg-indigo-50",

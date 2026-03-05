@@ -23,18 +23,18 @@ export default function JournalistEditor() {
 
     // Load categories & tags
     useEffect(() => {
-        API.get("/articles/categories/")
+        API.get("/categories/")
             .then(res => setCategories(res.data))
             .catch(() => { });
 
-        API.get("/articles/tags/")
+        API.get("/tags/")
             .then(res => setTags(res.data))
             .catch(() => { });
     }, []);
 
     useEffect(() => {
         if (id) {
-            API.get(`/articles/articles/${id}/`)
+            API.get(`articles/${id}/`)
                 .then(res => {
                     setTitle(res.data.title);
                     setExcerpt(res.data.excerpt);
@@ -78,9 +78,9 @@ export default function JournalistEditor() {
 
         try {
             if (id) {
-                await API.put(`/articles/articles/${id}/`, formData);
+                await API.put(`articles/${id}/`, formData);
             } else {
-                await API.post("articles/articles/", formData);
+                await API.post("articles/", formData);
             }
 
             // 1. Show Success Toast

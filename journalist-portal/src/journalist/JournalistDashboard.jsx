@@ -25,7 +25,7 @@ export default function JournalistDashboard() {
     };
 
     useEffect(() => {
-        API.get("articles/dashboard/journalist/")
+        API.get("dashboard/journalist/")
             .then(res => {
                 setUsername(res.data.username);
                 setStats(res.data);

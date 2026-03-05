@@ -29,7 +29,7 @@ export default function ArticleCard({ article }) {
       <Link to={`/articles/${article.id}`} className="block mb-4 overflow-hidden">
         <div className="relative aspect-[16/9] overflow-hidden bg-surface">
           <img
-            src={article.image || "https://via.placeholder.com/800x450?text=The+Sentinel"} 
+            src={article.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy009LUOND9m_Fxvr7M49WGnjlObT5M4Yyw&s"} 
             alt={article.title}
             className="w-full h-full object-cover grayscale-[20%] transition-transform duration-700 group-hover:scale-105 group-hover:grayscale-0"
           />
