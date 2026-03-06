@@ -12,7 +12,7 @@ class CommentSerializer(serializers.ModelSerializer):
             'parent', 'replies', 'likes', 'reports',
             'status', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['likes', 'reports', 'created_at', 'updated_at']
+        read_only_fields = ['article', 'likes', 'reports', 'created_at', 'updated_at']
 
     def get_replies(self, obj):
         # 1. FIXED: Recursion Control

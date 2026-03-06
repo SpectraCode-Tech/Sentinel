@@ -16,8 +16,6 @@ export default function CategoryPage() {
         try {
             setLoading(true);
 
-            console.log("Slug:", slug);
-
             const res = url
                 ? await axios.get(url)
                 : await axios.get(
@@ -29,8 +27,6 @@ export default function CategoryPage() {
                         },
                     }
                 );
-
-            console.log("FULL RESPONSE:", res.data);
 
             setArticles(res.data.results || res.data);
             setNextPage(res.data.next || null);

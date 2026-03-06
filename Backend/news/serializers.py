@@ -29,6 +29,17 @@ class ArticleSerializer(serializers.ModelSerializer):
             "image", "tags", "status", "view_count", "created_at", "publish_at"
         ]
         read_only_fields = ["author", "slug", "view_count", "created_at"]
+        
+        
+    def to_representation(self, instance):
+        """
+        This method changes how the data looks when it leaves the API.
+        It converts the list of IDs into a list of Tag objects with names.
+        """
+        representation = super().to_representation(instance)
+        # We replace the list of IDs with the serialized Tag objects
+        representation['tags'] = TagSerializer(instance.tags.all(), many=True).data
+        return representation
 
     def is_valid(self, raise_exception=False):
 

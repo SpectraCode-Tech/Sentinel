@@ -1,22 +1,88 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Home from "./Pages/Home";
 import ArticleDetail from "./Pages/ArticleDetail";
 import SearchResults from "./Pages/SearchResults";
 import CategoryPage from "./Pages/CategoryPage";
+import Login from "./Pages/Login";
+import NotFound from "./Pages/NotFound";
+import ProtectedRoute from "./Components/ProtectedRoute";
 import Footer from "./Components/Footer";
+import Register from "./Pages/Register";
+import Profile from "./Pages/Profile";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
+
   return (
     <BrowserRouter>
+
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          // Default duration for all toasts
+          duration: 3000,
+          style: {
+            background: '#fff',
+            color: '#000',
+          },
+        }}
+      />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/articles/:id" element={<ArticleDetail />} />
-        <Route path="/search" element={<SearchResults />} />
-        <Route path="/category/:slug" element={<CategoryPage />} />
+
+        {/* Public */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } />
+
+        {/* Protected */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/articles/:id"
+          element={
+            <ProtectedRoute>
+              <ArticleDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <SearchResults />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/category/:slug"
+          element={
+            <ProtectedRoute>
+              <CategoryPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
-      <Footer />
-    </BrowserRouter>
 
+      <Footer />
+
+    </BrowserRouter>
   );
 }

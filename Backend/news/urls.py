@@ -1,4 +1,6 @@
 from rest_framework.routers import DefaultRouter, path
+
+from comments.views import CommentViewSet
 from .admin_dashboard_views import AdminDashboardStatsView, AdminUserManagementView
 from .staff_views import StaffDirectoryView
 from .views import ArticleViewSet, CategoryViewSet, TagViewSet
@@ -13,6 +15,13 @@ router.register(r"categories", CategoryViewSet)
 router.register(r"tags", TagViewSet)
 
 urlpatterns = [
+    path("articles/<int:article>/comments/", CommentViewSet.as_view({'get': 'list', 'post': 'create'})),
+    path("articles/<int:article>/comments/<int:pk>/", CommentViewSet.as_view({
+        'get': 'retrieve', 
+        'put': 'update', 
+        'patch': 'partial_update', 
+        'delete': 'destroy'
+    })),
     path("dashboard/journalist/", JournalistDashboardStatsView.as_view()),
     path("dashboard/editor/", EditorDashboardStatsView.as_view()),
     path("dashboard/admin/", AdminDashboardStatsView.as_view()),

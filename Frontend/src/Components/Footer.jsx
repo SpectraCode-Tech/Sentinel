@@ -46,20 +46,6 @@ const Footer = () => {
               <li className="pt-2 text-white">Contact: info@sentinel.press</li>
             </ul>
           </div>
-
-          {/* Column 4: Newsletter Signup */}
-          <div>
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-accent mb-6">The Daily Brief</h4>
-            <p className="text-xs text-gray-400 mb-4">Get the top dispatches delivered to your inbox.</p>
-            <form className="flex border-b border-gray-700 pb-1">
-              <input
-                type="email"
-                placeholder="EMAIL ADDRESS"
-                className="bg-transparent text-[10px] w-full focus:outline-none placeholder:text-gray-600"
-              />
-              <button className="text-[10px] font-bold tracking-widest hover:text-accent">JOIN</button>
-            </form>
-          </div>
         </div>
 
         {/* Bottom Bar */}

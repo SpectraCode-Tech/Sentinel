@@ -5,6 +5,26 @@ const API = axios.create({
 });
 
 /* ===========================
+   AUTH
+=========================== */
+
+export const loginUser = (credentials) => {
+  return API.post("token/", credentials);
+};
+
+export const registerUser = (data) => {
+  return axios.post(`${API.defaults.baseURL}users/register/`, data);
+};
+
+export const fetchUserProfile = (token) => {
+  return axios.get(`${API.defaults.baseURL}users/profile/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+/* ===========================
    ARTICLES
 =========================== */
 
@@ -18,7 +38,7 @@ export const fetchByUrl = (url) => {
 
 export const fetchByCategory = (slug, url = null) => {
   return axios.get(
-    url || `http://127.0.0.1:8000/api/articles/?status=published&category__slug=${slug}`
+    url || `${API.defaults.baseURL}articles/?status=published&category__slug=${slug}`
   );
 };
 
@@ -44,4 +64,34 @@ export const fetchAdvertisements = (placement) => {
 
 export const fetchSidebarBlocks = () => {
   return API.get("/ads/sidebar-blocks/");
+};
+
+/* ===========================
+   COMMENTS
+=========================== */
+
+export const fetchComments = (articleId) => {
+  return API.get(`articles/${articleId}/comments/`);
+};
+
+export const createComment = (articleId, data, token) => {
+  return axios.post(
+    `${API.defaults.baseURL}articles/${articleId}/comments/`,
+    data,
+    {
+      headers: {
+        Authorization:  `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const deleteComment = (articleId, commentId, token) => {
+  // Combine articleId and commentId into URL
+  const url = `${API.defaults.baseURL}articles/${articleId}/comments/${commentId}/`;
+  return API.delete(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };

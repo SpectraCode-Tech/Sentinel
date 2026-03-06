@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { fetchCategories } from "../api"; // Import your API helper
+import { fetchCategories } from "../api";
+import { User } from "lucide-react"; // <--- ADDED THIS IMPORT
+import { useAuth } from "../Context/AuthContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [categories, setCategories] = useState([]); // State for backend categories
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const { user} = useAuth();
 
-  // Fetch categories from Django on mount
+  // Parse user data safely
+
   useEffect(() => {
     fetchCategories()
       .then(res => {
-        // Handle both paginated and direct list responses
         const data = res.data.results || res.data;
         setCategories(data);
       })
@@ -47,19 +50,31 @@ export default function Navbar() {
             <div className="h-0.5 w-4 bg-current" />
           </button>
 
-          {/* Desktop Links: Mapping over dynamic categories */}
+          {/* Desktop Links */}
           <nav className="hidden md:flex gap-8 items-center text-xs font-bold uppercase tracking-widest text-gray-400">
             {categories.map(cat => (
               <Link
                 key={cat.id}
-                to={`/category/${cat.slug}`} // Links to slug from backend
+                to={`/category/${cat.slug}`}
                 className="hover:text-accent transition-colors"
               >
                 {cat.name}
               </Link>
             ))}
 
-            {/* Redesigned Desktop Search */}
+            {/* User Logic Wrapper */}
+            <div className="flex items-center gap-6 border-l border-border pl-6 ml-2">
+              {user ? (
+                <Link to="/profile" className="flex items-center gap-2 text-headline hover:text-accent transition-colors">
+                  <User className="w-4 h-4" />
+                  <span className="font-bold text-xs uppercase">{user.username}</span>
+                </Link>
+              ) : (
+                <Link to="/login" className="text-xs font-bold uppercase text-headline hover:text-accent">Sign In</Link>
+              )}
+            </div>
+
+            {/* Desktop Search */}
             <form onSubmit={handleSearchSubmit} className="ml-4 group flex items-center border-b border-border focus-within:border-accent transition-colors pb-1">
               <input
                 type="text"
@@ -84,9 +99,9 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Search Overlay Input */}
+        {/* Mobile Search Input */}
         {searchOpen && (
-          <form onSubmit={handleSearchSubmit} className="md:hidden w-full mb-6 animate-in slide-in-from-top duration-300">
+          <form onSubmit={handleSearchSubmit} className="md:hidden w-full mb-6">
             <input
               type="text"
               autoFocus
@@ -98,11 +113,11 @@ export default function Navbar() {
           </form>
         )}
 
-        {/* Mobile Sidebar Menu: Also using dynamic categories */}
+        {/* Mobile Sidebar */}
         <div className={`fixed inset-0 bg-headline text-white z-[60] transition-transform duration-500 md:hidden ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <button
             onClick={() => setIsOpen(false)}
-            className="absolute top-8 right-8 p-2 text-white/70 hover:text-white transition-colors"
+            className="absolute top-8 right-8 p-2 text-white/70 hover:text-white"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
@@ -121,6 +136,14 @@ export default function Navbar() {
                 {cat.name}
               </Link>
             ))}
+            {/* Mobile User Link */}
+            <Link
+              to={user ? "/profile" : "/login"}
+              onClick={() => setIsOpen(false)}
+              className="mt-4 text-accent text-sm font-bold uppercase tracking-widest border-t border-white/10 pt-4 w-full"
+            >
+              {user ? `Account: ${user.username}` : "Sign In"}
+            </Link>
           </div>
         </div>
 

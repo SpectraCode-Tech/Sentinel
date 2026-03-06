@@ -6,12 +6,16 @@ import AdSlot from "../Components/AdSlot";
 import SidebarBlocks from "../Components/SideBarBlocks";
 import ArticleAdSlot from "../Components/ArticleAdSlot";
 import Footer from "../Components/Footer";
+import CommentSection from "../Components/CommentSection";
 
 export default function ArticleDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Retrieve user session for the CommentSection
+  const [user] = useState(() => JSON.parse(localStorage.getItem("user_data")) || null);
 
   useEffect(() => {
     fetchArticleDetail(id)
@@ -51,11 +55,15 @@ export default function ArticleDetail() {
 
             <header className="mb-10">
               <div className="flex items-center gap-3 mb-4">
-                {article.tags.slice(0, 1).map(tag => (
-                  <span key={tag.id} className="text-accent font-bold uppercase tracking-widest text-xs italic">
-                    {tag.name}
+                {article.category_name ? (
+                  <span className="text-accent font-bold uppercase tracking-widest text-xs italic bg-accent/5 px-2 py-1 rounded">
+                    {article.category_name}
                   </span>
-                ))}
+                ) : (
+                  <span className="text-gray-400 font-bold uppercase tracking-widest text-xs italic">
+                    Uncategorized
+                  </span>
+                )}
                 <span className="h-[1px] flex-grow bg-border" />
               </div>
 
@@ -63,7 +71,6 @@ export default function ArticleDetail() {
                 {article.title}
               </h1>
 
-              {/* Author & Timestamp */}
               <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-y border-border gap-4 mb-10">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl">
@@ -90,7 +97,6 @@ export default function ArticleDetail() {
               </div>
             </header>
 
-            {/* Article Image(s) Displayed Above Text */}
             {article.image && (
               <img
                 src={article.image}
@@ -99,8 +105,6 @@ export default function ArticleDetail() {
               />
             )}
 
-
-            {/* Article Body */}
             <div
               className="prose prose-lg max-w-none font-serif leading-relaxed text-text
                 prose-headings:text-headline prose-headings:font-black
@@ -112,14 +116,27 @@ export default function ArticleDetail() {
 
             <ArticleAdSlot articleId={article.id} />
 
-            {/* Tags Bottom */}
-            <div className="mt-12 pt-8 border-t border-border flex flex-wrap gap-2">
-              {article.tags.map(tag => (
-                <span key={tag.id} className="px-3 py-1 border border-border text-[10px] rounded-full uppercase font-bold text-gray-500">
-                  {tag.name}
-                </span>
-              ))}
+            {/* Tags Bottom Section */}
+            <div className="mt-12 pt-8 border-t border-border">
+              <div className="flex flex-wrap gap-2">
+                {article.tags && article.tags.length > 0 ? (
+                  article.tags.map((tag, index) => {
+                    // Display tag.name if it's an object, otherwise display the raw value (ID)
+                    const displayLabel = typeof tag === 'object' ? tag.name : tag;
+                    return (
+                      <span key={tag.id || index} className="px-3 py-1 bg-surface border border-border text-[10px] rounded-full uppercase font-bold text-gray-600">
+                        # {displayLabel}
+                      </span>
+                    );
+                  })
+                ) : (
+                  <span className="text-gray-400 text-xs italic font-serif">No topics tagged.</span>
+                )}
+              </div>
             </div>
+
+            {/* Integrated Comment Section */}
+            <CommentSection articleId={article.id} currentUser={user} />
           </article>
 
           {/* Right Column: Sidebar */}
@@ -134,8 +151,6 @@ export default function ArticleDetail() {
           </aside>
         </div>
       </main>
-
-      {/* Footer */}
     </div>
   );
 }

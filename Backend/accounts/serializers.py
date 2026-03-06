@@ -3,6 +3,8 @@ from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth import authenticate
 from django.db.models import Q
 from accounts.models import User
+from rest_framework import serializers
+from accounts.models import User
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -40,3 +42,43 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         attrs["username"] = user.username
         return super().validate(attrs)
+    
+class RegisterSerializer(serializers.ModelSerializer):
+
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "password"
+        ]
+
+    def create(self, validated_data):
+
+        user = User.objects.create_user(
+            username=validated_data["username"],
+            email=validated_data["email"],
+            first_name=validated_data.get("first_name"),
+            last_name=validated_data.get("last_name"),
+            password=validated_data["password"],
+            role="READER"   # default role
+        )
+
+        return user
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = [
+            "id",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "role"
+        ]

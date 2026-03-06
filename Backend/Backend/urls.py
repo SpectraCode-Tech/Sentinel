@@ -11,6 +11,7 @@ urlpatterns = [
     # Auth
     path("api/token/", CustomLoginView.as_view()),
     path("api/token/refresh/", TokenRefreshView.as_view()),
+    path("api/users/", include("accounts.urls")),
 
     # News
     path("api/", include("news.urls")),
