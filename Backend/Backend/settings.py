@@ -11,7 +11,7 @@ SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 DEBUG = True
 
 ALLOWED_HOSTS = [    
-    "https://sentinel-ou6m.onrender.com",
+    "sentinel-ou6m.onrender.com",
     "localhost",
     "127.0.0.1"
     ]
