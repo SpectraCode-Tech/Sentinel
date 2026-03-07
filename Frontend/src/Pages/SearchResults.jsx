@@ -37,7 +37,7 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (searchQuery.trim()) {
-            fetchArticles(`http://127.0.0.1:8000/api/articles/?search=${encodeURIComponent(searchQuery)}`);
+            fetchArticles(`https://sentinel-hu53.onrender.com/api/articles/?search=${encodeURIComponent(searchQuery)}`);
         } else {
             setArticles([]);
             setLoading(false);
