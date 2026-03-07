@@ -20,7 +20,7 @@ export default function Login() {
         setIsLoading(true);
 
         // 2. Pass 'identifier' as the username key (common for most backends)
-        const loginPromise = axios.post("http://127.0.0.1:8000/api/token/", {
+        const loginPromise = axios.post("https://sentinel-ou6m.onrender.com/api/token/", {
             username: identifier,
             password
         });
