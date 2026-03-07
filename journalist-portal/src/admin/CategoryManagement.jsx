@@ -16,7 +16,7 @@ export default function AdminTaxonomy() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         toast.success("Logged out successfully");
-        navigate("/login");
+        navigate("/");
     };
 
     useEffect(() => {

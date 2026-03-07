@@ -14,7 +14,7 @@ export default function AdminArticles() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         toast.success("Logged out successfully");
-        navigate("/login");
+        navigate("/");
     };
 
     const fetchArticles = () => {

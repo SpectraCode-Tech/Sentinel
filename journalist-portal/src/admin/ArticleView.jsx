@@ -61,7 +61,7 @@ export default function AdminArticles() {
     return (
         <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900">
             <Toaster position="top-right" />
-            <AdminSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} handleLogout={() => navigate("/login")} />
+            <AdminSidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} handleLogout={() => navigate("/")} />
 
             <main className="flex-1 flex flex-col min-w-0">
                 <div className="h-16 lg:hidden" />

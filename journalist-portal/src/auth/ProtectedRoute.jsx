@@ -4,11 +4,11 @@ export default function ProtectedRoute({ children, role }) {
     const userRole = localStorage.getItem("role");
 
     if (!localStorage.getItem("access")) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
 
     if (role && userRole !== role && userRole !== "ADMIN") {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
 
     return children;

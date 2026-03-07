@@ -25,7 +25,7 @@ export default function EditorDashboard() {
     localStorage.removeItem("refresh_token");
 
     // Redirect to login
-    navigate("/login");
+    navigate("/");
   };
 
     useEffect(() => {
