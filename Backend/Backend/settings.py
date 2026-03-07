@@ -52,15 +52,12 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "accounts.User"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "The Sentinel",
-        "USER": "postgres",
-        "PASSWORD": "oladimeji2008",
-        "HOST": "localhost",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
