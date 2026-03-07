@@ -17,7 +17,7 @@ export default function ReviewQueue() {
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     useEffect(() => {
-        api.get("/articles/articles/?status=review")
+        api.get("/articles/?status=review")
             .then((res) => {
                 // FIX: Handle both paginated and non-paginated responses
                 const data = res.data.results || res.data;
@@ -32,7 +32,7 @@ export default function ReviewQueue() {
 
     const handleAction = async (id, newStatus) => {
         try {
-            await api.patch(`/articles/articles/${id}/`, { status: newStatus });
+            await api.patch(`/articles/${id}/`, { status: newStatus });
             // FIX: Smoothly remove the article from UI instead of reloading the page
             setArticles(articles.filter(art => art.id !== id));
         } catch (err) {
