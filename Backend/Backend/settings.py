@@ -1,5 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
@@ -52,7 +54,16 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "accounts.User"
 
 DATABASES = {
-    "default": {
+    "default": dj_database_url.config(
+        # This reads the DATABASE_URL environment variable from Render
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+    )
+}
+
+# Keep this for local development fallback if you prefer
+if not DATABASES["default"]:
+    DATABASES["default"] = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "The Sentinel",
         "USER": "postgres",
@@ -60,7 +71,7 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": "5432",
     }
-}
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",

@@ -10,13 +10,13 @@ export default function Profile() {
     const { user, logout } = useAuth();
 
     useEffect(() => {
-        if (!user) navigate("/login");
+        if (!user) navigate("/");
     }, [user, navigate]);
 
     const handleLogout = () => {
         logout();
         toast.success("Session terminated safely.");
-        navigate("/login");
+        navigate("/");
     };
 
     if (!user) return null;
@@ -33,7 +33,7 @@ export default function Profile() {
 
                 <div className="container mx-auto px-6">
                     <button
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/Home")}
                         className="group mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-accent transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />

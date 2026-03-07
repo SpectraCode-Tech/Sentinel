@@ -29,7 +29,7 @@ export default function Register() {
 
             toast.success("Account created successfully!");
 
-            navigate("/login");
+            navigate("/");
 
         } catch (err) {
 
@@ -187,7 +187,7 @@ export default function Register() {
                 {/* Login Link */}
                 <p className="text-center mt-8 text-sm text-gray-500 font-serif">
                     Already have an account?{" "}
-                    <Link to="/login" className="text-accent font-bold hover:underline">
+                    <Link to="/" className="text-accent font-bold hover:underline">
                         Sign In
                     </Link>
                 </p>
