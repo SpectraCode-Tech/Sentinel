@@ -22,6 +22,7 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen, handleLo
         { name: "Users", path: "/admin/users", icon: Users },
         { name: "Articles", path: "/admin/articles", icon: FileText },
         { name: "Categories", path: "/admin/categories", icon: Layers },
+        { name: "Advertisements", path: "/admin/advertisements", icon: Layers },
     ];
 
     return (

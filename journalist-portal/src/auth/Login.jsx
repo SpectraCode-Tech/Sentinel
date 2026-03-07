@@ -34,7 +34,7 @@ export default function Login() {
             localStorage.setItem("username", identifier); // Store the login name
             localStorage.setItem("is_staff", payload.role === "ADMIN" || payload.role === "EDITOR");
 
-            toast.success(`Welcome back!`);
+            toast.success(`Welcome back, ${identifier}!`);
 
             setTimeout(() => {
                 if (payload.role === "JOURNALIST") navigate("/journalist");

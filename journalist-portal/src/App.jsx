@@ -13,6 +13,7 @@ import UserManagement from "./admin/UserManagement";
 import ArticleView from "./admin/ArticleView";
 import AdminCategories from "./admin/CategoryManagement";
 import AdminArticles from "./admin/ArticleManagement";
+import AdsManagement from "./admin/AdsManagement";
 
 function App() {
   return (
@@ -118,6 +119,10 @@ function App() {
 
           <Route path="/admin/categories" element={<ProtectedRoute role="ADMIN">
             <AdminCategories />
+          </ProtectedRoute>} />
+          
+          <Route path="/admin/advertisements" element={<ProtectedRoute role="ADMIN">
+            <AdsManagement />
           </ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
