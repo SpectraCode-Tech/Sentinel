@@ -29,7 +29,7 @@ export default function EditorDashboard() {
   };
 
     useEffect(() => {
-        API.get("articles/dashboard/editor/")
+        API.get("dashboard/editor/")
             .then(res => {
                 setUsername(res.data.username);
                 setStats(res.data);
