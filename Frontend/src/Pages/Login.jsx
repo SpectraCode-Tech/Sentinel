@@ -28,7 +28,7 @@ export default function Login() {
             login(userRes.data);
 
             toast.success(`Welcome back, ${userRes.data.username}!`);
-            navigate("/");
+            navigate("/Home");
         } catch (err) {
             toast.error("Invalid credentials.");
         } finally {
@@ -39,7 +39,7 @@ export default function Login() {
     useEffect(() => {
         const token = localStorage.getItem("access_token");
         if (token) {
-            navigate("/");
+            navigate("/Home");
         }
     }, [navigate]);
 

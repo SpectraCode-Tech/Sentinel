@@ -80,7 +80,7 @@ export const createComment = (articleId, data, token) => {
     data,
     {
       headers: {
-        Authorization:  `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );

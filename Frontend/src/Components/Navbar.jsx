@@ -70,7 +70,7 @@ export default function Navbar() {
                   <span className="font-bold text-xs uppercase">{user.username}</span>
                 </Link>
               ) : (
-                <Link to="/login" className="text-xs font-bold uppercase text-headline hover:text-accent">Sign In</Link>
+                <Link to="/" className="text-xs font-bold uppercase text-headline hover:text-accent">Sign In</Link>
               )}
             </div>
 

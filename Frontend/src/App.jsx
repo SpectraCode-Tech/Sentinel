@@ -31,7 +31,7 @@ export default function App() {
       <Routes>
 
         {/* Public */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={
           <ProtectedRoute>
@@ -41,7 +41,7 @@ export default function App() {
 
         {/* Protected */}
         <Route
-          path="/"
+          path="/Home"
           element={
             <ProtectedRoute>
               <Home />
