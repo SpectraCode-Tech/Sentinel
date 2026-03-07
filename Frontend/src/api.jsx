@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://sentinel-hu53.onrender.com/api/",
+  baseURL: "https://sentinel-ou6m.onrender.com/api/",
 });
 
 /* ===========================

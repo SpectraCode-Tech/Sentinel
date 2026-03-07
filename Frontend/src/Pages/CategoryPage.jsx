@@ -19,7 +19,7 @@ export default function CategoryPage() {
             const res = url
                 ? await axios.get(url)
                 : await axios.get(
-                    "https://sentinel-hu53.onrender.com/api/articles/",
+                    "https://sentinel-ou6m.onrender.com/api/articles/",
                     {
                         params: {
                             category__slug: slug,
