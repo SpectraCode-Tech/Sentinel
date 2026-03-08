@@ -23,3 +23,15 @@
   --font-serif: "Playfair Display", "Merriweather", serif;
   --font-sans: "Source Sans 3", "Inter", sans-serif;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+/* *{
+  color: var(--color-headline);
+} */
