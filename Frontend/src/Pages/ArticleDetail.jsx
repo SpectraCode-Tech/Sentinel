@@ -125,7 +125,7 @@ export default function ArticleDetail() {
                     const displayLabel = typeof tag === 'object' ? tag.name : tag;
                     return (
                       <span key={tag.id || index} className="px-3 py-1 bg-surface border border-border text-[10px] rounded-full uppercase font-bold text-gray-600">
-                        # {displayLabel}
+                        {displayLabel}
                       </span>
                     );
                   })

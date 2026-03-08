@@ -10,10 +10,10 @@ import EditorArticleWorkspace from "./editor/EditorArticleWorkspace";
 import StaffDirectory from "./editor/StaffDirectory";
 import AdminDashboard from "./admin/AdminDashboard";
 import UserManagement from "./admin/UserManagement";
-import ArticleView from "./admin/ArticleView";
 import AdminCategories from "./admin/CategoryManagement";
 import AdminArticles from "./admin/ArticleManagement";
 import AdsManagement from "./admin/AdsManagement";
+import ArticleReader from "./admin/Article";
 
 function App() {
   return (
@@ -106,7 +106,7 @@ function App() {
         </ProtectedRoute>} />
 
         <Route path="/admin/articles/:id" element={<ProtectedRoute role="ADMIN">
-          <ArticleView />
+          <ArticleReader />
         </ProtectedRoute>} />
 
         <Route path="/admin/articles" element={<ProtectedRoute role="ADMIN">
