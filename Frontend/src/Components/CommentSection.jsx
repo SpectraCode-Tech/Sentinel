@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { MessageSquare, Send, Trash2, User, CornerDownRight, X, AlertCircle } from "lucide-react";
+import { MessageSquare, Send, Trash2, User, CornerDownRight, X, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 import { fetchComments, createComment, deleteComment } from "../api";
 import toast from "react-hot-toast";
 
@@ -8,8 +8,9 @@ export default function CommentSection({ articleId }) {
     const [newComment, setNewComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [replyingTo, setReplyingTo] = useState(null);
+    const [collapsedComments, setCollapsedComments] = useState({}); // Track toggle state
     const formRef = useRef(null);
-    const inputRef = useRef(null); // Ref for the textarea focus
+    const inputRef = useRef(null);
 
     const getSafeUser = () => {
         const raw = localStorage.getItem("user_data");
@@ -33,11 +34,17 @@ export default function CommentSection({ articleId }) {
 
     const handleReplyClick = (comment) => {
         setReplyingTo(comment);
-        // Scroll to form and focus textarea
         formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
         setTimeout(() => {
             inputRef.current?.focus();
-        }, 500); // Small delay to let the scroll finish
+        }, 500);
+    };
+
+    const toggleReplies = (commentId) => {
+        setCollapsedComments(prev => ({
+            ...prev,
+            [commentId]: !prev[commentId]
+        }));
     };
 
     const handleSubmit = async (e) => {
@@ -94,40 +101,59 @@ export default function CommentSection({ articleId }) {
     };
 
     const renderComments = (commentList) => {
-        return commentList.map((comment) => (
-            <div key={comment.id} className="group">
-                <div className="flex flex-col">
-                    <header className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-[10px] font-bold text-slate-600">
-                                {comment.user[0].toUpperCase()}
+        return commentList.map((comment) => {
+            const isCollapsed = collapsedComments[comment.id];
+            const hasReplies = comment.replies && comment.replies.length > 0;
+
+            return (
+                <div key={comment.id} className="group">
+                    <div className="flex flex-col">
+                        <header className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-3">
+                                <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-[10px] font-bold text-slate-600">
+                                    {comment.user[0].toUpperCase()}
+                                </div>
+                                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">{comment.user}</h4>
+                                <span className="text-[10px] text-slate-400 font-medium"> {new Date(comment.created_at).toLocaleDateString()}</span>
                             </div>
-                            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">{comment.user}</h4>
-                            <span className="text-[10px] text-slate-400 font-medium"> {new Date(comment.created_at).toLocaleDateString()}</span>
-                        </div>
-                    </header>
+                        </header>
 
-                    <div className="pl-9">
-                        <p className="text-[15px] leading-relaxed text-slate-700 mb-4 whitespace-pre-wrap">
-                            {comment.content}
-                        </p>
+                        <div className="pl-9">
+                            <p className="text-[15px] leading-relaxed text-slate-700 mb-4 whitespace-pre-wrap">
+                                {comment.content}
+                            </p>
 
-                        <footer className="flex items-center gap-6 mb-8">
-                            <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">Reply</button>
-                            {(user?.username === comment.user || user?.role === "ADMIN") && (
-                                <button onClick={() => confirmDelete(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hover:text-rose-600 transition-colors flex items-center gap-1">Delete</button>
+                            <footer className="flex items-center gap-6 mb-8">
+                                <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">Reply</button>
+
+                                {hasReplies && (
+                                    <button
+                                        onClick={() => toggleReplies(comment.id)}
+                                        className="text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
+                                    >
+                                        {isCollapsed ? (
+                                            <>Show Replies ({comment.replies.length}) <ChevronDown className="w-3 h-3" /></>
+                                        ) : (
+                                            <>Hide Replies <ChevronUp className="w-3 h-3" /></>
+                                        )}
+                                    </button>
+                                )}
+
+                                {(user?.username === comment.user || user?.role === "ADMIN") && (
+                                    <button onClick={() => confirmDelete(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hover:text-rose-600 transition-colors flex items-center gap-1">Delete</button>
+                                )}
+                            </footer>
+
+                            {hasReplies && !isCollapsed && (
+                                <div className="space-y-12 border-l border-slate-100 pl-8 ml-1 mb-8">
+                                    {renderComments(comment.replies)}
+                                </div>
                             )}
-                        </footer>
-
-                        {comment.replies && comment.replies.length > 0 && (
-                            <div className="space-y-12 border-l border-slate-100 pl-8 ml-1 mb-8">
-                                {renderComments(comment.replies)}
-                            </div>
-                        )}
+                        </div>
                     </div>
                 </div>
-            </div>
-        ));
+            );
+        });
     };
 
     return (
@@ -150,7 +176,7 @@ export default function CommentSection({ articleId }) {
                 )}
                 <div className="relative border-b-2 border-slate-100 focus-within:border-slate-900 transition-all duration-300">
                     <textarea
-                        ref={inputRef} // Added ref here
+                        ref={inputRef}
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder={token ? "Join the discussion..." : "Authentication required to post."}
