@@ -62,12 +62,6 @@ const AdsManagement = () => {
                     </header>
 
                     {/* Quick Stats: Rounded & Styled like Content UI */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                        <StatCard title="Active Campaigns" value={ads.filter(a => a.is_active).length} color="indigo" />
-                        <StatCard title="Total Impressions" value="892.4k" color="emerald" />
-                        <StatCard title="Avg Click Rate" value="3.82%" color="amber" />
-                    </div>
-
                     {/* Search Bar: Matched to Content UI style */}
                     <div className="relative mb-8">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -133,25 +127,6 @@ const AdsManagement = () => {
                 </div>
             </main>
             {/* Drawer implementation remains the same but styled to match */}
-        </div>
-    );
-};
-
-const StatCard = ({ title, value, color }) => {
-    const colors = {
-        indigo: "text-indigo-600 bg-indigo-50",
-        emerald: "text-emerald-600 bg-emerald-50",
-        amber: "text-amber-600 bg-amber-50"
-    };
-    return (
-        <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{title}</p>
-            <div className="flex items-end justify-between">
-                <h4 className="text-2xl font-black text-slate-900">{value}</h4>
-                <div className={`p-2 rounded-lg ${colors[color]}`}>
-                    <BarChart3 className="w-4 h-4" />
-                </div>
-            </div>
         </div>
     );
 };
