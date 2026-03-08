@@ -97,14 +97,14 @@ export default function ArticleReader() {
                     <footer className="pt-8 border-t border-border">
                         <div className="flex items-center gap-2 text-gray-400 mb-4">
                             <TagIcon className="w-3 h-3" />
-                            <span className="text-[10px] font-black uppercase tracking-widest">Filed Under</span>
+                            <span className="text-[10px] font-black uppercase tracking-widest">Tags</span>
                         </div>
                         <div className="flex flex-wrap gap-2">
                             {article.tags.map(tag => (
                                 <Link
                                     key={tag.id}
                                     to={`/tag/${tag.slug}`}
-                                    className="px-4 py-2 bg-surface border border-border text-[10px] font-bold uppercase tracking-tight text-gray-600 hover:bg-headline hover:text-white transition-all"
+                                    className="px-4 py-2 bg-surface border border-border rounded-full text-[10px] font-bold uppercase tracking-tight text-gray-600 hover:bg-headline hover:text-white transition-all"
                                 >
                                     {tag.name}
                                 </Link>

@@ -22,7 +22,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Clear storage and boot them to login
       localStorage.clear();
-      window.location.href = "/login";
+      window.location.href = "/";
     }
     return Promise.reject(error);
   },
