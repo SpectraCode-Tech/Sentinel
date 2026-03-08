@@ -13,7 +13,8 @@ DEBUG = True
 ALLOWED_HOSTS = [    
     "sentinel-ou6m.onrender.com",
     "localhost",
-    "127.0.0.1"
+    "127.0.0.1",
+    "0.0.0.0",
     ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -62,6 +63,7 @@ DATABASES = {
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
