@@ -1,57 +1,70 @@
 import React, { useEffect, useState } from "react";
 import { fetchSidebarBlocks } from "../api";
+import AdSlot from "./AdSlot";
 
 export default function SidebarBlocks() {
   const [blocks, setBlocks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSidebarBlocks().then(res => {
-      const activeBlocks = res.data
-        .filter(block => block.is_active)
-        .sort((a, b) => a.order - b.order);
-      setBlocks(activeBlocks);
-    });
+    fetchSidebarBlocks()
+      .then(res => {
+        const rawData = res.data.results || res.data;
+        const activeBlocks = rawData
+          .filter(block => block.is_active)
+          .sort((a, b) => a.order - b.order);
+        setBlocks(activeBlocks);
+      })
+      .catch(err => console.error("Sidebar fetch failed:", err))
+      .finally(() => setLoading(false));
   }, []);
 
-  return (
-    <div className="space-y-10">
-      {blocks.map(block => (
-        <div key={block.id} className="border-t-4 border-headline pt-6">
-          <h3 className="font-serif font-bold text-lg mb-2">{block.title}</h3>
+  if (loading) return <div className="p-4 animate-pulse bg-gray-50 h-64" />;
 
-          {block.block_type === "ad" && block.ad ? (
-            <a href={block.ad.link} target="_blank" rel="noreferrer">
-              <img
-                src={block.ad.image.url}
-                alt={block.ad.title}
-                className="w-full border border-border object-cover"
-              />
-              {block.ad.title && (
-                <p className="text-sm mt-2 font-serif text-gray-700 text-center">
-                  {block.ad.title}
-                </p>
-              )}
-            </a>
-          ) : block.block_type === "trending" ? (
-            <p className="text-sm text-gray-600 font-serif">
-              {/* Replace with actual trending news */}
-              Trending News Block
-            </p>
-          ) : block.block_type === "html" ? (
-            <div
-              className="text-sm text-gray-600 font-serif"
-              dangerouslySetInnerHTML={{ __html: block.html_content }}
-            />
-          ) : block.block_type === "category_list" ? (
-            <ul className="list-disc list-inside text-sm font-serif">
-              {/* Replace with actual categories */}
-              <li>Category 1</li>
-              <li>Category 2</li>
-              <li>Category 3</li>
-            </ul>
-          ) : null}
-        </div>
+  return (
+    <aside className="flex flex-col gap-y-12">
+      {blocks.map(block => (
+        <section key={block.id} className="border-t border-headline pt-6">
+          {/* Header style for non-ad blocks */}
+          {block.block_type !== "ad" && block.title && (
+            <h3 className="text-xs font-black uppercase tracking-widest text-headline mb-4">
+              {block.title}
+            </h3>
+          )}
+
+          {/* Logic Switcher - Only one instance of AdSlot per block */}
+          {(() => {
+            switch (block.block_type) {
+              case "ad":
+                /** * Check your API response: 
+                 * If the field is 'placement', use block.placement.
+                 * If the field is 'ad_placement', use block.ad_placement.
+                 */
+                return <AdSlot placement={block.placement || block.ad_placement || "sidebar"} />;
+
+              case "html":
+                return (
+                  <div
+                    className="prose prose-sm font-serif text-gray-700 leading-relaxed max-w-full overflow-hidden"
+                    dangerouslySetInnerHTML={{ __html: block.html_content }}
+                  />
+                );
+
+              case "category_list":
+                return (
+                  <nav className="flex flex-wrap gap-2">
+                    <span className="text-xs font-bold border border-border px-2 py-1 uppercase">
+                      Sample Category
+                    </span>
+                  </nav>
+                );
+
+              default:
+                return null;
+            }
+          })()}
+        </section>
       ))}
-    </div>
+    </aside>
   );
 }
