@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Users, FileText, Layers, BarChart3, Shield } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
-import AdminSidebar from "./sidebar";
+import AdminSidebar from "./Sidebar";
 
 export default function AdminDashboard() {
     const [stats, setStats] = useState(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        navigate("/");
-    };
 
     useEffect(() => {
         API.get("dashboard/admin/")
@@ -27,7 +19,6 @@ export default function AdminDashboard() {
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
-                handleLogout={handleLogout}
             />
 
             {/* MAIN CONTENT */}

@@ -1,8 +1,12 @@
-from rest_framework import routers
+# ads/urls.py (or your main urls.py)
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from .views import AdvertisementViewSet, SidebarBlockViewSet
 
-router = routers.DefaultRouter()
+router = DefaultRouter()
 router.register(r'advertisements', AdvertisementViewSet)
 router.register(r'sidebar-blocks', SidebarBlockViewSet)
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('', include(router.urls)),
+]

@@ -1,18 +1,23 @@
 from django.db import models
 from news.models import Article
 
-class Advertisement(models.Model):
-    PLACEMENTS = (
-        ('header', 'Header'),
-        ('sidebar', 'Sidebar'),
-        ('article', 'Article'),
-        ('footer', 'Footer'),
-    )
+from django.db import models
 
-    title = models.CharField(max_length=100)
+class Advertisement(models.Model):
+    class Placement(models.TextChoices):
+        HEADER = 'header', 'Header Banner'
+        SIDEBAR = 'sidebar', 'Sidebar Card'
+        ARTICLE = 'article', 'Inline Article'
+        FOOTER = 'footer', 'Footer Wide'
+
+    title = models.CharField(max_length=255)
+    placement = models.CharField(
+        max_length=20, 
+        choices=Placement.choices, 
+        default=Placement.SIDEBAR
+    )
     image = models.ImageField(upload_to='ads/')
     link = models.URLField()
-    placement = models.CharField(max_length=20, choices=PLACEMENTS)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     priority = models.IntegerField(default=0)
@@ -21,21 +26,23 @@ class Advertisement(models.Model):
 
     def __str__(self):
         return self.title
-
 class SidebarBlock(models.Model):
-    BLOCK_TYPES = (
-        ('ad', 'Advertisement'),
+    BLOCK_TYPES = [
         ('trending', 'Trending News'),
-        ('html', 'Custom HTML'),
-        ('category_list', 'Category List'),
-    )
+        ('newsletter', 'Newsletter Subscription'),
+        ('social', 'Social Media Links'),
+        ('html', 'Custom HTML/Text'),
+        ('categories', 'Category List'),
+    ]
 
     title = models.CharField(max_length=100)
-    block_type = models.CharField(max_length=20, choices=BLOCK_TYPES)
-    ad = models.ForeignKey(Advertisement, on_delete=models.SET_NULL, null=True, blank=True)
-    order = models.IntegerField(default=0)
+    block_type = models.CharField(max_length=20, choices=BLOCK_TYPES, default='html')
+    content = models.TextField(blank=True, help_text="Used for Custom HTML or Text blocks")
+    order = models.PositiveIntegerField(default=0, help_text="Lower numbers appear first")
     is_active = models.BooleanField(default=True)
-    target_page = models.CharField(max_length=50, default='all')  # home, category, article
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return f"{self.title} ({self.block_type})"

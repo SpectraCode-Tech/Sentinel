@@ -29,13 +29,12 @@ api.interceptors.response.use(
 );
 
 
-// ... existing code ...
-
 // Ads Management Endpoints
-export const fetchAds = () => api.get("ads/"); // Adjust path based on Django URLs
-export const toggleAdStatus = (adId, status) => api.patch(`ads/${adId}/`, { status });
-export const deleteAd = (adId) => api.delete(`ads/${adId}/`);
-export const createAd = (data) => api.post("ads/", data);
+export const fetchAds = () => api.get("ads/advertisements/");
+export const toggleAdStatus = (adId, isActive) =>
+  api.patch(`ads/advertisements/${adId}/`, { is_active: isActive });
+export const deleteAd = (adId) => api.delete(`ads/advertisements/${adId}/`);
+export const createAd = (data) => api.post("ads/advertisements/", data);
 
 export default api;
 

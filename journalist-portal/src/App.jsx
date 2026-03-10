@@ -14,6 +14,7 @@ import AdminCategories from "./admin/CategoryManagement";
 import AdminArticles from "./admin/ArticleManagement";
 import AdsManagement from "./admin/AdsManagement";
 import ArticleReader from "./admin/Article";
+import NotFound from "./NotFound";
 
 function App() {
   return (
@@ -124,6 +125,8 @@ function App() {
           <Route path="/admin/advertisements" element={<ProtectedRoute role="ADMIN">
             <AdsManagement />
           </ProtectedRoute>} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
     Shield,
     Users,
@@ -13,9 +13,10 @@ import {
 
 // ... (imports remain the same)
 
-export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen, handleLogout }) {
+export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
+    const navigate = useNavigate();
 
     const navItems = [
         { name: "Dashboard", path: "/admin", icon: BarChart3 },
@@ -24,6 +25,12 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen, handleLo
         { name: "Categories", path: "/admin/categories", icon: Layers },
         { name: "Advertisements", path: "/admin/advertisements", icon: Layers },
     ];
+
+    const handleLogout = () => {
+        localStorage.clear();
+        // localStorage.removeItem("refresh_token");
+        navigate("/");
+    };
 
     return (
         <>

@@ -2,20 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FileText, Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
-import AdminSidebar from "./sidebar";
+import AdminSidebar from "./Sidebar";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function AdminArticles() {
     const [articles, setArticles] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        toast.success("Logged out successfully");
-        navigate("/");
-    };
 
     const fetchArticles = () => {
         API.get("articles/")
@@ -69,7 +62,6 @@ export default function AdminArticles() {
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
-                handleLogout={handleLogout}
             />
 
             <main className="flex-1 flex flex-col min-w-0">
@@ -102,8 +94,8 @@ export default function AdminArticles() {
 
                                     <div className="flex items-center gap-3 mt-4 sm:mt-0">
                                         <span className={`px-3 py-1 rounded-lg text-[10px] tracking-widest font-black uppercase ${article.status === 'published'
-                                                ? 'bg-emerald-50 text-emerald-600'
-                                                : 'bg-amber-50 text-amber-600'
+                                            ? 'bg-emerald-50 text-emerald-600'
+                                            : 'bg-amber-50 text-amber-600'
                                             }`}>
                                             {article.status}
                                         </span>

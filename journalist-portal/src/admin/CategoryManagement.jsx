@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Plus, Tag, Hash, Trash2 } from "lucide-react";
 import API from "../api/axios";
-import AdminSidebar from "./sidebar";
-import { useNavigate } from "react-router-dom";
+import AdminSidebar from "./Sidebar";
 import toast, { Toaster } from "react-hot-toast"; // 1. Import Toast
 
 export default function AdminTaxonomy() {
@@ -10,14 +9,7 @@ export default function AdminTaxonomy() {
     const [newName, setNewName] = useState("");
     const [mode, setMode] = useState("categories");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("refresh_token");
-        toast.success("Logged out successfully");
-        navigate("/");
-    };
 
     useEffect(() => {
         fetchData();
@@ -94,7 +86,6 @@ export default function AdminTaxonomy() {
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
-                handleLogout={handleLogout}
             />
 
             <main className="flex-1 flex flex-col min-w-0">
