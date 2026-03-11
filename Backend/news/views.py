@@ -1,5 +1,8 @@
 from rest_framework import viewsets, permissions, filters
 from django.utils import timezone
+from rest_framework.decorators import action
+from analytics.models import ReadingHistory
+from rest_framework.response import Response
 
 from .utils import notify_editors_new_draft, notify_author_article_published
 from .models import Article, Category, Tag
@@ -18,6 +21,41 @@ class ArticleViewSet(viewsets.ModelViewSet):
     }
 
     search_fields = ['title', 'content', 'excerpt', 'category__name']
+    
+    @action(detail=False, methods=['get'])
+    def recommendations(self, request):
+        user = request.user
+        # Get only published articles
+        base_queryset = Article.objects.filter(status="published", is_deleted=False)
+
+        if not user.is_authenticated:
+            # For guests: Return the 4 most recent articles
+            recommendations = base_queryset.order_by('-publish_at')[:4]
+        else:
+            # 1. See what categories the user likes (spent > 10s reading)
+            liked_categories = ReadingHistory.objects.filter(
+                user=user, 
+                time_spent__gt=10
+            ).values_list('article__category', flat=True).distinct()
+
+            # 2. Find published articles in those categories that aren't the one they're currently on
+            # (Excluding current article ID if passed from frontend)
+            current_id = request.query_params.get('exclude')
+            
+            recommendations = base_queryset.filter(category__in=liked_categories)
+            if current_id:
+                recommendations = recommendations.exclude(id=current_id)
+
+            # 3. Limit and fallback
+            recommendations = recommendations.order_by('-publish_at')[:4]
+            
+            if recommendations.count() < 4:
+                # If we don't have enough matching categories, fill with newest posts
+                extra = base_queryset.exclude(id__in=[a.id for a in recommendations])[:4 - recommendations.count()]
+                recommendations = list(recommendations) + list(extra)
+
+        serializer = self.get_serializer(recommendations, many=True)
+        return Response(serializer.data)
 
     def get_queryset(self):
         queryset = Article.objects.filter(is_deleted=False)
