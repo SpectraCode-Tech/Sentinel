@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchArticleDetail } from "../api";
+import {
+  fetchArticleDetail,
+  trackArticleView,
+  trackReadingHistory
+} from "../api";
+
+// Components
 import Navbar from "../Components/Navbar";
 import AdSlot from "../Components/AdSlot";
 import SidebarBlocks from "../Components/SideBarBlocks";
 import ArticleAdSlot from "../Components/ArticleAdSlot";
 import Footer from "../Components/Footer";
 import CommentSection from "../Components/CommentSection";
+import RecommendedArticles from "../Components/RecommendedArticles";
 
 export default function ArticleDetail() {
   const { id } = useParams();
@@ -14,26 +21,65 @@ export default function ArticleDetail() {
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Retrieve user session for the CommentSection
+  // User session
   const [user] = useState(() => JSON.parse(localStorage.getItem("user_data")) || null);
 
+  // 1. Fetch Article Data
   useEffect(() => {
+    setLoading(true);
     fetchArticleDetail(id)
       .then(res => setArticle(res.data))
-      .catch(err => console.error(err))
+      .catch(err => console.error("Fetch error:", err))
       .finally(() => setLoading(false));
   }, [id]);
 
+  // 2. Track Page View
+  useEffect(() => {
+    if (id && !loading) {
+      trackArticleView({
+        article: id,
+        user: user?.id || null,
+        device: navigator.userAgent,
+      }).catch(err => console.error("View tracking failed", err));
+    }
+  }, [id, loading, user?.id]);
+
+  // 3. Track Reading History (Time Spent)
+  useEffect(() => {
+    if (!id || !user || loading) return;
+
+    const startTime = Date.now();
+
+    return () => {
+      const endTime = Date.now();
+      const secondsSpent = Math.floor((endTime - startTime) / 1000);
+
+      // Only track significant engagement (> 5s)
+      if (secondsSpent > 5) {
+        trackReadingHistory({
+          article: id,
+          user: user.id,
+          time_spent: secondsSpent
+        }).catch(err => console.error("Reading history sync failed", err));
+      }
+    };
+  }, [id, user, loading]);
+
   if (loading) return (
     <div className="min-h-screen bg-bg flex items-center justify-center">
-      <p className="font-serif italic animate-pulse text-headline">Retrieving Dispatch...</p>
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+        <p className="font-serif italic text-headline text-sm uppercase tracking-widest">Retrieving Dispatch</p>
+      </div>
     </div>
   );
 
   if (!article) return (
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center">
-      <p className="font-serif text-2xl mb-4">Article Not Found</p>
-      <button onClick={() => navigate('/')} className="text-accent underline">Return Home</button>
+      <p className="font-serif text-2xl mb-4 text-headline">Article Not Found</p>
+      <button onClick={() => navigate('/')} className="text-accent underline font-bold uppercase tracking-widest text-xs">
+        Return Home
+      </button>
     </div>
   );
 
@@ -50,20 +96,14 @@ export default function ArticleDetail() {
               onClick={() => navigate(-1)}
               className="group mb-8 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-accent transition-colors"
             >
-              <span className="transition-transform group-hover:-translate-x-1">←</span> Back to Front Page
+              <span className="transition-transform group-hover:-translate-x-1">←</span> Back
             </button>
 
             <header className="mb-10">
               <div className="flex items-center gap-3 mb-4">
-                {article.category_name ? (
-                  <span className="text-accent font-bold uppercase tracking-widest text-xs italic bg-accent/5 px-2 py-1 rounded">
-                    {article.category_name}
-                  </span>
-                ) : (
-                  <span className="text-gray-400 font-bold uppercase tracking-widest text-xs italic">
-                    Uncategorized
-                  </span>
-                )}
+                <span className="text-accent font-bold uppercase tracking-widest text-xs italic bg-accent/5 px-2 py-1 rounded">
+                  {article.category_name || "Uncategorized"}
+                </span>
                 <span className="h-[1px] flex-grow bg-border" />
               </div>
 
@@ -73,24 +113,24 @@ export default function ArticleDetail() {
 
               <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-y border-border gap-4 mb-10">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl">
+                  <div className="w-10 h-10 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl uppercase">
                     {article.author_name?.charAt(0) || "S"}
                   </div>
                   <div>
                     <p className="text-xs font-bold uppercase tracking-tight text-headline">
                       By {article.author_name || "Staff Reporter"}
                     </p>
-                    <p className="text-[10px] text-gray-500 font-serif italic">Sentinel Staff Reporter</p>
+                    <p className="text-[10px] text-gray-500 font-serif italic">Sentinel Staff</p>
                   </div>
                 </div>
 
                 <div className="md:text-right">
                   <p className="text-[11px] font-mono text-gray-400 uppercase tracking-tighter">
-                    Published {new Date(article.publish_at).toLocaleDateString('en-US', {
+                    {new Date(article.publish_at).toLocaleDateString('en-US', {
                       month: 'long', day: 'numeric', year: 'numeric'
                     })}
                   </p>
-                  <p className="text-[11px] font-mono text-accent uppercase tracking-tighter">
+                  <p className="text-[11px] font-mono text-accent uppercase tracking-tighter font-bold">
                     {(article.view_count || 0).toLocaleString()} Views
                   </p>
                 </div>
@@ -98,55 +138,50 @@ export default function ArticleDetail() {
             </header>
 
             {article.image && (
-              <img
-                src={article.image}
-                alt={article.title}
-                className="w-full rounded shadow-xl mb-8 object-cover"
-              />
+              <figure className="mb-10">
+                <img
+                  src={article.image}
+                  alt={article.title}
+                  className="w-full rounded shadow-xl object-cover max-h-[500px]"
+                />
+              </figure>
             )}
 
             <div
               className="prose prose-lg max-w-none font-serif leading-relaxed text-text
                 prose-headings:text-headline prose-headings:font-black
                 prose-p:mb-6 prose-p:leading-[1.8]
-                prose-img:rounded-sm prose-img:shadow-xl prose-img:my-12
                 prose-blockquote:border-l-4 prose-blockquote:border-accent prose-blockquote:italic prose-blockquote:text-2xl"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
 
-            <ArticleAdSlot articleId={article.id} />
-
-            {/* Tags Bottom Section */}
-            <div className="mt-12 pt-8 border-t border-border">
-              <div className="flex flex-wrap gap-2">
-                {article.tags && article.tags.length > 0 ? (
-                  article.tags.map((tag, index) => {
-                    // Display tag.name if it's an object, otherwise display the raw value (ID)
-                    const displayLabel = typeof tag === 'object' ? tag.name : tag;
-                    return (
-                      <span key={tag.id || index} className="px-3 py-1 bg-surface border border-border text-[10px] rounded-full uppercase font-bold text-gray-600">
-                        {displayLabel}
-                      </span>
-                    );
-                  })
-                ) : (
-                  <span className="text-gray-400 text-xs italic font-serif">No topics tagged.</span>
-                )}
-              </div>
+            <div className="my-12">
+              <ArticleAdSlot articleId={article.id} />
             </div>
 
-            {/* Integrated Comment Section */}
-            <CommentSection articleId={article.id} currentUser={user} />
+            <div className="mt-12 pt-8 border-t border-border flex flex-wrap gap-2">
+              {article.tags?.map((tag, index) => (
+                <span key={index} className="px-3 py-1 bg-surface border border-border text-[10px] rounded-full uppercase font-bold text-gray-600">
+                  {typeof tag === 'object' ? tag.name : tag}
+                </span>
+              ))}
+            </div>
+
+            <RecommendedArticles />
+
+            <div className="mt-16">
+              <CommentSection articleId={article.id} currentUser={user} />
+            </div>
           </article>
 
           {/* Right Column: Sidebar */}
           <aside className="lg:col-span-4 space-y-12">
-            <div className="sticky top-8">
+            <div className="sticky top-8 space-y-8">
               <div className="bg-surface border border-border p-6 text-center">
                 <span className="text-[9px] uppercase tracking-widest text-gray-400 block mb-4 italic">Advertisement</span>
                 <AdSlot placement="sidebar" />
-                <SidebarBlocks />
               </div>
+              <SidebarBlocks />
             </div>
           </aside>
         </div>

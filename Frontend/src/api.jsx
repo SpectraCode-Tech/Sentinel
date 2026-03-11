@@ -95,3 +95,20 @@ export const deleteComment = (articleId, commentId, token) => {
     },
   });
 };
+
+export const fetchRecommendations = (token = null) => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  return API.get("articles/recommendations/", { headers });
+};
+
+export const trackArticleView = (data) => {
+  return API.post("analytics/article-views/", data);
+};
+
+export const trackReadingHistory = (data) => {
+  return API.post("analytics/reading-history/", data);
+};
+
+export const trackAdEvent = (data) => {
+  return API.post("analytics/ad-events/", data);
+};

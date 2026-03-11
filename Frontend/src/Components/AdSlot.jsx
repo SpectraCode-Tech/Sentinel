@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchAdvertisements } from "../api";
+import { fetchAdvertisements, trackAdEvent } from "../api";
 
 export default function AdSlot({ placement }) {
   const [ads, setAds] = useState([]);
@@ -10,11 +10,6 @@ export default function AdSlot({ placement }) {
     fetchAdvertisements(placement)
       .then((res) => {
         const data = res.data.results || res.data;
-
-        /**
-         * THE FIX: Strictly filter ads to match the placement prop.
-         * This prevents 'footer' ads from appearing in 'sidebar' slots.
-         */
         const filtered = data.filter(ad => ad.placement === placement);
         setAds(filtered);
       })
@@ -24,12 +19,19 @@ export default function AdSlot({ placement }) {
       .finally(() => setLoading(false));
   }, [placement]);
 
-  // Hide the entire component if there are no matching ads
+  const handleAdClick = (adId) => {
+    // trackAdEvent helper replaces direct API call
+    trackAdEvent({
+      ad: adId,
+      event_type: "click",
+      page: window.location.pathname // Automatically tracks where the click happened
+    }).catch(err => console.error("Ad click tracking failed", err));
+  };
+
   if (!loading && !ads.length) return null;
 
   return (
     <div className="my-8 w-full overflow-hidden">
-      {/* Editorial Label - Keeps your site looking professional */}
       <div className="flex items-center gap-2 mb-3">
         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
           Advertisement
@@ -44,9 +46,9 @@ export default function AdSlot({ placement }) {
             href={ad.link}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => handleAdClick(ad.id)}
             className="group block w-full relative"
           >
-            {/* Aspect container prevents layout shift during load */}
             <div className="bg-gray-50 rounded overflow-hidden">
               <img
                 src={ad.image}
