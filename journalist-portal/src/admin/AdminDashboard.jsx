@@ -15,7 +15,6 @@ export default function AdminDashboard() {
 
     return (
         <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900">
-
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
                 setIsSidebarOpen={setIsSidebarOpen}
@@ -23,7 +22,6 @@ export default function AdminDashboard() {
 
             {/* MAIN CONTENT */}
             <main className="flex-1 flex flex-col min-w-0">
-                {/* Spacer for mobile because top nav is 'fixed' */}
                 <div className="h-16 lg:hidden" />
 
                 <div className="p-6 md:p-10 lg:p-12">
@@ -40,8 +38,11 @@ export default function AdminDashboard() {
                             Synchronizing metrics...
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        /* Grid updated to 4 columns on large screens */
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                             <StatCard icon={Users} label="Total Users" value={stats.total_users} color="indigo" />
+                            {/* New Readers Card */}
+                            <StatCard icon={Users} label="Readers" value={stats.readers} color="rose" />
                             <StatCard icon={FileText} label="Total Articles" value={stats.total_articles} color="emerald" />
                             <StatCard icon={Layers} label="Pending Review" value={stats.pending} color="amber" />
                             <StatCard icon={BarChart3} label="Published" value={stats.published} color="blue" />
@@ -55,8 +56,6 @@ export default function AdminDashboard() {
     );
 }
 
-// StatCard sub-component remains the same...
-
 function StatCard({ icon: Icon, label, value, color }) {
     const colors = {
         indigo: "text-indigo-600 bg-indigo-50",
@@ -64,11 +63,12 @@ function StatCard({ icon: Icon, label, value, color }) {
         amber: "text-amber-600 bg-amber-50",
         blue: "text-blue-600 bg-blue-50",
         purple: "text-purple-600 bg-purple-50",
+        rose: "text-rose-600 bg-rose-50", // Added rose for visual variety
     };
 
     return (
         <div className="bg-white p-6 md:p-8 rounded-4xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
-            <div className={`w-12 h-12 ${colors[color]} rounded-2xl flex items-center justify-center mb-5`}>
+            <div className={`w-12 h-12 ${colors[color] || colors.indigo} rounded-2xl flex items-center justify-center mb-5`}>
                 <Icon className="w-6 h-6" />
             </div>
             <p className="text-slate-400 text-xs uppercase tracking-widest font-black">{label}</p>

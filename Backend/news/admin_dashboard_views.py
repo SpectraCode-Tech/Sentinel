@@ -18,6 +18,7 @@ class AdminDashboardStatsView(APIView):
         stats = {
             "total_users": User.objects.count(),
             "journalists": User.objects.filter(role="JOURNALIST").count(),
+            "readers": User.objects.filter(role="READER").count(),
             "editors": User.objects.filter(role="EDITOR").count(),
             "total_articles": Article.objects.filter(is_deleted=False).count(),
             "published": Article.objects.filter(status="published").count(),
