@@ -1,115 +1,107 @@
 from datetime import timedelta
+from django.utils import timezone
 
 from rest_framework import viewsets, permissions, filters
-from django.utils import timezone
 from rest_framework.decorators import action
-from analytics.models import ReadingHistory
 from rest_framework.response import Response
 
+from django_filters.rest_framework import DjangoFilterBackend
+
+from analytics.models import ReadingHistory
 from .utils import notify_editors_new_draft, notify_author_article_published
 from .models import Article, Category, Tag
 from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
-from django_filters.rest_framework import DjangoFilterBackend
+
+from .utils import get_client_ip
+from .models import ArticleView
 
 
 class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    
+
     filterset_fields = {
         'status': ['exact'],
         'category__slug': ['exact'],
     }
 
     search_fields = ['title', 'content', 'excerpt', 'category__name']
-    
+
+    def retrieve(self, request, *args, **kwargs):
+
+        article = self.get_object()
+        ip = get_client_ip(request)
+
+        time_threshold = timezone.now() - timedelta(minutes=10)
+
+        already_viewed = ArticleView.objects.filter(
+            article=article,
+            ip_address=ip,
+            viewed_at__gte=time_threshold
+        ).exists()
+
+        if not already_viewed:
+            ArticleView.objects.create(
+                article=article,
+                ip_address=ip
+            )
+
+            article.view_count += 1
+            article.save(update_fields=["view_count"])
+
+        serializer = self.get_serializer(article)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['get'])
     def recommendations(self, request):
+
         user = request.user
         base_queryset = Article.objects.filter(status="published", is_deleted=False)
         current_id = request.query_params.get('exclude')
 
         if not user.is_authenticated:
-            # For guests: Return 4 random published articles instead of just the latest
+            # Guests get random articles
             recommendations = base_queryset.order_by('?')[:4]
+
         else:
-            # 1. Get IDs of categories the user has engaged with
             liked_categories = ReadingHistory.objects.filter(
-                user=user, 
-                time_spent__gt=1 # Keeping your lower threshold for testing
-            ).values_list('article__category', flat=True).distinct()
-            print(f"DEBUG: User {user.username} liked categories: {list(liked_categories)}")
-
-            # 2. Fetch articles from those categories
-            # We use '?' to shuffle them so it's not always the newest
-            recommendations = base_queryset.filter(category__in=liked_categories)
-            
-            if current_id:
-                recommendations = recommendations.exclude(id=current_id)
-
-            # Shuffle the matching articles
-            recommendations = recommendations.order_by('?')[:4]
-            
-            # 3. Fallback: If we don't have 4 matches, fill the rest with random variety
-            if recommendations.count() < 4:
-                existing_ids = [a.id for a in recommendations]
-                if current_id:
-                    existing_ids.append(int(current_id))
-                
-                extra_needed = 4 - recommendations.count()
-                extra = base_queryset.exclude(id__in=existing_ids).order_by('?')[:extra_needed]
-                
-                # Combine and maintain list format
-                recommendations = list(recommendations) + list(extra)
-
-        serializer = self.get_serializer(recommendations, many=True)
-        return Response(serializer.data)
-        user = request.user
-        # Get only published articles
-        base_queryset = Article.objects.filter(status="published", is_deleted=False)
-
-        if not user.is_authenticated:
-            # For guests: Return the 4 most recent articles
-            recommendations = base_queryset.order_by('-publish_at')[:4]
-        else:
-            # 1. See what categories the user likes (spent > 10s reading)
-            liked_categories = ReadingHistory.objects.filter(
-                user=user, 
+                user=user,
                 time_spent__gt=1
             ).values_list('article__category', flat=True).distinct()
 
-            # 2. Find published articles in those categories that aren't the one they're currently on
-            # (Excluding current article ID if passed from frontend)
-            current_id = request.query_params.get('exclude')
-            
             recommendations = base_queryset.filter(category__in=liked_categories)
+
             if current_id:
                 recommendations = recommendations.exclude(id=current_id)
 
-            # 3. Limit and fallback
-            recommendations = recommendations.order_by('-publish_at')[:4]
-            
+            recommendations = recommendations.order_by('?')[:4]
+
             if recommendations.count() < 4:
-                # If we don't have enough matching categories, fill with newest posts
-                extra = base_queryset.exclude(id__in=[a.id for a in recommendations])[:4 - recommendations.count()]
+                existing_ids = [a.id for a in recommendations]
+
+                if current_id:
+                    existing_ids.append(int(current_id))
+
+                extra_needed = 4 - recommendations.count()
+
+                extra = base_queryset.exclude(
+                    id__in=existing_ids
+                ).order_by('?')[:extra_needed]
+
                 recommendations = list(recommendations) + list(extra)
 
         serializer = self.get_serializer(recommendations, many=True)
         return Response(serializer.data)
-    
+
     @action(detail=False, methods=['get'])
     def trending(self, request):
-        trending_articles = Article.objects.filter(
-            status="published", 
-            is_deleted=False
-        ).order_by('-view_count')[:5]
-        
-        from datetime import timedelta
 
         time_threshold = timezone.now() - timedelta(days=7)
+
         trending_articles = Article.objects.filter(
-            status="published", 
+            status="published",
+            is_deleted=False,
             publish_at__gte=time_threshold
         ).order_by('-view_count')[:5]
 
@@ -117,33 +109,35 @@ class ArticleViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def get_queryset(self):
+
         queryset = Article.objects.filter(is_deleted=False)
 
-    # Filter by author
+        # Filter by author
         author_id = self.request.query_params.get("author")
         if author_id:
             queryset = queryset.filter(author_id=author_id)
 
         user = self.request.user
 
-    # Public users → only published
+        # Public users → only published
         if not user.is_authenticated:
             return queryset.filter(status="published")
 
-    # Admin & Editor → everything
+        # Admin & Editor → everything except drafts
         if user.role in ["ADMIN", "EDITOR"]:
             return queryset.exclude(status="draft")
 
-    # Journalist → only their own
+        # Journalist → only their own
         if user.role == "JOURNALIST":
             return queryset.filter(author=user)
 
         return queryset.filter(status="published")
-    
+
     def perform_create(self, serializer):
-        # Check if the user specifically sent 'draft' status from the frontend
+
         status = self.request.data.get('status', 'review')
-        article=serializer.save(
+
+        article = serializer.save(
             author=self.request.user,
             status=status
         )
@@ -151,20 +145,21 @@ class ArticleViewSet(viewsets.ModelViewSet):
             notify_editors_new_draft(article)
 
     def perform_update(self, serializer):
+
         old_status = self.get_object().status
         article = serializer.save()
 
-        #if status changes to publish and no publish date, set it to now
+        # Auto set publish date
         if article.status == "published" and not article.publish_at:
             article.publish_at = timezone.now()
             article.save()
-            
+
         if old_status != "published" and article.status == "published":
             notify_author_article_published(article)
-            
+
         if old_status == "draft" and article.status == "review":
             notify_editors_new_draft(article)
-            
+
         # Auto publish scheduled posts
         if article.status == "scheduled" and article.publish_at:
             if article.publish_at <= timezone.now():

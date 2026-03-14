@@ -167,11 +167,12 @@ export default function ArticleDetail() {
               ))}
             </div>
 
-            <RecommendedArticles />
+            
 
             <div className="mt-16">
               <CommentSection articleId={article.id} currentUser={user} />
             </div>
+            <RecommendedArticles />
           </article>
 
           {/* Right Column: Sidebar */}

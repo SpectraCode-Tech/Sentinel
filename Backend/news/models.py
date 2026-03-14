@@ -85,3 +85,14 @@ class Article(SoftDeleteModel):
 
     def __str__(self):
         return self.title
+    
+    
+class ArticleView(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="ip_views")
+    ip_address = models.GenericIPAddressField()
+    viewed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["article", "ip_address"])
+        ]

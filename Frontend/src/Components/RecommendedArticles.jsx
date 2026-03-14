@@ -31,7 +31,7 @@ export default function RecommendedArticles({ currentArticleId }) {
     return (
         <div className="mt-16 pt-10 border-t border-border">
             <h3 className="font-serif text-2xl font-black mb-8 italic text-headline">
-                Tailored For You
+                Recommended For You
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {suggestions.map((item) => (
