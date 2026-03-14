@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model  # ✅ Use this for custom user models
 from django.utils import timezone
 from news.models import Category, Article
+from django.utils.text import slugify
 
 # Get the active User model (accounts.User)
 User = get_user_model()
@@ -554,5 +555,21 @@ class Command(BaseCommand):
                     self.stdout.write(f"  Created article: {article_data['title']}")
                 else:
                     self.stdout.write(f"  Article exists: {article_data['title']}")
+                    
+                from django.utils.text import slugify
+
+# Inside your loop:
+                article, created = Article.objects.get_or_create(
+                title=article_data["title"],
+                defaults={
+                    "slug": slugify(article_data["title"]), # ✅ Generate slug
+                    "category": category,
+                    "excerpt": article_data["excerpt"],
+                    "content": article_data["content"],
+                    "author": default_author,
+                    "status": "published",
+                    "publish_at": timezone.now()
+                        }
+                )
 
         self.stdout.write(self.style.SUCCESS("Successfully seeded articles!"))

@@ -27,6 +27,7 @@ export default function Navbar() {
     <header className="bg-bg border-b border-border sticky top-0 z-50">
       {/* 1. Main Top Bar */}
       <div className="container mx-auto px-4 h-16 md:h-24 flex items-center justify-between relative">
+        
 
         {/* Left Side: Menu + Desktop Search */}
         <div className="flex items-center gap-6 flex-1">
@@ -51,6 +52,17 @@ export default function Navbar() {
         <Link to="/" className="absolute left-1/2 -translate-x-1/2 font-serif text-2xl md:text-5xl font-black tracking-tighter text-headline uppercase">
           The Sentinel
         </Link>
+        {/* 2. Editorial Slogan Row */}
+        <div className="hidden md:flex items-center justify-center pb-5 px-4">
+          <div className="flex items-center gap-6 w-full max-w-3xl">
+            <div className="h-[1px] bg-border flex-grow" />
+            <p className="text-[10px] md:text-xs font-serif uppercase tracking-[0.4em] whitespace-nowrap text-gray-500 italic">
+              Truth • Reports • Analysis
+            </p>
+            <div className="h-[1px] bg-border flex-grow" />
+          </div>
+        </div>
+
 
         {/* Right Side: Account/User */}
         <div className="flex items-center justify-end gap-2 flex-1">
@@ -60,17 +72,6 @@ export default function Navbar() {
             </span>
             <User className="w-5 h-5 text-headline" />
           </Link>
-        </div>
-      </div>
-
-      {/* 2. Editorial Slogan Row */}
-      <div className="hidden md:flex items-center justify-center pb-5 px-4">
-        <div className="flex items-center gap-6 w-full max-w-3xl">
-          <div className="h-[1px] bg-border flex-grow" />
-          <p className="text-[10px] md:text-xs font-serif uppercase tracking-[0.4em] whitespace-nowrap text-gray-500 italic">
-            Truth • Reports • Analysis
-          </p>
-          <div className="h-[1px] bg-border flex-grow" />
         </div>
       </div>
 
