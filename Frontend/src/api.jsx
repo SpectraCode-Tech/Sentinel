@@ -104,6 +104,10 @@ export const fetchRecommendations = (token = null, excludeId = null) => {
   return API.get(url, { headers });
 };
 
+export const fetchTrendingArticles = () => {
+  return API.get("articles/trending/");
+};
+
 export const trackArticleView = (data) => {
   return API.post("analytics/article-views/", data);
 };

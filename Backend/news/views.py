@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from rest_framework import viewsets, permissions, filters
 from django.utils import timezone
 from rest_framework.decorators import action
@@ -94,6 +96,24 @@ class ArticleViewSet(viewsets.ModelViewSet):
                 recommendations = list(recommendations) + list(extra)
 
         serializer = self.get_serializer(recommendations, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def trending(self, request):
+        trending_articles = Article.objects.filter(
+            status="published", 
+            is_deleted=False
+        ).order_by('-view_count')[:5]
+        
+        from datetime import timedelta
+
+        time_threshold = timezone.now() - timedelta(days=7)
+        trending_articles = Article.objects.filter(
+            status="published", 
+            publish_at__gte=time_threshold
+        ).order_by('-view_count')[:5]
+
+        serializer = self.get_serializer(trending_articles, many=True)
         return Response(serializer.data)
 
     def get_queryset(self):
