@@ -35,7 +35,7 @@ export default function RecommendedArticles({ currentArticleId }) {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {suggestions.map((item) => (
-                    <Link key={item.id} to={`/article/${item.id}`} className="group">
+                    <Link key={item.id} to={`/articles/${item.id}`} className="group">
                         <div className="aspect-video overflow-hidden rounded mb-3 bg-surface border border-border shadow-sm">
                             {item.image ? (
                                 <img

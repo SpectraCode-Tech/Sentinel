@@ -113,7 +113,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
 
-        queryset = Article.objects.filter(is_deleted=False)
+        queryset = Article.objects.filter(is_deleted=False).order_by('-publish_at')
 
         # Filter by author
         author_id = self.request.query_params.get("author")
