@@ -88,11 +88,16 @@ class Article(SoftDeleteModel):
     
     
 class ArticleView(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="ip_views")
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="ip_views"
+    )
     ip_address = models.GenericIPAddressField()
+    user_agent = models.TextField(blank=True, null=True)
     viewed_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         indexes = [
-            models.Index(fields=["article", "ip_address"])
+            models.Index(fields=["article", "ip_address", "user_agent"]),
         ]

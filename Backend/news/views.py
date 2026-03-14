@@ -29,22 +29,25 @@ class ArticleViewSet(viewsets.ModelViewSet):
     search_fields = ['title', 'content', 'excerpt', 'category__name']
 
     def retrieve(self, request, *args, **kwargs):
-
         article = self.get_object()
+
         ip = get_client_ip(request)
+        user_agent = request.META.get("HTTP_USER_AGENT", "")
 
         time_threshold = timezone.now() - timedelta(minutes=10)
 
         already_viewed = ArticleView.objects.filter(
             article=article,
             ip_address=ip,
+            user_agent=user_agent,
             viewed_at__gte=time_threshold
         ).exists()
 
         if not already_viewed:
             ArticleView.objects.create(
                 article=article,
-                ip_address=ip
+                ip_address=ip,
+                user_agent=user_agent
             )
 
             article.view_count += 1
