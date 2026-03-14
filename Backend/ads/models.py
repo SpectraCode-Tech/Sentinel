@@ -28,12 +28,11 @@ class Advertisement(models.Model):
         return self.title
 class SidebarBlock(models.Model):
     BLOCK_TYPES = [
-        ('trending', 'Trending News'),
-        ('newsletter', 'Newsletter Subscription'),
-        ('social', 'Social Media Links'),
-        ('html', 'Custom HTML/Text'),
-        ('categories', 'Category List'),
-    ]
+    ('ad', 'Advertisement'),
+    ('html', 'Custom HTML'),
+    ('trending', 'Trending Articles'),
+    ('recommended', 'Recommended For You'),
+]
 
     title = models.CharField(max_length=100)
     block_type = models.CharField(max_length=20, choices=BLOCK_TYPES, default='html')
