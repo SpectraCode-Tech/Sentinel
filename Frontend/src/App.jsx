@@ -50,7 +50,7 @@ export default function App() {
         />
 
         <Route
-          path="/articles/:id"
+          path="/articles/:slug"
           element={
             <ProtectedRoute>
               <ArticleDetail />

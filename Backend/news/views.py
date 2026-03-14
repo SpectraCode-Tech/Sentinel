@@ -20,6 +20,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    lookup_field = 'slug'
 
     filterset_fields = {
         'status': ['exact'],

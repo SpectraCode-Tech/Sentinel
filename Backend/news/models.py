@@ -56,7 +56,7 @@ class Article(SoftDeleteModel):
         SCHEDULED = "scheduled"
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True, max_length=300)
 
     content = models.TextField()
     excerpt = models.TextField(blank=True)
