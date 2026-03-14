@@ -70,13 +70,13 @@ export const fetchSidebarBlocks = () => {
    COMMENTS
 =========================== */
 
-export const fetchComments = (slug) => {
-  return API.get(`articles/${slug}/comments/`);
+export const fetchComments = (articleId) => {
+  return API.get(`articles/${articleId}/comments/`);
 };
 
-export const createComment = (slug, data, token) => {
+export const createComment = (articleId, data, token) => {
   return axios.post(
-    `${API.defaults.baseURL}articles/${slug}/comments/`,
+    `${API.defaults.baseURL}articles/${articleId}/comments/`,
     data,
     {
       headers: {
@@ -86,9 +86,9 @@ export const createComment = (slug, data, token) => {
   );
 };
 
-export const deleteComment = (slug, commentId, token) => {
+export const deleteComment = (articleId, commentId, token) => {
   // Combine articleId and commentId into URL
-  const url = `${API.defaults.baseURL}articles/${slug}/comments/${commentId}/`;
+  const url = `${API.defaults.baseURL}articles/${articleId}/comments/${commentId}/`;
   return API.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,

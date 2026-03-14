@@ -16,7 +16,7 @@ import CommentSection from "../Components/CommentSection";
 import RecommendedArticles from "../Components/RecommendedArticles";
 
 export default function ArticleDetail() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [article, setArticle] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -27,26 +27,29 @@ export default function ArticleDetail() {
   // 1. Fetch Article Data
   useEffect(() => {
     setLoading(true);
-    fetchArticleDetail(id)
-      .then(res => setArticle(res.data))
+    fetchArticleDetail(slug)
+      .then(res => {
+        setArticle(res.data);
+        window.scrollTo(0, 0); // Ensure page starts at top on navigation
+      })
       .catch(err => console.error("Fetch error:", err))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [slug]);
 
-  // 2. Track Page View
+  // 2. Track Page View - FIXED: Use article.id instead of slug
   useEffect(() => {
-    if (id && !loading) {
+    if (article?.id && !loading) {
       trackArticleView({
-        article: id,
+        article: article.id, // ✅ Correct: Sending the Integer ID
         user: user?.id || null,
         device: navigator.userAgent,
       }).catch(err => console.error("View tracking failed", err));
     }
-  }, [id, loading, user?.id]);
+  }, [article?.id, loading, user?.id]);
 
-  // 3. Track Reading History (Time Spent)
+  // 3. Track Reading History (Time Spent) - FIXED: Use article.id
   useEffect(() => {
-    if (!id || !user || loading) return;
+    if (!article?.id || !user || loading) return;
 
     const startTime = Date.now();
 
@@ -57,13 +60,13 @@ export default function ArticleDetail() {
       // Only track significant engagement (> 5s)
       if (secondsSpent > 5) {
         trackReadingHistory({
-          article: id,
+          article: article.id, // ✅ Correct: Sending the Integer ID
           user: user.id,
           time_spent: secondsSpent
         }).catch(err => console.error("Reading history sync failed", err));
       }
     };
-  }, [id, user, loading]);
+  }, [article?.id, user, loading]);
 
   if (loading) return (
     <div className="min-h-screen bg-bg flex items-center justify-center">
@@ -167,12 +170,12 @@ export default function ArticleDetail() {
               ))}
             </div>
 
-            
-
             <div className="mt-16">
               <CommentSection articleId={article.id} currentUser={user} />
             </div>
-            <RecommendedArticles />
+
+            {/* Pass article.id to RecommendedArticles to exclude current post */}
+            <RecommendedArticles currentArticleId={article.id} />
           </article>
 
           {/* Right Column: Sidebar */}
@@ -182,7 +185,8 @@ export default function ArticleDetail() {
                 <span className="text-[9px] uppercase tracking-widest text-gray-400 block mb-4 italic">Advertisement</span>
                 <AdSlot placement="sidebar" />
               </div>
-              <SidebarBlocks />
+              {/* Pass currentArticleId to SidebarBlocks if you have recommendations there */}
+              <SidebarBlocks currentArticleId={article.id} />
             </div>
           </aside>
         </div>
