@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchSidebarBlocks } from "../api";
 import AdSlot from "./AdSlot";
-import TrendingArticles from "./TrendingArticles"; // Import your new component
+import TrendingArticles from "./Trending"; // Import your new component
 import RecommendedArticles from "./RecommendedArticles"; // Import your new component
 
 export default function SidebarBlocks({ currentArticleId }) {

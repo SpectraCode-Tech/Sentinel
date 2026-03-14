@@ -1,6 +1,11 @@
 # news/management/commands/seed_full_articles.py
 from django.core.management.base import BaseCommand
+from django.contrib.auth import get_user_model  # ✅ Use this for custom user models
+from django.utils import timezone
 from news.models import Category, Article
+
+# Get the active User model (accounts.User)
+User = get_user_model()
 
 ARTICLES_DATA = {
     "Culture": [
@@ -508,13 +513,20 @@ class Command(BaseCommand):
     help = "Seed all categories and articles with titles, excerpts, and full content"
 
     def handle(self, *args, **kwargs):
-        # Get or create a default author for all articles
-        from django.contrib.auth.models import User
+        # 1. Get or create a default author using the correct Model
+        # Since your custom User might have a 'role', we include it in defaults
         default_author, created = User.objects.get_or_create(
             username="lamide",
-            defaults={"email": "lamidersq@gmail.com", "password": "lamide2008"}
+            defaults={
+                "email": "lamidersq@gmail.com", 
+                "password": "lamide2008",
+                "role": "JOURNALIST" # ✅ Added role for your custom logic
+            }
         )
+        
         if created:
+            default_author.set_password("lamide2008") # Ensure password is hashed
+            default_author.save()
             self.stdout.write("Created default author: lamide")
         else:
             self.stdout.write("Default author exists: lamide")
@@ -523,20 +535,24 @@ class Command(BaseCommand):
             category, created = Category.objects.get_or_create(name=category_name)
             if created:
                 self.stdout.write(f"Created category: {category_name}")
-            else:
-                self.stdout.write(f"Category exists: {category_name}")
 
             for article_data in articles:
+                # 2. Use update_or_create or include defaults for status/publish_at
                 article, created = Article.objects.get_or_create(
-                    category=category,
                     title=article_data["title"],
                     defaults={
+                        "category": category,
                         "excerpt": article_data["excerpt"],
                         "content": article_data["content"],
-                        "author": default_author  # ✅ assign default author here
+                        "author": default_author,
+                        "status": "published",    # ✅ Essential for your new home page logic
+                        "publish_at": timezone.now() # ✅ Essential for your newest-first ordering
                     }
                 )
+                
                 if created:
                     self.stdout.write(f"  Created article: {article_data['title']}")
                 else:
                     self.stdout.write(f"  Article exists: {article_data['title']}")
+
+        self.stdout.write(self.style.SUCCESS("Successfully seeded articles!"))
