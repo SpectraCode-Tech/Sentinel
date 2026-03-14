@@ -66,7 +66,7 @@ export default function CommentSection({ articleId }) {
 
     const confirmDelete = (commentId) => {
         toast((t) => (
-            <div className="flex flex-col gap-3 p-1 min-w-[250px]">
+            <div className="flex flex-col gap-3 p-1 min-w-62.5">
                 <p className="text-xs font-bold text-slate-900 flex items-center gap-2 uppercase tracking-wider">
                     <AlertCircle className="w-3.5 h-3.5 text-rose-600" /> Confirm Removal
                 </p>
@@ -181,7 +181,7 @@ export default function CommentSection({ articleId }) {
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder={token ? "Join the discussion..." : "Authentication required to post."}
                         disabled={!token}
-                        className="w-full bg-transparent py-4 outline-none text-[15px] text-slate-800 placeholder:text-slate-300 min-h-[80px] resize-none"
+                        className="w-full bg-transparent py-4 outline-none text-[15px] text-slate-800 placeholder:text-slate-300 min-h-20 resize-none"
                     />
                     {token && (
                         <div className="flex justify-end pb-3">

@@ -69,24 +69,24 @@ export default function Navbar() {
         {/* 2. Slogan Row - Now visible on Mobile & Desktop */}
         <div className="flex items-center justify-center mt-2 md:mt-4">
           <div className="flex items-center gap-3 md:gap-6 w-full max-w-lg md:max-w-3xl">
-            <div className="h-[1px] bg-border flex-grow" />
+            <div className="h-px bg-border grow" />
             <p className="text-[8px] md:text-xs font-serif uppercase tracking-[0.3em] md:tracking-[0.4em] whitespace-nowrap text-gray-500 italic">
               Truth • Reports • Analysis
             </p>
-            <div className="h-[1px] bg-border flex-grow" />
+            <div className="h-px bg-border grow" />
           </div>
         </div>
       </div>
 
       {/* --- SIDE DRAWER --- */}
-      <div className={`fixed inset-0 z-[70] transition-all duration-300 ${isOpen ? 'visible' : 'invisible'}`}>
+      <div className={`fixed inset-0 z-70 transition-all duration-300 ${isOpen ? 'visible' : 'invisible'}`}>
         <div
           className={`absolute inset-0 bg-headline/40 backdrop-blur-md transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setIsOpen(false)}
         />
 
         {/* Fixed: inset-y-0 + h-[100dvh] solves the mobile gap/glitch */}
-        <div className={`absolute inset-y-0 left-0 h-[100dvh] w-[85vw] md:w-[380px] bg-bg shadow-2xl transition-transform duration-500 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className={`absolute inset-y-0 left-0 h-dvh w-[85vw] md:w-95 bg-bg shadow-2xl transition-transform duration-500 ease-in-out flex flex-col ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
 
           <div className="p-6 border-b border-border flex justify-between items-center bg-surface">
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Sections</span>
@@ -109,7 +109,7 @@ export default function Navbar() {
             </form>
           </div>
 
-          <nav className="flex-grow overflow-y-auto px-6 py-2">
+          <nav className="grow overflow-y-auto px-6 py-2">
             {categories.map((cat) => (
               <Link
                 key={cat.id}

@@ -19,7 +19,7 @@ export default function CompactCard({ article }) {
           <img
             src={article.image || "https://via.placeholder.com/400x225"}
             alt={article.title}
-            className="w-full h-full object-cover grayscale-[20%] transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
+            className="w-full h-full object-cover grayscale-20% transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
           />
         </div>
       </Link>

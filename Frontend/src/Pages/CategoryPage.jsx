@@ -90,7 +90,7 @@ export default function CategoryPage() {
                         {categoryName || slug.replace(/-/g, ' ')}
                     </h1>
                     <div className="flex items-center gap-4">
-                        <div className="h-[1px] bg-border w-12" />
+                        <div className="h-px bg-border w-12" />
                         <p className="text-xs font-serif italic text-gray-500 uppercase tracking-widest">
                             Archive Records • {articles.length} Articles
                         </p>

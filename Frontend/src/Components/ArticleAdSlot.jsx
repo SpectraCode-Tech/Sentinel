@@ -31,7 +31,7 @@ export default function ArticleAdSlot({ articleId }) {
         <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400 whitespace-nowrap">
           Sponsored Content
         </span>
-        <div className="h-[1px] w-full bg-border/50" />
+        <div className="h-px w-full bg-border/50" />
       </div>
 
       <a 
@@ -68,7 +68,7 @@ export default function ArticleAdSlot({ articleId }) {
       </a>
       
       {/* Bottom Border to close the section */}
-      <div className="w-full h-[1px] bg-border/50 mt-8" />
+      <div className="w-full h-px bg-border/50 mt-8" />
     </div>
   );
 }

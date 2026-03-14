@@ -90,7 +90,7 @@ export default function Home() {
                         >
                           {cat.name}
                         </Link>
-                        <div className="h-[1px] flex-grow mx-6 bg-border" />
+                        <div className="h-px grow mx-6 bg-border" />
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {categoryArticles.map((article) => (

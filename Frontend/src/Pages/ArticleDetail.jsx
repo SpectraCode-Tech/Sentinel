@@ -107,7 +107,7 @@ export default function ArticleDetail() {
                 <span className="text-accent font-bold uppercase tracking-widest text-xs italic bg-accent/5 px-2 py-1 rounded">
                   {article.category_name || "Uncategorized"}
                 </span>
-                <span className="h-[1px] flex-grow bg-border" />
+                <span className="h-px grow bg-border" />
               </div>
 
               <h1 className="text-4xl md:text-6xl font-serif font-black text-headline leading-[1.1] mb-6">
@@ -145,7 +145,7 @@ export default function ArticleDetail() {
                 <img
                   src={article.image}
                   alt={article.title}
-                  className="w-full rounded shadow-xl object-cover max-h-[500px]"
+                  className="w-full rounded shadow-xl object-cover max-h-125"
                 />
               </figure>
             )}

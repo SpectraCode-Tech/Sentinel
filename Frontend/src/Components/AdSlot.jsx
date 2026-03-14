@@ -36,7 +36,7 @@ export default function AdSlot({ placement }) {
         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">
           Advertisement
         </span>
-        <div className="h-[1px] bg-border flex-grow opacity-50" />
+        <div className="h-px bg-border grow opacity-50" />
       </div>
 
       <div className="flex flex-col gap-6">

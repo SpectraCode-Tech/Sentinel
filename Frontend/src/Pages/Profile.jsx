@@ -50,7 +50,7 @@ export default function Profile() {
                             </div>
                         </div>
 
-                        <div className="flex-grow">
+                        <div className="grow">
                             <span className="text-accent font-bold uppercase tracking-[0.3em] text-xs">Identity Verified</span>
                             <h1 className="text-5xl md:text-7xl font-serif font-black tracking-tighter text-headline mt-2">
                                 {user.username}
