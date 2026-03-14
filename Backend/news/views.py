@@ -25,6 +25,45 @@ class ArticleViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def recommendations(self, request):
         user = request.user
+        base_queryset = Article.objects.filter(status="published", is_deleted=False)
+        current_id = request.query_params.get('exclude')
+
+        if not user.is_authenticated:
+            # For guests: Return 4 random published articles instead of just the latest
+            recommendations = base_queryset.order_by('?')[:4]
+        else:
+            # 1. Get IDs of categories the user has engaged with
+            liked_categories = ReadingHistory.objects.filter(
+                user=user, 
+                time_spent__gt=1 # Keeping your lower threshold for testing
+            ).values_list('article__category', flat=True).distinct()
+            print(f"DEBUG: User {user.username} liked categories: {list(liked_categories)}")
+
+            # 2. Fetch articles from those categories
+            # We use '?' to shuffle them so it's not always the newest
+            recommendations = base_queryset.filter(category__in=liked_categories)
+            
+            if current_id:
+                recommendations = recommendations.exclude(id=current_id)
+
+            # Shuffle the matching articles
+            recommendations = recommendations.order_by('?')[:4]
+            
+            # 3. Fallback: If we don't have 4 matches, fill the rest with random variety
+            if recommendations.count() < 4:
+                existing_ids = [a.id for a in recommendations]
+                if current_id:
+                    existing_ids.append(int(current_id))
+                
+                extra_needed = 4 - recommendations.count()
+                extra = base_queryset.exclude(id__in=existing_ids).order_by('?')[:extra_needed]
+                
+                # Combine and maintain list format
+                recommendations = list(recommendations) + list(extra)
+
+        serializer = self.get_serializer(recommendations, many=True)
+        return Response(serializer.data)
+        user = request.user
         # Get only published articles
         base_queryset = Article.objects.filter(status="published", is_deleted=False)
 
@@ -35,7 +74,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
             # 1. See what categories the user likes (spent > 10s reading)
             liked_categories = ReadingHistory.objects.filter(
                 user=user, 
-                time_spent__gt=10
+                time_spent__gt=1
             ).values_list('article__category', flat=True).distinct()
 
             # 2. Find published articles in those categories that aren't the one they're currently on

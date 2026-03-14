@@ -96,9 +96,12 @@ export const deleteComment = (articleId, commentId, token) => {
   });
 };
 
-export const fetchRecommendations = (token = null) => {
+export const fetchRecommendations = (token = null, excludeId = null) => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
-  return API.get("articles/recommendations/", { headers });
+  let url = "articles/recommendations/";
+  if (excludeId) url += `?exclude=${excludeId}`;
+
+  return API.get(url, { headers });
 };
 
 export const trackArticleView = (data) => {

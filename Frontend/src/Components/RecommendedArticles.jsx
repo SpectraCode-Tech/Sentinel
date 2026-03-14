@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchRecommendations } from "../api";
 
-export default function RecommendedArticles() {
+export default function RecommendedArticles({ currentArticleId }) {
     const [suggestions, setSuggestions] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Get token for personalized results
-        const userData = JSON.parse(localStorage.getItem("user_data"));
-        const token = userData?.access || null;
+    // Get token in the component scope so the dependency array can see it
+    const userData = JSON.parse(localStorage.getItem("user_data"));
+    const token = userData?.access || null;
 
-        fetchRecommendations(token)
+    useEffect(() => {
+        setLoading(true);
+
+        fetchRecommendations(token, currentArticleId)
             .then((res) => {
                 setSuggestions(res.data);
             })
@@ -21,7 +23,8 @@ export default function RecommendedArticles() {
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+
+    }, [currentArticleId, token]); // Now 'token' is defined in the outer scope
 
     if (loading || suggestions.length === 0) return null;
 
@@ -39,14 +42,15 @@ export default function RecommendedArticles() {
                                     src={item.image}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     alt={item.title}
+                                    loading="lazy"
                                 />
                             ) : (
-                                <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300">
+                                <div className="w-full h-full bg-slate-100 flex items-center justify-center text-slate-300 font-serif italic text-xs">
                                     Sentinel
                                 </div>
                             )}
                         </div>
-                        <h4 className="font-serif font-bold text-sm leading-tight group-hover:text-accent transition-colors line-clamp-2">
+                        <h4 className="font-serif font-bold text-sm leading-tight group-hover:text-accent transition-colors line-clamp-2 text-headline">
                             {item.title}
                         </h4>
                     </Link>
