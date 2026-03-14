@@ -85,7 +85,7 @@ export default function CommentSection({ articleId }) {
 
     const executeDelete = async (id) => {
         const deletePromise = deleteComment(articleId, id, token);
-        toast.promise(deletePromise, { loading: 'Removing dispatch...', success: 'Entry deleted', error: 'Could not remove entry' }, {
+        toast.promise(deletePromise, { loading: 'Removing comment...', success: 'Comment deleted', error: 'Could not delete comment' }, {
             position: 'top-center',
             success: { duration: 2000 },
             error: { duration: 3000 },
@@ -186,7 +186,7 @@ export default function CommentSection({ articleId }) {
                     {token && (
                         <div className="flex justify-end pb-3">
                             <button type="submit" disabled={isSubmitting} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 hover:text-blue-600 disabled:text-slate-300 transition-colors flex items-center gap-2">
-                                {isSubmitting ? "Sending..." : <>Publish Dispatch <Send className="w-3 h-3" /></>}
+                                {isSubmitting ? "Sending..." : <>Publish Comment <Send className="w-3 h-3" /></>}
                             </button>
                         </div>
                     )}

@@ -57,7 +57,7 @@ export default function Login() {
                     </h1>
 
                     <p className="text-gray-500 font-serif italic text-sm mt-2">
-                        Enter your credentials to access the dispatch
+                        Enter your credentials to access the newsroom
                     </p>
                 </div>
 

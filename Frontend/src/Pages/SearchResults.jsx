@@ -76,7 +76,7 @@ export default function SearchResults() {
                                 Search results for: <span className="italic text-accent">"{searchQuery}"</span>
                             </h1>
                             <p className="text-sm text-gray-500 mt-2 font-serif uppercase tracking-widest">
-                                Found {articles.length} matching dispatches
+                                Found {articles.length} matching articles
                             </p>
                         </header>
 

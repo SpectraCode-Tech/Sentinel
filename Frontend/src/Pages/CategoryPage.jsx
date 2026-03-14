@@ -92,7 +92,7 @@ export default function CategoryPage() {
                     <div className="flex items-center gap-4">
                         <div className="h-[1px] bg-border w-12" />
                         <p className="text-xs font-serif italic text-gray-500 uppercase tracking-widest">
-                            Archive Records • {articles.length} Dispatches
+                            Archive Records • {articles.length} Articles
                         </p>
                     </div>
                 </header>
@@ -122,7 +122,7 @@ export default function CategoryPage() {
                                         onClick={() => fetchArticles(nextPage)}
                                         className="text-[10px] font-black uppercase tracking-[0.2em] border-2 border-headline px-10 py-4 hover:bg-headline hover:text-white transition-all"
                                     >
-                                        Next Dispatches →
+                                        Next Articles →
                                     </button>
                                 )}
                             </div>

@@ -45,7 +45,7 @@ export default function Home() {
               ESTABLISHED 2024 • INDEPENDENT JOURNALISM
             </span>
             <h1 className="text-headline font-serif text-5xl md:text-7xl font-black tracking-tighter leading-none">
-              Latest Dispatch
+              Breaking News
             </h1>
           </div>
           <div className="lg:col-span-4 lg:border-l lg:border-border lg:pl-8 flex flex-col justify-end">

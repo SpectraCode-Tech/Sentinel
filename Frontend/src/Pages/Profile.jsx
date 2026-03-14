@@ -37,7 +37,7 @@ export default function Profile() {
                         className="group mb-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-accent transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        Return to Dispatch
+                        Return to Home
                     </button>
 
                     <div className="flex flex-col md:flex-row items-end gap-6 border-b border-slate-200 pb-12">
