@@ -43,36 +43,28 @@ export default function App() {
         <Route
           path="/Home"
           element={
-            <ProtectedRoute>
               <Home />
-            </ProtectedRoute>
           }
         />
 
         <Route
           path="/articles/:slug"
           element={
-            <ProtectedRoute>
               <ArticleDetail />
-            </ProtectedRoute>
           }
         />
 
         <Route
           path="/search"
           element={
-            <ProtectedRoute>
               <SearchResults />
-            </ProtectedRoute>
           }
         />
 
         <Route
           path="/category/:slug"
           element={
-            <ProtectedRoute>
               <CategoryPage />
-            </ProtectedRoute>
           }
         />
 

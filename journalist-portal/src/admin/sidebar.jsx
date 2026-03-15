@@ -8,12 +8,11 @@ import {
     BarChart3,
     LogOut,
     X,
-    Menu
+    Menu,
+    Layout // Added Layout icon for Sidebar Blocks
 } from "lucide-react";
 
-// ... (imports remain the same)
-
-export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
+export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen }) {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
     const navigate = useNavigate();
@@ -24,11 +23,12 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
         { name: "Articles", path: "/admin/articles", icon: FileText },
         { name: "Categories", path: "/admin/categories", icon: Layers },
         { name: "Advertisements", path: "/admin/advertisements", icon: Layers },
+        // Added Sidebar Blocks Management Link
+        { name: "Sidebar Blocks", path: "/admin/sidebar-blocks", icon: Layout },
     ];
 
     const handleLogout = () => {
         localStorage.clear();
-        // localStorage.removeItem("refresh_token");
         navigate("/");
     };
 
@@ -73,7 +73,7 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
                     </button>
                 </div>
 
-                {/* Navigation Links - added overflow-y-auto in case you add many links later */}
+                {/* Navigation Links */}
                 <nav className="space-y-1.5 flex-1 overflow-y-auto custom-scrollbar">
                     {navItems.map((item) => (
                         <Link
@@ -81,8 +81,8 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
                             to={item.path}
                             onClick={() => setIsSidebarOpen(false)}
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${isActive(item.path)
-                                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-900/40"
-                                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                                ? "bg-indigo-600 text-white shadow-lg shadow-indigo-900/40"
+                                : "text-slate-400 hover:bg-white/5 hover:text-white"
                                 }`}
                         >
                             <item.icon className={`w-5 h-5 ${isActive(item.path) ? "text-white" : "text-slate-500"}`} />
@@ -95,7 +95,7 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen}) {
                 <div className="pt-6 mt-6 border-t border-white/10 shrink-0">
                     <button
                         onClick={handleLogout}
-                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 text-rose-400 hover:bg-rose-50 hover:text-white transition-all group"
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-rose-500/10 text-rose-400 hover:bg-rose-500 hover:text-white transition-all group"
                     >
                         <LogOut className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         <span className="font-semibold">Logout</span>

@@ -15,6 +15,7 @@ import AdminArticles from "./admin/ArticleManagement";
 import AdsManagement from "./admin/AdsManagement";
 import ArticleReader from "./admin/Article";
 import NotFound from "./NotFound";
+import SidebarBlocksManagement from "./admin/SideBarBlocks";
 
 function App() {
   return (
@@ -104,6 +105,10 @@ function App() {
         
         <Route path="/admin" element={<ProtectedRoute role="ADMIN">
           <AdminDashboard />
+        </ProtectedRoute>} />
+
+        <Route path="/admin/sidebar-blocks" element={<ProtectedRoute role="ADMIN">
+          <SidebarBlocksManagement />
         </ProtectedRoute>} />
 
         <Route path="/admin/articles/:id" element={<ProtectedRoute role="ADMIN">

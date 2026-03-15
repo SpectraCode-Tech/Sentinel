@@ -55,7 +55,7 @@ export default function Navbar() {
 
           {/* Right Side: Account/User */}
           <div className="flex items-center justify-end gap-2 flex-1">
-            <Link to={user ? "/profile" : "/login"} className="flex items-center gap-2 group p-2">
+            <Link to={user ? "/profile" : "/"} className="flex items-center gap-2 group p-2">
               <span className="hidden md:block text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-headline transition-colors">
                 {user ? "Member" : "Sign In"}
               </span>

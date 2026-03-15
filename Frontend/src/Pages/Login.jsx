@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Mail, Lock, ArrowRight, Newspaper, UserCircle } from "lucide-react"; // Added UserCircle
+// Added Eye and EyeOff icons
+import { Mail, Lock, ArrowRight, Newspaper, UserCircle, Eye, EyeOff } from "lucide-react";
 import { loginUser, fetchUserProfile } from "../api";
 import { useAuth } from "../Context/AuthContext";
 import toast from "react-hot-toast";
@@ -9,6 +10,7 @@ export default function Login() {
     const { login } = useAuth();
     const [formData, setFormData] = useState({ username: "", password: "" });
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false); // New state for password visibility
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -55,6 +57,7 @@ export default function Login() {
 
                 <div className="bg-surface border border-border p-8 rounded-xl shadow-sm">
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        {/* Username Field */}
                         <div>
                             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
                                 Username or Email
@@ -71,6 +74,7 @@ export default function Login() {
                             </div>
                         </div>
 
+                        {/* Password Field with Toggle */}
                         <div>
                             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
                                 Password
@@ -78,12 +82,24 @@ export default function Login() {
                             <div className="relative">
                                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"} // Dynamic input type
                                     required
                                     placeholder="••••••••"
-                                    className="w-full bg-bg border border-border rounded-lg py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
+                                    className="w-full bg-bg border border-border rounded-lg py-3 pl-10 pr-12 outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent transition-all"
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                                 />
+                                {/* Toggle Button */}
+                                <button
+                                    type="button" // Prevents form submission on click
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-headline transition-colors"
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="w-4 h-4" />
+                                    ) : (
+                                        <Eye className="w-4 h-4" />
+                                    )}
+                                </button>
                             </div>
                         </div>
 
@@ -101,7 +117,6 @@ export default function Login() {
                                 )}
                             </button>
 
-                            {/* --- GUEST LINK ADDED HERE --- */}
                             <div className="relative flex items-center py-2">
                                 <div className="grow border-t border-border"></div>
                                 <span className="shrink mx-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">Or</span>
@@ -116,7 +131,6 @@ export default function Login() {
                                 <UserCircle className="w-4 h-4" />
                                 Continue as Guest
                             </button>
-
                         </div>
                     </form>
                 </div>
