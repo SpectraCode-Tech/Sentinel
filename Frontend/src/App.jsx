@@ -11,12 +11,13 @@ import Footer from "./Components/Footer";
 import Register from "./Pages/Register";
 import Profile from "./Pages/Profile";
 import { Toaster } from "react-hot-toast";
+import { NewsProvider } from "./Context/NewsContext";
 
 export default function App() {
 
   return (
+    <NewsProvider>
     <BrowserRouter>
-
       <Toaster
         position="top-center"
         toastOptions={{
@@ -72,9 +73,8 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
 
       </Routes>
-
       <Footer />
-
     </BrowserRouter>
+    </NewsProvider>
   );
 }
