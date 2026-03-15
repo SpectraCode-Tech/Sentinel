@@ -1,6 +1,8 @@
+import os
 from pathlib import Path
 from datetime import timedelta
 
+REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
 ROOT_URLCONF = "Backend.urls"
@@ -26,6 +28,12 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://sentinel-pi-one.vercel.app",
     "https://sentinel-staff.vercel.app",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://sentinel-pi-one.vercel.app",
+    "https://sentinel-staff.vercel.app",
+    "https://sentinel-ou6m.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -56,7 +64,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [("localhost", 6379)],
+            "hosts": [(REDIS_URL)],
         },
 
     }
