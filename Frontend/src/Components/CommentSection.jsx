@@ -122,8 +122,6 @@ export default function CommentSection({ articleId }) {
             setNewComment("");
             setReplyingTo(null);
 
-            // OPTIONAL: Manually update state for the sender for instant feedback
-            // If your WebSocket sends the data back to the sender too, you can skip this.
             if (res.data && !replyingTo) {
                 setComments(prev => [res.data, ...prev]);
             } else {
