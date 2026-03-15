@@ -3,6 +3,10 @@ from rest_framework.exceptions import PermissionDenied
 from .models import Comment
 from .serializers import CommentSerializer
 
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
@@ -36,10 +40,26 @@ class CommentViewSet(viewsets.ModelViewSet):
 
         # Logic check: Do you want comments to go live immediately?
         # If yes, keep status="approved". If you want to review them, use status="pending"
-        serializer.save(
+        comment = serializer.save(
             user=self.request.user if self.request.user.is_authenticated else None,
             article_id=article_id,
             status="approved" 
+        )
+        
+        channel_layer = get_channel_layer()
+
+        async_to_sync(channel_layer.group_send)(
+            f"comments_{comment.article.id}",
+            {
+                "type": "send_comment",
+                "data": {
+                    "id": comment.id,
+                    "article": comment.article.id,
+                    "user": comment.user.username,
+                    "content": comment.content,
+                    "created_at": str(comment.created_at)
+                }
+            }
         )
 
     def destroy(self, request, *args, **kwargs):

@@ -8,7 +8,7 @@ export default function CommentSection({ articleId }) {
     const [newComment, setNewComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [replyingTo, setReplyingTo] = useState(null);
-    const [collapsedComments, setCollapsedComments] = useState({}); // Track toggle state
+    const [collapsedComments, setCollapsedComments] = useState({});
     const formRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -21,6 +21,7 @@ export default function CommentSection({ articleId }) {
     const user = getSafeUser();
     const token = localStorage.getItem("access_token");
 
+    // 1. Initial Load from API
     const loadComments = async () => {
         try {
             const res = await fetchComments(articleId);
@@ -30,7 +31,68 @@ export default function CommentSection({ articleId }) {
         }
     };
 
-    useEffect(() => { loadComments(); }, [articleId]);
+    useEffect(() => {
+        loadComments();
+    }, [articleId]);
+
+    // 2. Real-Time WebSocket Listener
+    // 2. Real-Time WebSocket Listener (Optimized for Redis/Channels)
+    useEffect(() => {
+        if (!articleId) return;
+
+        // Construct the URL to match your routing.py: r'^ws/articles/(?P<article_id>\d+)/comments/$'
+        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments/`;
+
+        console.log("Connecting to WebSocket...");
+        const socket = new WebSocket(socketUrl);
+
+        // Heartbeat interval to keep the Redis channel active
+        let heartbeat;
+
+        socket.onopen = () => {
+            console.log("WebSocket Connected ✅");
+            // Send a ping every 30 seconds to keep connection alive on Render
+            heartbeat = setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify({ type: "ping" }));
+                }
+            }, 30000);
+        };
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+
+            // Ignore pong responses from server
+            if (data.type === "pong") return;
+
+            setComments(prev => {
+                // Prevent duplicates (especially if the sender also does a local update)
+                if (prev.find(c => c.id === data.id)) return prev;
+
+                // If it's a top-level comment, add to list
+                // If it's a reply, we trigger a re-fetch to maintain nesting logic
+                if (data.parent) {
+                    loadComments();
+                    return prev;
+                }
+                return [data, ...prev];
+            });
+        };
+
+        socket.onerror = (err) => {
+            console.error("WebSocket Error ❌:", err);
+        };
+
+        socket.onclose = (e) => {
+            console.log(`WebSocket Closed: ${e.code} ${e.reason}`);
+            clearInterval(heartbeat);
+        };
+
+        return () => {
+            socket.close();
+            clearInterval(heartbeat);
+        };
+    }, [articleId]);
 
     const handleReplyClick = (comment) => {
         setReplyingTo(comment);
@@ -52,15 +114,44 @@ export default function CommentSection({ articleId }) {
         if (!newComment.trim() || !token) return;
         setIsSubmitting(true);
         try {
-            await createComment(articleId, { content: newComment, parent: replyingTo ? replyingTo.id : null }, token);
+            const res = await createComment(articleId, {
+                content: newComment,
+                parent: replyingTo ? replyingTo.id : null
+            }, token);
+
             setNewComment("");
             setReplyingTo(null);
-            await loadComments();
+
+            // OPTIONAL: Manually update state for the sender for instant feedback
+            // If your WebSocket sends the data back to the sender too, you can skip this.
+            if (res.data && !replyingTo) {
+                setComments(prev => [res.data, ...prev]);
+            } else {
+                await loadComments();
+            }
+
             toast.success("Comment published");
         } catch {
             toast.error("Failed to publish");
         } finally {
             setIsSubmitting(false);
+        }
+    };
+
+    const executeDelete = async (id) => {
+        const deletePromise = deleteComment(articleId, id, token);
+        toast.promise(deletePromise, {
+            loading: 'Removing comment...',
+            success: 'Comment deleted',
+            error: 'Could not delete comment'
+        });
+
+        try {
+            await deletePromise;
+            // Remove from local state immediately
+            setComments(prev => prev.filter(c => c.id !== id));
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -79,25 +170,8 @@ export default function CommentSection({ articleId }) {
         ), {
             duration: 5000,
             position: 'top-center',
-            style: { border: '1px solid #e2e8f0', padding: '16px', color: '#0f172a', borderRadius: '4px', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }
+            style: { border: '1px solid #e2e8f0', padding: '16px', borderRadius: '4px' }
         });
-    };
-
-    const executeDelete = async (id) => {
-        const deletePromise = deleteComment(articleId, id, token);
-        toast.promise(deletePromise, { loading: 'Removing comment...', success: 'Comment deleted', error: 'Could not delete comment' }, {
-            position: 'top-center',
-            success: { duration: 2000 },
-            error: { duration: 3000 },
-            style: { minWidth: '250px', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '0.15em', borderRadius: '0px', border: '1px solid #e2e8f0' },
-        });
-
-        try {
-            await deletePromise;
-            await loadComments();
-        } catch (err) {
-            console.error(err);
-        }
     };
 
     const renderComments = (commentList) => {
@@ -111,10 +185,12 @@ export default function CommentSection({ articleId }) {
                         <header className="flex items-center justify-between mb-3">
                             <div className="flex items-center gap-3">
                                 <div className="w-6 h-6 bg-slate-100 rounded flex items-center justify-center text-[10px] font-bold text-slate-600">
-                                    {comment.user[0].toUpperCase()}
+                                    {comment.user ? comment.user[0].toUpperCase() : "?"}
                                 </div>
                                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">{comment.user}</h4>
-                                <span className="text-[10px] text-slate-400 font-medium"> {new Date(comment.created_at).toLocaleDateString()}</span>
+                                <span className="text-[10px] text-slate-400 font-medium">
+                                    {new Date(comment.created_at).toLocaleDateString()}
+                                </span>
                             </div>
                         </header>
 

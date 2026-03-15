@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
+    "channels",
 
     "accounts",
     "news",
@@ -50,6 +51,19 @@ INSTALLED_APPS = [
     "ads",
     "comments",
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+
+    }
+}
+
+
+ASGI_APPLICATION = "Backend.asgi.application"
 
 AUTH_USER_MODEL = "accounts.User"
 
