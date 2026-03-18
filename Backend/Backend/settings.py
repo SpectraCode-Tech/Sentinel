@@ -7,6 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
 ROOT_URLCONF = "Backend.urls"
 
+# Add this to settings.py
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
