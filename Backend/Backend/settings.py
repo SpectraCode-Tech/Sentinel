@@ -1,45 +1,69 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from dotenv import load_dotenv
 
-REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+# 1. Load Environment Variables
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Add this line to your settings.py
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+# 2. Basic Configuration
 ROOT_URLCONF = "Backend.urls"
+SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-fallback-key-change-this")
+DEBUG = os.getenv("DEBUG", "True") == "True"
 
-
-SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
-
-DEBUG = True
-
-ALLOWED_HOSTS = [    
-    "sentinel-ou6m.onrender.com",
+# 3. Hosts Configuration
+# Always allow local for development
+ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "0.0.0.0",
-    ]
+]
+
+# Add production domains from Environment
+BACKEND_DOMAIN = os.getenv("BACKEND_DOMAIN")
+RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
+
+if BACKEND_DOMAIN:
+    ALLOWED_HOSTS.append(BACKEND_DOMAIN)
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+# 4. CORS & CSRF (Frontend Links)
+FRONTEND_URL = os.getenv("FRONTEND_URL")
+STAFF_URL = os.getenv("STAFF_URL")
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
-    "http://localhost:5175",
-    "http://127.0.0.1:5175",
+    FRONTEND_URL,
+    STAFF_URL,
     "http://localhost:5173",
-    "http://127.0.0.1:5173",
-    "https://sentinel-pi-one.vercel.app",
-    "https://sentinel-staff.vercel.app",
+    "http://localhost:5174",
+    "http://localhost:5175",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://sentinel-pi-one.vercel.app",
-    "https://sentinel-staff.vercel.app",
-    "https://sentinel-ou6m.onrender.com",
+    FRONTEND_URL,
+    STAFF_URL,
+    f"https://{BACKEND_DOMAIN}" if BACKEND_DOMAIN else None,
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
+# 5. HTTPS & Security Settings (Fixed for Mixed Content)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # Force absolute HTTPS for media to avoid browser blocks
+    MEDIA_URL = f"https://{BACKEND_DOMAIN}/media/"
+else:
+    SECURE_SSL_REDIRECT = False
+    MEDIA_URL = "/media/"
+
+# 6. Application Definition
 INSTALLED_APPS = [
-    "daphne",
+    "daphne", # Must be at the top for ASGI
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,13 +71,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-
     "rest_framework",
     "rest_framework_simplejwt",
-    'rest_framework_simplejwt.token_blacklist',
-    'django_filters',
+    "rest_framework_simplejwt.token_blacklist",
+    "django_filters",
     "channels",
-
     "accounts",
     "news",
     "analytics",
@@ -61,21 +83,21 @@ INSTALLED_APPS = [
     "comments",
 ]
 
+# 7. Channel Layers (WebSockets/Redis)
+REDIS_URL = os.getenv('REDIS_URL')
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [(REDIS_URL)],
+            "hosts": [REDIS_URL],
         },
-
     }
 }
 
-
 ASGI_APPLICATION = "Backend.asgi.application"
-
 AUTH_USER_MODEL = "accounts.User"
 
+# 8. Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -83,10 +105,10 @@ DATABASES = {
     }
 }
 
-
+# 9. Middleware
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", # Handles static files on Render
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -96,6 +118,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# 10. Templates
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -112,7 +135,7 @@ TEMPLATES = [
     },
 ]
 
-
+# 11. REST Framework & JWT
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -129,9 +152,11 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
+# 12. Static & Media Files
 STATIC_URL = "static/"
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# 13. Internationalization
 TIME_ZONE = "UTC"
 USE_TZ = True

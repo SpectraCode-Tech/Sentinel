@@ -1,0 +1,30 @@
+# --- Python / Django ---
+*.py[cod]
+__pycache__/
+*.so
+.python-version
+.venv
+.virtual
+env/
+venv/
+ENV/
+
+# --- Databases ---
+# We ignore the local database so it doesn't overwrite your production data
+db.sqlite3
+db.sqlite3-journal
+
+# --- Environment Secrets ---
+# CRITICAL: This stops your keys from leaking to GitHub
+.env
+
+# --- Static & Media ---
+# We ignore collected static files and user-uploaded media
+staticfiles/
+media/
+!media/.gitkeep
+
+# --- OS / IDE ---
+.DS_Store
+.vscode/
+.idea/
