@@ -3,12 +3,48 @@ import { MessageSquare, Send, Trash2, User, CornerDownRight, X, AlertCircle, Che
 import { fetchComments, createComment, deleteComment } from "../api";
 import toast from "react-hot-toast";
 
+// --- Custom Delete Modal Component ---
+const DeleteModal = ({ isOpen, onCancel, onConfirm }) => {
+    if (!isOpen) return null;
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white w-full max-w-sm rounded-xl shadow-2xl border border-slate-100 p-8 animate-in zoom-in-95 duration-200">
+                <div className="flex flex-col items-center text-center mb-8">
+                    <div className="w-12 h-12 rounded-full bg-rose-50 flex items-center justify-center mb-4">
+                        <AlertCircle className="w-6 h-6 text-rose-600" />
+                    </div>
+                    <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-900">Confirm Removal</h3>
+                    <p className="text-[11px] text-slate-500 mt-2 leading-relaxed uppercase tracking-wider">
+                        This action is permanent and cannot be undone.
+                    </p>
+                </div>
+                <div className="flex gap-3">
+                    <button
+                        onClick={onCancel}
+                        className="flex-1 px-4 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-slate-900 border border-slate-100 rounded-lg transition-all"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        onClick={onConfirm}
+                        className="flex-1 px-4 py-3 text-[10px] font-black uppercase tracking-[0.2em] text-white bg-rose-600 hover:bg-rose-700 rounded-lg transition-all shadow-lg shadow-rose-100"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export default function CommentSection({ articleId }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [replyingTo, setReplyingTo] = useState(null);
     const [collapsedComments, setCollapsedComments] = useState({});
+    const [commentToDelete, setCommentToDelete] = useState(null);
+
     const formRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -34,7 +70,7 @@ export default function CommentSection({ articleId }) {
         loadComments();
     }, [articleId]);
 
-    // WebSocket Logic: The ONLY place state is updated for live events
+    // WebSocket: The Single Source of Truth for UI Updates
     useEffect(() => {
         if (!articleId) return;
 
@@ -53,7 +89,6 @@ export default function CommentSection({ articleId }) {
 
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
-
             if (message.type === "pong") return;
 
             // Handle Real-time Deletion
@@ -65,16 +100,16 @@ export default function CommentSection({ articleId }) {
             const data = message.data || message;
 
             setComments(prev => {
-                // PERMANENT FIX: Check if ID already exists to prevent double-rendering
+                // Prevent duplicate render (Race condition check)
                 if (prev.some(c => c.id === data.id)) return prev;
 
-                // Handle Replies (Re-fetch to handle complex nested arrays)
+                // Handle Replies (Re-fetch for complex nested state)
                 if (data.parent) {
                     loadComments();
                     return prev;
                 }
 
-                // Handle New Top-Level Comments
+                // New Top-level Comment
                 return [data, ...prev];
             });
         };
@@ -97,58 +132,35 @@ export default function CommentSection({ articleId }) {
                 parent: replyingTo ? replyingTo.id : null
             }, token);
 
-            // Reset form UI only. 
-            // DO NOT update setComments here; the WebSocket will do it.
             setNewComment("");
             setReplyingTo(null);
-            toast.success("Comment sent");
+            toast.success("Message delivered");
         } catch {
-            toast.error("Failed to publish");
+            toast.error("Failed to deliver");
         } finally {
             setIsSubmitting(false);
         }
     };
 
-    const executeDelete = async (id) => {
+    const executeDelete = async () => {
+        const id = commentToDelete;
+        setCommentToDelete(null); // Close modal
         try {
-            // We only call the API. The WebSocket 'delete' message will remove it from UI.
             await deleteComment(articleId, id, token);
             toast.success("Comment removed");
         } catch (err) {
-            toast.error("Could not delete comment");
-            console.error(err);
+            toast.error("Could not delete");
         }
     };
-
-    // ... (rest of your helper functions: confirmDelete, toggleReplies, renderComments)
 
     const handleReplyClick = (comment) => {
         setReplyingTo(comment);
         formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        setTimeout(() => {
-            inputRef.current?.focus();
-        }, 500);
+        setTimeout(() => inputRef.current?.focus(), 500);
     };
 
     const toggleReplies = (commentId) => {
-        setCollapsedComments(prev => ({
-            ...prev,
-            [commentId]: !prev[commentId]
-        }));
-    };
-
-    const confirmDelete = (commentId) => {
-        toast((t) => (
-            <div className="flex flex-col gap-3 p-1 min-w-62.5">
-                <p className="text-xs font-bold text-slate-900 flex items-center gap-2 uppercase tracking-wider">
-                    <AlertCircle className="w-3.5 h-3.5 text-rose-600" /> Confirm Removal
-                </p>
-                <div className="flex justify-end gap-4 border-t border-slate-100 pt-3 mt-1">
-                    <button onClick={() => toast.dismiss(t.id)} className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Cancel</button>
-                    <button onClick={() => { toast.dismiss(t.id); executeDelete(commentId); }} className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Delete</button>
-                </div>
-            </div>
-        ), { duration: 5000, position: 'top-center' });
+        setCollapsedComments(prev => ({ ...prev, [commentId]: !prev[commentId] }));
     };
 
     const renderComments = (commentList) => {
@@ -165,7 +177,7 @@ export default function CommentSection({ articleId }) {
                                     {comment.user ? comment.user[0].toUpperCase() : "?"}
                                 </div>
                                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">{comment.user}</h4>
-                                <span className="text-[10px] text-slate-400 font-medium">
+                                <span className="text-[10px] text-slate-400 font-medium tracking-tight">
                                     {new Date(comment.created_at).toLocaleDateString()}
                                 </span>
                             </div>
@@ -177,16 +189,16 @@ export default function CommentSection({ articleId }) {
                             </p>
 
                             <footer className="flex items-center gap-6 mb-8">
-                                <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900">Reply</button>
+                                <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-slate-900 transition-colors">Reply</button>
 
                                 {hasReplies && (
-                                    <button onClick={() => toggleReplies(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-blue-600 flex items-center gap-1">
-                                        {isCollapsed ? <>Show Replies ({comment.replies.length}) <ChevronDown className="w-3 h-3" /></> : <>Hide Replies <ChevronUp className="w-3 h-3" /></>}
+                                    <button onClick={() => toggleReplies(comment.id)} className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1">
+                                        {isCollapsed ? <>View Replies ({comment.replies.length}) <ChevronDown className="w-3 h-3" /></> : <>Hide Replies <ChevronUp className="w-3 h-3" /></>}
                                     </button>
                                 )}
 
                                 {(user?.username === comment.user || user?.role === "ADMIN") && (
-                                    <button onClick={() => confirmDelete(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hover:text-rose-600 flex items-center gap-1">Delete</button>
+                                    <button onClick={() => setCommentToDelete(comment.id)} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 hover:text-rose-600 transition-colors flex items-center gap-1">Delete</button>
                                 )}
                             </footer>
 
@@ -217,7 +229,7 @@ export default function CommentSection({ articleId }) {
                         <span className="text-[10px] font-bold uppercase text-slate-500 flex items-center gap-2">
                             <CornerDownRight className="w-3 h-3 text-blue-600" /> Replying to @{replyingTo.user}
                         </span>
-                        <button type="button" onClick={() => setReplyingTo(null)} className="text-slate-400 hover:text-slate-950"><X className="w-3 h-3" /></button>
+                        <button type="button" onClick={() => setReplyingTo(null)} className="text-slate-400 hover:text-slate-950 transition-colors"><X className="w-3 h-3" /></button>
                     </div>
                 )}
                 <div className="relative border-b-2 border-slate-100 focus-within:border-slate-900 transition-all duration-300">
@@ -231,7 +243,7 @@ export default function CommentSection({ articleId }) {
                     />
                     {token && (
                         <div className="flex justify-end pb-3">
-                            <button type="submit" disabled={isSubmitting} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 hover:text-blue-600 disabled:text-slate-300 flex items-center gap-2">
+                            <button type="submit" disabled={isSubmitting} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 hover:text-blue-600 disabled:text-slate-300 transition-colors flex items-center gap-2">
                                 {isSubmitting ? "Sending..." : <>Publish Comment <Send className="w-3 h-3" /></>}
                             </button>
                         </div>
@@ -242,6 +254,12 @@ export default function CommentSection({ articleId }) {
             <div className="space-y-12">
                 {renderComments(comments)}
             </div>
+
+            <DeleteModal
+                isOpen={!!commentToDelete}
+                onCancel={() => setCommentToDelete(null)}
+                onConfirm={executeDelete}
+            />
         </section>
     );
 }
