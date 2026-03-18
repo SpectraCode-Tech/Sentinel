@@ -122,7 +122,7 @@ export default function SidebarBlocksManagement() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
                     <h1 className="text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-3">
-                        <Layout className="w-6 h-6 md:w-8 h-8 text-indigo-600" />
+                        <Layout className="w-6 md:w-8 h-8 text-indigo-600" />
                         Sidebar Blocks
                     </h1>
                     <p className="text-sm text-slate-500 mt-1">Configure layout components and advertisements</p>
@@ -137,7 +137,7 @@ export default function SidebarBlocksManagement() {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-100 flex items-center justify-center p-4">
                     <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
                         <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                             <h2 className="text-lg font-bold text-slate-900">{editingId ? 'Edit Block' : 'Create New Block'}</h2>

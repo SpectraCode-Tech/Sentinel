@@ -77,7 +77,7 @@ export default function ArticleReader() {
                         <img
                             src={article.image}
                             alt={article.title}
-                            className="w-full transition-all duration-700 h-auto max-h-[500px] object-cover border border-border"
+                            className="w-full transition-all duration-700 h-auto max-h-125 object-cover border border-border"
                         />
                         <p className="text-[10px] text-gray-400 mt-3 italic font-serif">
                             The Sentinel Press Service • Photo Archives

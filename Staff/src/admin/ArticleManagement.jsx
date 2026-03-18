@@ -80,7 +80,7 @@ export default function AdminArticles() {
                         {articles.length > 0 ? (
                             articles.map(article => (
                                 <div key={article.id} className="bg-white p-5 rounded-2xl border border-slate-100 flex flex-wrap items-center justify-between hover:shadow-md transition-all group">
-                                    <div className="flex items-center gap-4 flex-1 min-w-[250px]">
+                                    <div className="flex items-center gap-4 flex-1 min-w-62.5">
                                         <div className="p-3 bg-slate-50 text-slate-400 group-hover:bg-indigo-50 group-hover:text-indigo-600 rounded-xl transition-colors">
                                             <FileText className="w-6 h-6" />
                                         </div>

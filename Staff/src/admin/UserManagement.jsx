@@ -188,7 +188,7 @@ export default function UserManagement() {
 
             {/* --- DELETE CONFIRMATION MODAL --- */}
             {userToDelete && (
-                <div className="fixed inset-0 z-[60] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+                <div className="fixed inset-0 z-60 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
                     <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm overflow-hidden transition-all">
                         <div className="p-8 text-center">
                             <div className="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -146,14 +146,14 @@ export default function EditorArticleWorkspace() {
                     <textarea
                         value={article.excerpt || ""}
                         onChange={(e) => setArticle({ ...article, excerpt: e.target.value })}
-                        className="w-full min-h-[100px] bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none"
+                        className="w-full min-h-25 bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none"
                         placeholder="Excerpt..."
                     />
 
                     <textarea
                         value={article.content}
                         onChange={(e) => setArticle({ ...article, content: e.target.value })}
-                        className="w-full min-h-[500px] bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none"
+                        className="w-full min-h-125 bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none"
                         placeholder="Content..."
                     />
                 </div>
@@ -183,7 +183,7 @@ export default function EditorArticleWorkspace() {
                             <h3 className="font-black text-slate-900 flex items-center gap-2 uppercase text-xs tracking-widest mb-4">
                                 <Tag className="w-4 h-4" /> Tags
                             </h3>
-                            <div className="flex flex-wrap gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="flex flex-wrap gap-2 max-h-62.5 overflow-y-auto pr-2 custom-scrollbar">
                                 {allTags.map(tag => {
                                     const isSelected = article.tags.includes(tag.name);
                                     return (
