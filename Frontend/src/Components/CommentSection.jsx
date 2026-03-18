@@ -38,12 +38,18 @@ export default function CommentSection({ articleId }) {
     useEffect(() => {
         if (!articleId) return;
 
-        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments/`;
+        // Construct the URL to match your routing.py: r'^ws/articles/(?P<article_id>\d+)/comments/$'
+        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments`;
+
+        console.log("Connecting to WebSocket...");
         const socket = new WebSocket(socketUrl);
+
+        // Heartbeat interval to keep the Redis channel active
         let heartbeat;
 
         socket.onopen = () => {
             console.log("WebSocket Connected ✅");
+            // Send a ping every 30 seconds to keep connection alive on Render
             heartbeat = setInterval(() => {
                 if (socket.readyState === WebSocket.OPEN) {
                     socket.send(JSON.stringify({ type: "ping" }));
@@ -52,37 +58,57 @@ export default function CommentSection({ articleId }) {
         };
 
         socket.onmessage = (event) => {
-            const message = JSON.parse(event.data);
+            const newComment = JSON.parse(event.data);
 
-            // 1. Handle Pongs
-            if (message.type === "pong") return;
+            setComments((prev) => {
+                // Check if the comment already exists in the list
+                const exists = prev.some((c) => c.id === newComment.id);
+                if (exists) return prev; // Don't add it again!
 
-            // 2. Handle Deletions
-            if (message.type === 'delete') {
-                setComments((prev) => prev.filter(c => c.id !== message.id));
-                return;
-            }
+                return [newComment, ...prev];
+            });
+        };
 
-            // 3. Handle New Comments / Replies
-            const data = message.data || message; // Handle both wrapper formats
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+
+            // Ignore pong responses from server
+            if (data.type === "pong") return;
 
             setComments(prev => {
-                // DUPLICATE CHECK: If comment exists anywhere in the list, ignore it
-                const exists = prev.some(c => c.id === data.id);
-                if (exists) return prev;
+                // Prevent duplicates (especially if the sender also does a local update)
+                if (prev.find(c => c.id === data.id)) return prev;
 
-                // If it's a reply, re-fetch to maintain the complex nesting logic
+                // If it's a top-level comment, add to list
+                // If it's a reply, we trigger a re-fetch to maintain nesting logic
                 if (data.parent) {
                     loadComments();
                     return prev;
                 }
-
-                // If it's a new top-level comment, add to top
                 return [data, ...prev];
             });
         };
 
-        socket.onclose = () => {
+        socket.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+
+            if (message.type === 'delete') {
+                setComments((prev) => prev.filter(c => c.id !== message.id));
+            } else {
+                // Handle new comment (with the duplicate check from step 1)
+                setComments((prev) => {
+                    if (prev.some(c => c.id === message.id)) return prev;
+                    return [message, ...prev];
+                });
+            }
+        };
+
+        socket.onerror = (err) => {
+            console.error("WebSocket Error ❌:", err);
+        };
+
+        socket.onclose = (e) => {
+            console.log(`WebSocket Closed: ${e.code} ${e.reason}`);
             clearInterval(heartbeat);
         };
 
