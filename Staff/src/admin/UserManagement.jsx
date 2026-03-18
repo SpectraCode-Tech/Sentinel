@@ -389,7 +389,7 @@ export default function UserManagement() {
                         ) : userArticles.length > 0 ? (
                             <div className="grid grid-cols-1 gap-3">
                                 {userArticles.map((article) => (
-                                    <div key={article.id} onClick={() => navigate(`/admin/articles/${article.id}`)} className="group bg-white p-4 rounded-2xl border border-slate-100 hover:shadow-md transition-all flex justify-between items-center cursor-pointer">
+                                    <div key={article.id} onClick={() => navigate(`/admin/articles/${article.slug}`)} className="group bg-white p-4 rounded-2xl border border-slate-100 hover:shadow-md transition-all flex justify-between items-center cursor-pointer">
                                         <div className="min-w-0">
                                             <h4 className="font-bold text-slate-900 group-hover:text-indigo-600 truncate">{article.title}</h4>
                                             <div className="mt-1 flex gap-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">

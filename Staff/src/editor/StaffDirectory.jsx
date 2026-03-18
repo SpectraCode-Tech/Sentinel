@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     User,
     BookOpen,
@@ -21,7 +21,7 @@ export default function StaffDirectory() {
 
     useEffect(() => {
         setLoading(true);
-        API.get("articles/staff-directory/")
+        API.get("staff-directory/")
             .then(res => {
                 setStaff(res.data);
                 if (res.data.length > 0 && window.innerWidth >= 768) {
@@ -153,9 +153,9 @@ export default function StaffDirectory() {
                                                     <span className="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md">Published</span>
                                                 </div>
                                             </div>
-                                            <button className="shrink-0 p-2 bg-slate-50 rounded-lg text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                            <Link to={`/articles/${article.slug}`} className="shrink-0 p-2 bg-slate-50 rounded-lg text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
                                                 <ChevronRight className="w-4 h-4" />
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 ))

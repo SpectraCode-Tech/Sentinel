@@ -83,6 +83,15 @@ function App() {
           }
         />
 
+        {/* <Route
+          path="/editor/articles/:id"
+          element={
+            <ProtectedRoute role="EDITOR">
+              <EditorArticleWorkspace />
+            </ProtectedRoute>
+          }
+        /> */}
+
         <Route
           path="/editor/reviews"
           element={
@@ -93,7 +102,7 @@ function App() {
         />
 
         <Route
-          path="/editor/articles/:id"
+          path="/editor/articles/:slug"
           element={
             <ProtectedRoute role="EDITOR">
               <EditorArticleWorkspace />

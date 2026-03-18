@@ -30,11 +30,11 @@ export default function ReviewQueue() {
             });
     }, []);
 
-    const handleAction = async (id, newStatus) => {
+    const handleAction = async (slug, newStatus) => {
         try {
-            await api.patch(`/articles/${id}/`, { status: newStatus });
+            await api.patch(`/articles/${slug}/`, { status: newStatus });
             // FIX: Smoothly remove the article from UI instead of reloading the page
-            setArticles(articles.filter(art => art.id !== id));
+            setArticles(articles.filter(art => art.slug !== slug));
         } catch (err) {
             alert("Action failed. Please try again.");
         }
@@ -70,7 +70,7 @@ export default function ReviewQueue() {
                         Fetching Queue...
                     </div>
                 ) : articles.length === 0 ? (
-                    <div className="bg-white rounded-[2rem] p-20 text-center border border-dashed border-slate-200">
+                    <div className="bg-white rounded-4xl p-20 text-center border border-dashed border-slate-200">
                         <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                             <CheckCircle className="w-8 h-8" />
                         </div>
@@ -102,7 +102,7 @@ export default function ReviewQueue() {
                                             <span className="text-sm font-semibold">{a.author_name}</span>
                                         </div>
                                         <Link
-                                            to={`/editor/articles/${a.id}`}
+                                            to={`/editor/articles/${a.slug}`}
                                             className="text-indigo-600 text-sm font-bold flex items-center gap-1 hover:underline group-hover:translate-x-1 transition-transform"
                                         >
                                             Review & Edit <ChevronRight className="w-4 h-4" />
@@ -112,13 +112,13 @@ export default function ReviewQueue() {
 
                                 <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-slate-50 pt-6 md:pt-0 md:pl-8">
                                     <button
-                                        onClick={() => handleAction(a.id, 'rejected')}
+                                        onClick={() => handleAction(a.slug, 'rejected')}
                                         className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-white border border-rose-100 text-rose-600 font-bold rounded-2xl hover:bg-rose-50 transition-all active:scale-95"
                                     >
                                         <XCircle className="w-5 h-5" /> Reject
                                     </button>
                                     <button
-                                        onClick={() => handleAction(a.id, 'published')}
+                                        onClick={() => handleAction(a.slug, 'published')}
                                         className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-2xl hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all active:scale-95"
                                     >
                                         <CheckCircle className="w-5 h-5" /> Approve

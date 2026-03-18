@@ -8,7 +8,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 
 export default function EditorArticleWorkspace() {
-    const { id } = useParams();
+    const { slug } = useParams();
     const navigate = useNavigate();
     const [article, setArticle] = useState(null);
     const [allTags, setAllTags] = useState([]);
@@ -18,9 +18,9 @@ export default function EditorArticleWorkspace() {
     useEffect(() => {
         // Fetch article, tags, and categories in parallel
         Promise.all([
-            api.get(`/articles/articles/${id}/`),
-            api.get(`/articles/tags/`),
-            api.get(`/articles/categories/`) // Ensure this endpoint matches your urls.py
+            api.get(`/articles/${slug}/`),
+            api.get(`/tags/`),
+            api.get(`/categories/`) // Ensure this endpoint matches your urls.py
         ])
             .then(([articleRes, tagsRes, catRes]) => {
                 setArticle(articleRes.data);
@@ -32,7 +32,7 @@ export default function EditorArticleWorkspace() {
                 toast.error("Initialization failed");
                 navigate("/editor/reviews");
             });
-    }, [id, navigate]);
+    }, [slug, navigate]);
 
     const toggleTag = (tagName) => {
         const isSelected = article.tags.includes(tagName);
@@ -75,14 +75,14 @@ export default function EditorArticleWorkspace() {
         if (newStatus) formData.set('status', newStatus);
 
         try {
-            await api.patch(`/articles/articles/${id}/`, formData, {
+            await api.patch(`/articles/${slug}/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            toast.success(newStatus ? `Article ${newStatus}` : "Changes saved", { id: loadingToast });
+            toast.success(newStatus ? `Article ${newStatus}` : "Changes saved", { slug: loadingToast });
             if (newStatus) navigate("/editor/reviews");
         } catch (err) {
             console.error(err);
-            toast.error("Save failed. Check terminal for 500 details.", { id: loadingToast });
+            toast.error("Save failed. Check terminal for 500 details.", { slug: loadingToast });
         }
     };
 

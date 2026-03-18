@@ -23,7 +23,7 @@ export default function AdminArticles() {
         fetchArticles();
     }, []);
 
-    const handleDelete = (id) => {
+    const handleDelete = (slug) => {
         toast((t) => (
             <div className="flex flex-col gap-3">
                 <p className="font-medium text-slate-800">Delete this article permanently?</p>
@@ -33,11 +33,11 @@ export default function AdminArticles() {
                             toast.dismiss(t.id);
                             const loading = toast.loading("Deleting article...");
                             try {
-                                await API.delete(`articles/${id}/`);
-                                toast.success("Article removed", { id: loading });
+                                await API.delete(`articles/${slug}/`);
+                                toast.success("Article removed", { slug: loading });
                                 fetchArticles();
                             } catch (err) {
-                                toast.error("Error deleting article", { id: loading });
+                                toast.error("Error deleting article", { slug: loading });
                             }
                         }}
                         className="bg-rose-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-rose-600"
@@ -102,7 +102,7 @@ export default function AdminArticles() {
 
                                         <div className="flex items-center bg-slate-50 rounded-xl p-1 border border-slate-100">
                                             <button
-                                                onClick={() => navigate(`/admin/articles/${article.id}`)}
+                                                onClick={() => navigate(`/admin/articles/${article.slug}`)}
                                                 className="p-2 hover:bg-white hover:text-indigo-600 rounded-lg text-slate-400 transition-all shadow-sm hover:shadow"
                                                 title="View Article"
                                             >
