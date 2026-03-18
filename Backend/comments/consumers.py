@@ -4,14 +4,14 @@ import json
 class CommentConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
+    # Ensure we get the ID from the URL scope
         self.article_id = self.scope['url_route']['kwargs']['article_id']
         self.room_group_name = f"comments_{self.article_id}"
-
+    
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
-
         await self.accept()
 
     async def disconnect(self, close_code):

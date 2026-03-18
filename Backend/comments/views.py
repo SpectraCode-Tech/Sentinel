@@ -32,35 +32,39 @@ class CommentViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+# comments/views.py
     def perform_create(self, serializer):
-        article_id = self.kwargs.get("article")
-
-        if not article_id:
-            article_id = self.request.data.get("article")
-
-        # Logic check: Do you want comments to go live immediately?
-        # If yes, keep status="approved". If you want to review them, use status="pending"
-        comment = serializer.save(
+        instance = serializer.save(
             user=self.request.user if self.request.user.is_authenticated else None,
-            article_id=article_id,
+            article_id=self.kwargs.get("article") or self.request.data.get("article"),
             status="approved" 
         )
-        
+    
+        # Use the actual serializer for the broadcast
+        serializer_data = CommentSerializer(instance).data
+    
         channel_layer = get_channel_layer()
-
         async_to_sync(channel_layer.group_send)(
-            f"comments_{comment.article.id}",
+            f"comments_{instance.article.id}",
             {
                 "type": "send_comment",
-                "data": {
-                    "id": comment.id,
-                    "article": comment.article.id,
-                    "user": comment.user.username,
-                    "content": comment.content,
-                    "created_at": str(comment.created_at)
-                }
+                "data": serializer_data  # Send the full serialized object
             }
         )
+
+        # async_to_sync(channel_layer.group_send)(
+        #     f"comments_{comment.article.id}",
+        #     {
+        #         "type": "send_comment",
+        #         "data": {
+        #             "id": comment.id,
+        #             "article": comment.article.id,
+        #             "user": comment.user.username,
+        #             "content": comment.content,
+        #             "created_at": str(comment.created_at)
+        #         }
+        #     }
+        # )
 
     def destroy(self, request, *args, **kwargs):
         comment = self.get_object()
