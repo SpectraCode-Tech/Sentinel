@@ -7,9 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
 ROOT_URLCONF = "Backend.urls"
 
-# Add this to settings.py
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
@@ -43,7 +40,6 @@ CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     "daphne",
-    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -56,7 +52,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
-
+    "channels",
 
     "accounts",
     "news",
@@ -69,7 +65,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [REDIS_URL],
+            "hosts": [(REDIS_URL)],
         },
 
     }

@@ -1,3 +1,5 @@
+from urllib import request, response, response
+
 from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
 from .models import Comment
@@ -66,13 +68,22 @@ class CommentViewSet(viewsets.ModelViewSet):
         #     }
         # )
 
+# comments/views.py
     def destroy(self, request, *args, **kwargs):
-        comment = self.get_object()
-        
-        # Ensure user is authenticated before checking role
-        is_admin = getattr(request.user, 'role', None) == "ADMIN"
-        
-        if comment.user != request.user and not is_admin:
-            raise PermissionDenied("You cannot delete this comment")
+        instance = self.get_object()
+        article_id = instance.article.id
+        comment_id = instance.id
+    
+    # Perform the actual delete
+        response = super().destroy(request, *args, **kwargs)
 
-        return super().destroy(request, *args, **kwargs)
+    # Broadcast the deletion
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+        f"comments_{article_id}",
+            {
+                "type": "delete_comment", # New type
+                "data": {"id": comment_id, "deleted": True}
+            }
+        )
+        return response

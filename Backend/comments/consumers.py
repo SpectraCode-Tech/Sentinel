@@ -22,3 +22,10 @@ class CommentConsumer(AsyncWebsocketConsumer):
 
     async def send_comment(self, event):
         await self.send(text_data=json.dumps(event["data"]))
+        
+    # Add this method to your CommentConsumer class
+    async def delete_comment(self, event):
+        await self.send(text_data=json.dumps({
+            "type": "delete",
+            "id": event["data"]["id"]
+        }))
