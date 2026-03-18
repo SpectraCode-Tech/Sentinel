@@ -74,7 +74,8 @@ export default function CommentSection({ articleId }) {
     useEffect(() => {
         if (!articleId) return;
 
-        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments/`;
+        // Replace the old hardcoded line with this:
+        const socketUrl = `${import.meta.env.VITE_WS_URL}/ws/articles/${articleId}/comments/`;;
         const socket = new WebSocket(socketUrl);
         let heartbeat;
 

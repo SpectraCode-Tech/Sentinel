@@ -1,7 +1,10 @@
 import axios from "axios";
 
+// Pull the base URL from Vite's environment variables
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const API = axios.create({
-  baseURL: "https://sentinel-ou6m.onrender.com/api/",
+  baseURL: BASE_URL,
 });
 
 /* ===========================
@@ -13,14 +16,12 @@ export const loginUser = (credentials) => {
 };
 
 export const registerUser = (data) => {
-  return axios.post(`${API.defaults.baseURL}users/register/`, data);
+  return API.post("users/register/", data);
 };
 
 export const fetchUserProfile = (token) => {
-  return axios.get(`${API.defaults.baseURL}users/profile/`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  return API.get("users/profile/", {
+    headers: { Authorization: `Bearer ${token}` },
   });
 };
 
@@ -32,14 +33,13 @@ export const fetchArticles = () => {
   return API.get("articles/?status=published");
 };
 
+// Useful if you receive a full URL from a 'next' pagination link
 export const fetchByUrl = (url) => {
   return axios.get(url);
 };
 
 export const fetchByCategory = (slug, url = null) => {
-  return axios.get(
-    url || `${API.defaults.baseURL}articles/?status=published&category__slug=${slug}`
-  );
+  return url ? axios.get(url) : API.get(`articles/?status=published&category__slug=${slug}`);
 };
 
 export const fetchCategories = () => {
@@ -63,7 +63,7 @@ export const fetchAdvertisements = (placement) => {
 =========================== */
 
 export const fetchSidebarBlocks = () => {
-  return API.get("/ads/sidebar-blocks/");
+  return API.get("ads/sidebar-blocks/");
 };
 
 /* ===========================
@@ -75,32 +75,25 @@ export const fetchComments = (articleId) => {
 };
 
 export const createComment = (articleId, data, token) => {
-  return axios.post(
-    `${API.defaults.baseURL}articles/${articleId}/comments/`,
-    data,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  return API.post(`articles/${articleId}/comments/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 };
 
 export const deleteComment = (articleId, commentId, token) => {
-  // Combine articleId and commentId into URL
-  const url = `${API.defaults.baseURL}articles/${articleId}/comments/${commentId}/`;
-  return API.delete(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+  return API.delete(`articles/${articleId}/comments/${commentId}/`, {
+    headers: { Authorization: `Bearer ${token}` },
   });
 };
+
+/* ===========================
+   ANALYTICS & RECOMMENDATIONS
+=========================== */
 
 export const fetchRecommendations = (token = null, excludeId = null) => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
   let url = "articles/recommendations/";
   if (excludeId) url += `?exclude=${excludeId}`;
-
   return API.get(url, { headers });
 };
 
