@@ -21,7 +21,6 @@ export default function CommentSection({ articleId }) {
     const user = getSafeUser();
     const token = localStorage.getItem("access_token");
 
-    // 1. Initial Load from API
     const loadComments = async () => {
         try {
             const res = await fetchComments(articleId);
@@ -35,6 +34,7 @@ export default function CommentSection({ articleId }) {
         loadComments();
     }, [articleId]);
 
+    // WebSocket Logic: The ONLY place state is updated for live events
     useEffect(() => {
         if (!articleId) return;
 
@@ -54,43 +54,73 @@ export default function CommentSection({ articleId }) {
         socket.onmessage = (event) => {
             const message = JSON.parse(event.data);
 
-            // 1. Handle Pongs
             if (message.type === "pong") return;
 
-            // 2. Handle Deletions
+            // Handle Real-time Deletion
             if (message.type === 'delete') {
                 setComments((prev) => prev.filter(c => c.id !== message.id));
                 return;
             }
 
-            // 3. Handle New Comments / Replies
-            const data = message.data || message; // Handle both wrapper formats
+            const data = message.data || message;
 
             setComments(prev => {
-                // DUPLICATE CHECK: If comment exists anywhere in the list, ignore it
-                const exists = prev.some(c => c.id === data.id);
-                if (exists) return prev;
+                // PERMANENT FIX: Check if ID already exists to prevent double-rendering
+                if (prev.some(c => c.id === data.id)) return prev;
 
-                // If it's a reply, re-fetch to maintain the complex nesting logic
+                // Handle Replies (Re-fetch to handle complex nested arrays)
                 if (data.parent) {
                     loadComments();
                     return prev;
                 }
 
-                // If it's a new top-level comment, add to top
+                // Handle New Top-Level Comments
                 return [data, ...prev];
             });
         };
 
-        socket.onclose = () => {
-            clearInterval(heartbeat);
-        };
+        socket.onclose = () => clearInterval(heartbeat);
 
         return () => {
             socket.close();
             clearInterval(heartbeat);
         };
     }, [articleId]);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!newComment.trim() || !token) return;
+        setIsSubmitting(true);
+        try {
+            await createComment(articleId, {
+                content: newComment,
+                parent: replyingTo ? replyingTo.id : null
+            }, token);
+
+            // Reset form UI only. 
+            // DO NOT update setComments here; the WebSocket will do it.
+            setNewComment("");
+            setReplyingTo(null);
+            toast.success("Comment sent");
+        } catch {
+            toast.error("Failed to publish");
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
+    const executeDelete = async (id) => {
+        try {
+            // We only call the API. The WebSocket 'delete' message will remove it from UI.
+            await deleteComment(articleId, id, token);
+            toast.success("Comment removed");
+        } catch (err) {
+            toast.error("Could not delete comment");
+            console.error(err);
+        }
+    };
+
+    // ... (rest of your helper functions: confirmDelete, toggleReplies, renderComments)
 
     const handleReplyClick = (comment) => {
         setReplyingTo(comment);
@@ -107,67 +137,18 @@ export default function CommentSection({ articleId }) {
         }));
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!newComment.trim() || !token) return;
-        setIsSubmitting(true);
-        try {
-            const res = await createComment(articleId, {
-                content: newComment,
-                parent: replyingTo ? replyingTo.id : null
-            }, token);
-
-            setNewComment("");
-            setReplyingTo(null);
-
-            if (res.data && !replyingTo) {
-                setComments(prev => [res.data, ...prev]);
-            } else {
-                await loadComments();
-            }
-
-            toast.success("Comment published");
-        } catch {
-            toast.error("Failed to publish");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    const executeDelete = async (id) => {
-        const deletePromise = deleteComment(articleId, id, token);
-        toast.promise(deletePromise, {
-            loading: 'Removing comment...',
-            success: 'Comment deleted',
-            error: 'Could not delete comment'
-        });
-
-        try {
-            await deletePromise;
-            // Remove from local state immediately
-            setComments(prev => prev.filter(c => c.id !== id));
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     const confirmDelete = (commentId) => {
         toast((t) => (
             <div className="flex flex-col gap-3 p-1 min-w-62.5">
                 <p className="text-xs font-bold text-slate-900 flex items-center gap-2 uppercase tracking-wider">
                     <AlertCircle className="w-3.5 h-3.5 text-rose-600" /> Confirm Removal
                 </p>
-                <p className="text-[10px] text-slate-500 uppercase leading-none">This action cannot be undone.</p>
                 <div className="flex justify-end gap-4 border-t border-slate-100 pt-3 mt-1">
-                    <button onClick={() => toast.dismiss(t.id)} className="text-[10px] font-black text-slate-400 uppercase tracking-widest hover:text-slate-600 transition-colors">Cancel</button>
-                    <button onClick={() => { toast.dismiss(t.id); executeDelete(commentId); }} className="text-[10px] font-black text-rose-600 uppercase tracking-widest hover:text-rose-800 transition-colors">Delete</button>
+                    <button onClick={() => toast.dismiss(t.id)} className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Cancel</button>
+                    <button onClick={() => { toast.dismiss(t.id); executeDelete(commentId); }} className="text-[10px] font-black text-rose-600 uppercase tracking-widest">Delete</button>
                 </div>
             </div>
-        ), {
-            duration: 5000,
-            position: 'top-center',
-            style: { border: '1px solid #e2e8f0', padding: '16px', borderRadius: '4px' }
-        });
+        ), { duration: 5000, position: 'top-center' });
     };
 
     const renderComments = (commentList) => {
@@ -196,23 +177,16 @@ export default function CommentSection({ articleId }) {
                             </p>
 
                             <footer className="flex items-center gap-6 mb-8">
-                                <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors">Reply</button>
+                                <button onClick={() => handleReplyClick(comment)} className="text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900">Reply</button>
 
                                 {hasReplies && (
-                                    <button
-                                        onClick={() => toggleReplies(comment.id)}
-                                        className="text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
-                                    >
-                                        {isCollapsed ? (
-                                            <>Show Replies ({comment.replies.length}) <ChevronDown className="w-3 h-3" /></>
-                                        ) : (
-                                            <>Hide Replies <ChevronUp className="w-3 h-3" /></>
-                                        )}
+                                    <button onClick={() => toggleReplies(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-blue-600 flex items-center gap-1">
+                                        {isCollapsed ? <>Show Replies ({comment.replies.length}) <ChevronDown className="w-3 h-3" /></> : <>Hide Replies <ChevronUp className="w-3 h-3" /></>}
                                     </button>
                                 )}
 
                                 {(user?.username === comment.user || user?.role === "ADMIN") && (
-                                    <button onClick={() => confirmDelete(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hover:text-rose-600 transition-colors flex items-center gap-1">Delete</button>
+                                    <button onClick={() => confirmDelete(comment.id)} className="text-[10px] font-bold uppercase tracking-widest text-slate-300 hover:text-rose-600 flex items-center gap-1">Delete</button>
                                 )}
                             </footer>
 
@@ -243,7 +217,7 @@ export default function CommentSection({ articleId }) {
                         <span className="text-[10px] font-bold uppercase text-slate-500 flex items-center gap-2">
                             <CornerDownRight className="w-3 h-3 text-blue-600" /> Replying to @{replyingTo.user}
                         </span>
-                        <button type="button" onClick={() => setReplyingTo(null)} className="text-slate-400 hover:text-slate-950 transition-colors"><X className="w-3 h-3" /></button>
+                        <button type="button" onClick={() => setReplyingTo(null)} className="text-slate-400 hover:text-slate-950"><X className="w-3 h-3" /></button>
                     </div>
                 )}
                 <div className="relative border-b-2 border-slate-100 focus-within:border-slate-900 transition-all duration-300">
@@ -257,7 +231,7 @@ export default function CommentSection({ articleId }) {
                     />
                     {token && (
                         <div className="flex justify-end pb-3">
-                            <button type="submit" disabled={isSubmitting} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 hover:text-blue-600 disabled:text-slate-300 transition-colors flex items-center gap-2">
+                            <button type="submit" disabled={isSubmitting} className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-900 hover:text-blue-600 disabled:text-slate-300 flex items-center gap-2">
                                 {isSubmitting ? "Sending..." : <>Publish Comment <Send className="w-3 h-3" /></>}
                             </button>
                         </div>
