@@ -41,7 +41,7 @@ export default function CommentSection({ articleId }) {
         if (!articleId) return;
 
         // Construct the URL to match your routing.py: r'^ws/articles/(?P<article_id>\d+)/comments/$'
-        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments/`;
+        const socketUrl = `wss://sentinel-ou6m.onrender.com/ws/articles/${articleId}/comments`;
 
         console.log("Connecting to WebSocket...");
         const socket = new WebSocket(socketUrl);
