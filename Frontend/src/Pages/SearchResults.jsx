@@ -37,7 +37,7 @@ export default function SearchResults() {
 
     useEffect(() => {
         if (searchQuery.trim()) {
-            fetchArticles(`https://sentinel-ou6m.onrender.com/api/articles/?search=${encodeURIComponent(searchQuery)}`);
+            fetchArticles(`${import.meta.env.VITE_API_BASE_URL}articles/?search=${encodeURIComponent(searchQuery)}`);
         } else {
             setArticles([]);
             setLoading(false);

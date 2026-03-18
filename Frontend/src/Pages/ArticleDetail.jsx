@@ -11,7 +11,6 @@ import Navbar from "../Components/Navbar";
 import AdSlot from "../Components/AdSlot";
 import SidebarBlocks from "../Components/SideBarBlocks";
 import ArticleAdSlot from "../Components/ArticleAdSlot";
-import Footer from "../Components/Footer";
 import CommentSection from "../Components/CommentSection";
 import RecommendedArticles from "../Components/RecommendedArticles";
 

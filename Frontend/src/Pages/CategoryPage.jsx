@@ -20,7 +20,7 @@ export default function CategoryPage() {
             const res = url
                 ? await axios.get(url)
                 : await axios.get(
-                    "https://sentinel-ou6m.onrender.com/api/articles/",
+                    `${import.meta.env.VITE_API_BASE_URL}articles/`,
                     {
                         params: {
                             category__slug: slug,
