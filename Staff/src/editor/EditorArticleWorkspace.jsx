@@ -8,7 +8,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 
 export default function EditorArticleWorkspace() {
-    const { slug } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
     const [article, setArticle] = useState(null);
     const [allTags, setAllTags] = useState([]);
@@ -18,9 +18,9 @@ export default function EditorArticleWorkspace() {
     useEffect(() => {
         // Fetch article, tags, and categories in parallel
         Promise.all([
-            api.get(`/articles/${slug}/`),
-            api.get(`/tags/`),
-            api.get(`/categories/`) // Ensure this endpoint matches your urls.py
+            api.get(`/articles/articles/${id}/`),
+            api.get(`/articles/tags/`),
+            api.get(`/articles/categories/`) // Ensure this endpoint matches your urls.py
         ])
             .then(([articleRes, tagsRes, catRes]) => {
                 setArticle(articleRes.data);
@@ -32,7 +32,7 @@ export default function EditorArticleWorkspace() {
                 toast.error("Initialization failed");
                 navigate("/editor/reviews");
             });
-    }, [slug, navigate]);
+    }, [id, navigate]);
 
     const toggleTag = (tagName) => {
         const isSelected = article.tags.includes(tagName);
@@ -75,14 +75,14 @@ export default function EditorArticleWorkspace() {
         if (newStatus) formData.set('status', newStatus);
 
         try {
-            await api.patch(`/articles/${slug}/`, formData, {
+            await api.patch(`/articles/articles/${id}/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            toast.success(newStatus ? `Article ${newStatus}` : "Changes saved", { slug: loadingToast });
+            toast.success(newStatus ? `Article ${newStatus}` : "Changes saved", { id: loadingToast });
             if (newStatus) navigate("/editor/reviews");
         } catch (err) {
             console.error(err);
-            toast.error("Save failed. Check terminal for 500 details.", { slug: loadingToast });
+            toast.error("Save failed. Check terminal for 500 details.", { id: loadingToast });
         }
     };
 
@@ -146,14 +146,14 @@ export default function EditorArticleWorkspace() {
                     <textarea
                         value={article.excerpt || ""}
                         onChange={(e) => setArticle({ ...article, excerpt: e.target.value })}
-                        className="w-full min-h-25 bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none"
+                        className="w-full min-h-[100px] bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none"
                         placeholder="Excerpt..."
                     />
 
                     <textarea
                         value={article.content}
                         onChange={(e) => setArticle({ ...article, content: e.target.value })}
-                        className="w-full min-h-125 bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none"
+                        className="w-full min-h-[500px] bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none"
                         placeholder="Content..."
                     />
                 </div>
@@ -183,7 +183,7 @@ export default function EditorArticleWorkspace() {
                             <h3 className="font-black text-slate-900 flex items-center gap-2 uppercase text-xs tracking-widest mb-4">
                                 <Tag className="w-4 h-4" /> Tags
                             </h3>
-                            <div className="flex flex-wrap gap-2 max-h-62.5 overflow-y-auto pr-2 custom-scrollbar">
+                            <div className="flex flex-wrap gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
                                 {allTags.map(tag => {
                                     const isSelected = article.tags.includes(tag.name);
                                     return (

@@ -156,7 +156,7 @@ export default function MyArticles() {
                                             <td className="px-8 py-5">
                                                 <div
                                                     className="flex flex-col cursor-pointer"
-                                                    onClick={() => navigate(`/journalist/articles/edit/${a.id}`)}
+                                                    onClick={() => navigate(`/journalist/articles/edit/${a.slug}`)}
                                                 >
                                                     <span className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors line-clamp-1">
                                                         {a.title}
@@ -189,14 +189,14 @@ export default function MyArticles() {
                                                     {openMenuId === a.id && (
                                                         <div className="absolute right-0 mt-2 w-44 bg-white border border-slate-100 shadow-2xl rounded-xl z-100 py-2 animate-in fade-in zoom-in duration-150">
                                                             <button
-                                                                onClick={() => navigate(`/journalist/articles/edit/${a.id}`)}
+                                                                onClick={() => navigate(`/journalist/articles/edit/${a.slug}`)}
                                                                 className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"
                                                             >
                                                                 <Edit3 className="w-4 h-4 text-slate-400" /> Edit Draft
                                                             </button>
                                                             <div className="border-t border-slate-50 my-1"></div>
                                                             <button
-                                                                onClick={() => handleDelete(a.id)}
+                                                                onClick={() => handleDelete(a.slug)}
                                                                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2"
                                                             >
                                                                 <Trash2 className="w-4 h-4" /> Delete

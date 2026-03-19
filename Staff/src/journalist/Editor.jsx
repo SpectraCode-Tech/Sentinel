@@ -10,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function JournalistEditor() {
     const navigate = useNavigate(); // Hook for dashboard redirection
-    const { id } = useParams(); // Hook for getting article ID from URL
+    const { slug } = useParams(); // Hook for getting article slug from URL
     const [title, setTitle] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [content, setContent] = useState("");
@@ -33,8 +33,9 @@ export default function JournalistEditor() {
     }, []);
 
     useEffect(() => {
-        if (id) {
-            API.get(`articles/${id}/`)
+        if (slug) {
+            console.log("Fetching Article Slug:", slug);
+            API.get(`articles/${slug}/`)
                 .then(res => {
                     setTitle(res.data.title);
                     setExcerpt(res.data.excerpt);
@@ -44,7 +45,7 @@ export default function JournalistEditor() {
                 })
                 .catch(err => console.error(err));
         }
-    }, [id]);
+    }, [slug]);
 
     const handleTagToggle = (id) => {
         setSelectedTags(prev =>
@@ -68,7 +69,9 @@ export default function JournalistEditor() {
         formData.append("title", title);
         formData.append("excerpt", excerpt);
         formData.append("content", content);
-        formData.append("category", selectedCategory);
+        if (selectedCategory) {
+            formData.append("category", selectedCategory);
+        }
         formData.append("status", status);
 
         selectedTags.forEach(tag => formData.append("tags", tag));
@@ -77,8 +80,8 @@ export default function JournalistEditor() {
         }
 
         try {
-            if (id) {
-                await API.put(`articles/${id}/`, formData);
+            if (slug) {
+                await API.put(`articles/${slug}/`, formData);
             } else {
                 await API.post("articles/", formData);
             }
@@ -99,8 +102,20 @@ export default function JournalistEditor() {
             }, delay);
 
         } catch (error) {
-            console.error(error);
-            toast.error("Failed to save article. Please try again.", { id: loadingToast });
+            console.error("FULL ERROR:", error.response?.data); // <--- LOOK AT THIS IN CONSOLE
+
+            // Extract specific field errors
+            const serverErrors = error.response?.data;
+            let msg = "Failed to save article.";
+
+            if (serverErrors) {
+                // e.g., if category failed, it shows "category: Invalid pk"
+                const firstKey = Object.keys(serverErrors)[0];
+                const detail = serverErrors[firstKey];
+                msg = `${firstKey}: ${detail}`;
+            }
+
+            toast.error(msg, { id: loadingToast });
         } finally {
             setIsSubmitting(false);
         }

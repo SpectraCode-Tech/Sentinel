@@ -56,7 +56,7 @@ function App() {
         />
 
         <Route
-          path="/journalist/articles/edit/:id"
+          path="/journalist/articles/edit/:slug"
           element={
             <ProtectedRoute role="JOURNALIST">
               <Editor />
@@ -82,15 +82,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-        {/* <Route
-          path="/editor/articles/:id"
-          element={
-            <ProtectedRoute role="EDITOR">
-              <EditorArticleWorkspace />
-            </ProtectedRoute>
-          }
-        /> */}
 
         <Route
           path="/editor/reviews"
@@ -120,7 +111,7 @@ function App() {
           <SidebarBlocksManagement />
         </ProtectedRoute>} />
 
-        <Route path="/admin/articles/:id" element={<ProtectedRoute role="ADMIN">
+        <Route path="/admin/articles/:slug" element={<ProtectedRoute role="ADMIN">
           <ArticleReader />
         </ProtectedRoute>} />
 
