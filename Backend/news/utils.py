@@ -20,7 +20,7 @@ def notify_editors_new_draft(article):
         f"Preview: {article.excerpt}\n\n"
         f"Please review and publish if approved."
     )
-    send_mail(subject, message, None, emails)
+    send_mail(subject, message, None, emails, fail_silently=True)
 
 
 def notify_author_article_published(article):
@@ -35,7 +35,7 @@ def notify_author_article_published(article):
             f"Category: {article.category}\n\n"
             f"You can view it now on the site."
         )
-        send_mail(subject, message, None, [article.author.email])
+        send_mail(subject, message, None, [article.author.email], fail_silently=True)
 
 
 def get_client_ip(request):
