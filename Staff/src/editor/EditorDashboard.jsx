@@ -123,7 +123,8 @@ export default function EditorDashboard() {
         <Link to="/editor/reviews" className="group block mb-10 relative overflow-hidden bg-white border border-slate-100 rounded-4xl p-8 shadow-sm hover:shadow-xl hover:shadow-indigo-100/50 transition-all">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-6">
-              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+              
+              <div className="w-14 h-14 shrink-0 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
                 <ClipboardCheck className="w-8 h-8" />
               </div>
               <div>

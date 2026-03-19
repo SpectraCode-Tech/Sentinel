@@ -9,7 +9,7 @@ import {
     ChevronRight,
     LogOut,
     UserCircle,
-    FileEdit // Added for Drafts icon
+    FileEdit
 } from "lucide-react";
 import API from "../api/axios";
 
@@ -44,7 +44,7 @@ export default function JournalistDashboard() {
             bg: "bg-blue-50",
         },
         {
-            label: "Drafts", // NEW DRAFT SECTION
+            label: "Drafts",
             value: stats.draft,
             icon: FileEdit,
             color: "text-slate-600",

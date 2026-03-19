@@ -3,14 +3,14 @@ import {
     Type, Image as ImageIcon, FileEdit, Plus, Save,
     Globe, X, UploadCloud, Send, ChevronLeft
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom"; // Import for navigation
+import { useNavigate, useParams } from "react-router-dom";
 import API from "../api/axios";
 import toast, { Toaster } from "react-hot-toast";
 
 
 export default function JournalistEditor() {
-    const navigate = useNavigate(); // Hook for dashboard redirection
-    const { slug } = useParams(); // Hook for getting article slug from URL
+    const navigate = useNavigate();
+    const { slug } = useParams();
     const [title, setTitle] = useState("");
     const [excerpt, setExcerpt] = useState("");
     const [content, setContent] = useState("");
@@ -21,7 +21,6 @@ export default function JournalistEditor() {
     const [selectedTags, setSelectedTags] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Load categories & tags
     useEffect(() => {
         API.get("/categories/")
             .then(res => setCategories(res.data))
@@ -34,7 +33,6 @@ export default function JournalistEditor() {
 
     useEffect(() => {
         if (slug) {
-            console.log("Fetching Article Slug:", slug);
             API.get(`articles/${slug}/`)
                 .then(res => {
                     setTitle(res.data.title);
@@ -54,9 +52,7 @@ export default function JournalistEditor() {
                 : [...prev, id]
         );
     };
-    // Updated Submit Function
     const handleSubmit = async (status) => {
-        // Validation check
         if (!title || !content) {
             toast.error("Please provide a title and content before saving.");
             return;
@@ -86,30 +82,25 @@ export default function JournalistEditor() {
                 await API.post("articles/", formData);
             }
 
-            // 1. Show Success Toast
             toast.success(
                 status === 'draft' ? "Article saved as draft!" : "Article submitted for review!",
                 { id: loadingToast }
             );
 
-            // 2. Redirect back to the articles view
-            // We use a slight delay for 'review' so the user sees the success message, 
-            // but for 'draft' we can go back almost immediately.
             const delay = status === 'review' ? 2000 : 1000;
 
             setTimeout(() => {
-                navigate("/journalist/articles"); // Ensure this matches your route path
+                navigate("/journalist/articles");
             }, delay);
 
         } catch (error) {
-            console.error("FULL ERROR:", error.response?.data); // <--- LOOK AT THIS IN CONSOLE
+            console.error("FULL ERROR:", error.response?.data);
 
-            // Extract specific field errors
+            
             const serverErrors = error.response?.data;
             let msg = "Failed to save article.";
 
             if (serverErrors) {
-                // e.g., if category failed, it shows "category: Invalid pk"
                 const firstKey = Object.keys(serverErrors)[0];
                 const detail = serverErrors[firstKey];
                 msg = `${firstKey}: ${detail}`;
@@ -124,7 +115,6 @@ export default function JournalistEditor() {
         <div className="min-h-screen bg-[#F8FAFC] font-sans text-slate-900">
             <Toaster position="top-right" reverseOrder={false} />
 
-            {/* Top sticky bar */}
             <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 px-6 py-3">
                 <div className="max-w-350 mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -134,13 +124,12 @@ export default function JournalistEditor() {
                         >
                             <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
                         </button>
-                        {/* ... Studio Logo ... */}
                     </div>
 
                     <div className="flex items-center gap-3">
                         <button
                             disabled={isSubmitting}
-                            onClick={() => handleSubmit('draft')} // ✅ Passes 'draft'
+                            onClick={() => handleSubmit('draft')}
                             className="flex items-center gap-2 px-4 py-2 text-slate-600 rounded-xl font-bold text-sm hover:bg-slate-50 transition-all disabled:opacity-50"
                         >
                             <Save className="w-4 h-4" /> Save Draft
@@ -148,7 +137,7 @@ export default function JournalistEditor() {
 
                         <button
                             disabled={isSubmitting}
-                            onClick={() => handleSubmit('review')} // ✅ Passes 'review'
+                            onClick={() => handleSubmit('review')}
                             className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 text-white rounded-xl font-bold text-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-lg shadow-indigo-200 disabled:opacity-50"
                         >
                             <Send className="w-4 h-4" /> Submit for Review

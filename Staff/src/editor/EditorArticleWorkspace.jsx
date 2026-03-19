@@ -2,43 +2,55 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import api from "../api/axios";
 import {
-    Save, CheckCircle, XCircle, ArrowLeft,
-    Layout, Tag, Eye, Type, Image as ImageIcon, Upload, Trash2, Layers
+    Save, CheckCircle, ArrowLeft,
+    Tag, Image as ImageIcon, Upload, Trash2, Layers
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function EditorArticleWorkspace() {
-    const { id } = useParams();
+    const { slug } = useParams();
     const navigate = useNavigate();
     const [article, setArticle] = useState(null);
     const [allTags, setAllTags] = useState([]);
-    const [categories, setCategories] = useState([]); // State for categories
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch article, tags, and categories in parallel
+        if (!slug) return;
+
         Promise.all([
-            api.get(`/articles/articles/${id}/`),
-            api.get(`/articles/tags/`),
-            api.get(`/articles/categories/`) // Ensure this endpoint matches your urls.py
+            api.get(`/articles/${slug}/`),
+            api.get(`/tags/`),
+            api.get(`/categories/`)
         ])
             .then(([articleRes, tagsRes, catRes]) => {
-                setArticle(articleRes.data);
+                const data = articleRes.data;
+
+                // FIX: Ensure tags are stored as IDs for the logic to work
+                if (data.tags && typeof data.tags[0] === 'object') {
+                    data.tags = data.tags.map(t => t.id);
+                } else if (!data.tags) {
+                    data.tags = [];
+                }
+
+                setArticle(data);
                 setAllTags(tagsRes.data);
                 setCategories(catRes.data);
                 setLoading(false);
             })
-            .catch(() => {
-                toast.error("Initialization failed");
+            .catch((err) => {
+                console.error("Initialization error:", err);
+                toast.error("Failed to load article");
                 navigate("/editor/reviews");
             });
-    }, [id, navigate]);
+    }, [slug, navigate]);
 
-    const toggleTag = (tagName) => {
-        const isSelected = article.tags.includes(tagName);
+    const toggleTag = (tagId) => {
+        // Selection logic now uses numeric IDs
+        const isSelected = article.tags.includes(tagId);
         const updatedTags = isSelected
-            ? article.tags.filter(t => t !== tagName)
-            : [...article.tags, tagName];
+            ? article.tags.filter(id => id !== tagId)
+            : [...article.tags, tagId];
         setArticle({ ...article, tags: updatedTags });
     };
 
@@ -54,39 +66,46 @@ export default function EditorArticleWorkspace() {
         const loadingToast = toast.loading("Syncing with Sentinel...");
         const formData = new FormData();
 
-        // Cleanse and Append Data
+        // Standardize the category ID
+        const categoryId = article.category?.id || article.category;
+
         Object.keys(article).forEach(key => {
+            const value = article[key];
+
             if (key === 'tags') {
-                article.tags.forEach(tag => formData.append('tags', tag));
+                // Send IDs as multiple entries in FormData
+                article.tags.forEach(tagId => formData.append('tags', tagId));
             } else if (key === 'image') {
-                if (article.image instanceof File) {
-                    formData.append('image', article.image);
+                if (value instanceof File) {
+                    formData.append('image', value);
                 }
             } else if (key === 'category') {
-                // Send only the ID to the backend
-                const catId = article.category?.id || article.category;
-                if (catId) formData.append('category', catId);
-            } else if (!['imagePreview', 'author_name', 'category_name'].includes(key)) {
-                // Avoid sending read-only frontend helpers
-                formData.append(key, article[key] || "");
+                if (categoryId) formData.append('category', categoryId);
+            } else {
+                // Skip read-only/frontend-only fields to avoid 400 errors
+                const excluded = ['imagePreview', 'author_name', 'category_name', 'category_details', 'created_at', 'updated_at', 'slug', 'id'];
+                if (!excluded.includes(key) && value !== null && value !== undefined) {
+                    formData.append(key, value);
+                }
             }
         });
 
         if (newStatus) formData.set('status', newStatus);
 
         try {
-            await api.patch(`/articles/articles/${id}/`, formData, {
+            await api.patch(`/articles/${slug}/`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             toast.success(newStatus ? `Article ${newStatus}` : "Changes saved", { id: loadingToast });
             if (newStatus) navigate("/editor/reviews");
         } catch (err) {
-            console.error(err);
-            toast.error("Save failed. Check terminal for 500 details.", { id: loadingToast });
+            console.error("Patch Error:", err.response?.data);
+            const serverMsg = err.response?.data ? JSON.stringify(err.response.data) : "Save failed";
+            toast.error(serverMsg, { id: loadingToast });
         }
     };
 
-    if (loading) return <div className="p-20 text-center font-black animate-pulse">LOADING WORKSPACE...</div>;
+    if (loading) return <div className="p-20 text-center font-black animate-pulse text-slate-400">LOADING WORKSPACE...</div>;
 
     return (
         <div className="min-h-screen bg-[#F8FAFC]">
@@ -137,7 +156,7 @@ export default function EditorArticleWorkspace() {
 
                     <input
                         type="text"
-                        value={article.title}
+                        value={article.title || ""}
                         onChange={(e) => setArticle({ ...article, title: e.target.value })}
                         className="w-full bg-transparent text-4xl font-black text-slate-900 border-none focus:ring-0"
                         placeholder="Article Title..."
@@ -146,14 +165,14 @@ export default function EditorArticleWorkspace() {
                     <textarea
                         value={article.excerpt || ""}
                         onChange={(e) => setArticle({ ...article, excerpt: e.target.value })}
-                        className="w-full min-h-[100px] bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none"
+                        className="w-full min-h-[100px] bg-white border border-slate-200 rounded-2xl p-4 text-sm italic outline-none focus:border-indigo-400 transition-colors"
                         placeholder="Excerpt..."
                     />
 
                     <textarea
-                        value={article.content}
+                        value={article.content || ""}
                         onChange={(e) => setArticle({ ...article, content: e.target.value })}
-                        className="w-full min-h-[500px] bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none"
+                        className="w-full min-h-[500px] bg-white border border-slate-200 rounded-3xl p-8 text-lg text-slate-700 outline-none focus:border-indigo-400 transition-colors"
                         placeholder="Content..."
                     />
                 </div>
@@ -185,11 +204,13 @@ export default function EditorArticleWorkspace() {
                             </h3>
                             <div className="flex flex-wrap gap-2 max-h-[250px] overflow-y-auto pr-2 custom-scrollbar">
                                 {allTags.map(tag => {
-                                    const isSelected = article.tags.includes(tag.name);
+                                    // Check selection using ID
+                                    const isSelected = article.tags.includes(tag.id);
                                     return (
                                         <button
                                             key={tag.id}
-                                            onClick={() => toggleTag(tag.name)}
+                                            type="button"
+                                            onClick={() => toggleTag(tag.id)}
                                             className={`px-3 py-1.5 rounded-full text-[10px] font-black uppercase transition-all border ${isSelected
                                                 ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-100"
                                                 : "bg-slate-50 text-slate-400 border-slate-100 hover:border-indigo-200"
