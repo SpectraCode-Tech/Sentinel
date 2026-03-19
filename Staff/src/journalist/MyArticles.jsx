@@ -85,7 +85,7 @@ export default function MyArticles() {
 
             {/* DELETE MODAL */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-1000 flex items-center justify-center p-4">
                     {/* Backdrop */}
                     <div
                         className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-200"
@@ -93,7 +93,7 @@ export default function MyArticles() {
                     ></div>
 
                     {/* Modal Content */}
-                    <div className="relative bg-white w-full max-w-md rounded-[2rem] shadow-2xl p-8 animate-in zoom-in-95 duration-200">
+                    <div className="relative bg-white w-full max-w-md rounded-4xl shadow-2xl p-8 animate-in zoom-in-95 duration-200">
                         <div className="flex flex-col items-center text-center">
                             <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mb-6">
                                 <AlertTriangle className="w-8 h-8 text-red-500" />
@@ -271,7 +271,7 @@ function ActionMenu({ article, navigate, confirmDelete, openMenuId, setOpenMenuI
             </button>
 
             {openMenuId === article.id && (
-                <div className="absolute right-0 mt-2 w-44 bg-white border border-slate-100 shadow-2xl rounded-xl z-[100] py-2 animate-in fade-in zoom-in duration-150">
+                <div className="absolute right-0 mt-2 w-44 bg-white border border-slate-100 shadow-2xl rounded-xl z-100 py-2 animate-in fade-in zoom-in duration-150">
                     <button
                         onClick={() => navigate(`/journalist/articles/edit/${article.slug}`)}
                         className="w-full text-left px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 flex items-center gap-2"

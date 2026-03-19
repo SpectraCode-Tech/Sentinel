@@ -153,7 +153,7 @@ export default function StaffDirectory() {
                                                     <span className="bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md">Published</span>
                                                 </div>
                                             </div>
-                                            <Link to={`/articles/${article.id}`} className="shrink-0 p-2 bg-slate-50 rounded-lg text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                            <Link to={`/editor/articles/${article.slug}/view`} className="shrink-0 p-2 bg-slate-50 rounded-lg text-slate-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
                                                 <ChevronRight className="w-4 h-4" />
                                             </Link>
                                         </div>

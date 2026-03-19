@@ -16,6 +16,7 @@ import AdsManagement from "./admin/AdsManagement";
 import ArticleReader from "./admin/Article";
 import NotFound from "./NotFound";
 import SidebarBlocksManagement from "./admin/SideBarBlocks";
+import EditorArticleReader from "./editor/EditorArticle";
 
 function App() {
   return (
@@ -70,6 +71,15 @@ function App() {
           element={
             <ProtectedRoute role="EDITOR">
               <EditorDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/editor/articles/:slug/view"
+          element={
+            <ProtectedRoute role="EDITOR">
+              <EditorArticleReader />
             </ProtectedRoute>
           }
         />

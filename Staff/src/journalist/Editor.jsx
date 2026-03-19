@@ -38,8 +38,13 @@ export default function JournalistEditor() {
                     setTitle(res.data.title);
                     setExcerpt(res.data.excerpt);
                     setContent(res.data.content);
-                    setSelectedCategory(res.data.category || "");
-                    setSelectedTags(res.data.tags);
+                    setSelectedCategory(res.data.category?.id || res.data.category || "");
+
+                    // FIX: Extract only the IDs if the tags come back as objects
+                    const tagIds = res.data.tags.map(tag =>
+                        typeof tag === 'object' ? tag.id : tag
+                    );
+                    setSelectedTags(tagIds);
                 })
                 .catch(err => console.error(err));
         }

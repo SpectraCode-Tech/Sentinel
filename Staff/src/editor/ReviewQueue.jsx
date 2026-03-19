@@ -70,7 +70,7 @@ export default function ReviewQueue() {
                         Fetching Queue...
                     </div>
                 ) : articles.length === 0 ? (
-                    <div className="bg-white rounded-[2rem] p-20 text-center border border-dashed border-slate-200">
+                    <div className="bg-white rounded-4xl p-20 text-center border border-dashed border-slate-200">
                         <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                             <CheckCircle className="w-8 h-8" />
                         </div>
