@@ -8,7 +8,6 @@ from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 
 from analytics.models import ReadingHistory
-from .utils import notify_editors_new_draft, notify_author_article_published
 from .models import Article, Category, Tag
 from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 
@@ -145,8 +144,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
             author=self.request.user,
             status=status
         )
-        if status == 'review':
-            notify_editors_new_draft(article)
 
     def perform_update(self, serializer):
 
@@ -157,12 +154,6 @@ class ArticleViewSet(viewsets.ModelViewSet):
         if article.status == "published" and not article.publish_at:
             article.publish_at = timezone.now()
             article.save()
-
-        if old_status != "published" and article.status == "published":
-            notify_author_article_published(article)
-
-        if old_status == "draft" and article.status == "review":
-            notify_editors_new_draft(article)
 
         # Auto publish scheduled posts
         if article.status == "scheduled" and article.publish_at:
