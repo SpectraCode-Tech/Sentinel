@@ -1,14 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// 1. Added Eye and EyeOff icons
 import { Newspaper, Lock, User, ArrowRight, Loader2, Eye, EyeOff } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
-// ... (imports remain the same)
 
 export default function Login() {
-    // 1. Rename state to 'identifier' for clarity (optional but recommended)
     const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +17,7 @@ export default function Login() {
         setIsLoading(true);
 
         // 2. Pass 'identifier' as the username key (common for most backends)
-        const loginPromise = axios.post("https://sentinel-ou6m.onrender.com/api/token/", {
+        const loginPromise = axios.post(`${import.meta.env.VITE_API_BASE_URL}token/`, {
             username: identifier,
             password
         });
@@ -35,6 +32,7 @@ export default function Login() {
             localStorage.setItem("is_staff", payload.role === "ADMIN" || payload.role === "EDITOR");
 
             toast.success(`Welcome back, ${identifier}!`);
+            window.dispatchEvent(new Event("storage_updated"));
 
             setTimeout(() => {
                 if (payload.role === "JOURNALIST") navigate("/journalist");

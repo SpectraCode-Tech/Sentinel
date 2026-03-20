@@ -9,6 +9,7 @@ export default function AdminTaxonomy() {
     const [newName, setNewName] = useState("");
     const [mode, setMode] = useState("categories");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const singularMode = mode === "categories" ? "category" : "tag";
 
 
     useEffect(() => {
@@ -25,28 +26,34 @@ export default function AdminTaxonomy() {
         e.preventDefault();
         if (!newName) return toast.error("Please enter a name");
 
-        const loadingToast = toast.loading(`Adding ${mode.slice(0, -1)}...`);
+        // Fix the spelling logic here
+        const singularMode = mode === "categories" ? "category" : "tag";
+
+        const loadingToast = toast.loading(`Adding ${singularMode}...`);
         try {
             await API.post(`${mode}/`, { name: newName });
             setNewName("");
             fetchData();
-            toast.success(`${mode.slice(0, -1)} added!`, { id: loadingToast });
+            toast.success(`${singularMode.charAt(0).toUpperCase() + singularMode.slice(1)} added!`, { id: loadingToast });
         } catch (err) {
             toast.error("Error adding item", { id: loadingToast });
         }
     };
 
     const handleDelete = (id) => {
-        // 1. Create a unique toast ID so we can dismiss it manually
+        // 1. Determine the correct singular name
+        const singularMode = mode === "categories" ? "category" : "tag";
+
         toast((t) => (
             <div className="flex flex-col gap-3 p-1">
                 <p className="font-medium text-slate-800">
-                    Delete this {mode.slice(0, -1)}?
+                    {/* 2. Use the singularMode variable here */}
+                    Delete this {singularMode}?
                 </p>
                 <div className="flex gap-2">
                     <button
                         onClick={async () => {
-                            toast.dismiss(t.id); // Close the confirm toast
+                            toast.dismiss(t.id);
                             const loading = toast.loading("Deleting...");
                             try {
                                 await API.delete(`${mode}/${id}/`);
@@ -69,8 +76,8 @@ export default function AdminTaxonomy() {
                 </div>
             </div>
         ), {
-            duration: 5000, // Give them 5 seconds to decide
-            position: 'top-center',
+            duration: 5000,
+            position: 'top-center', // This ensures the confirmation is also centered
             style: {
                 padding: '12px',
                 borderRadius: '16px',
@@ -81,7 +88,7 @@ export default function AdminTaxonomy() {
     return (
         <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900">
             {/* 2. Place Toaster here */}
-            <Toaster position="top-right" reverseOrder={false} />
+            <Toaster position="top-center" reverseOrder={false} />
 
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
@@ -124,7 +131,7 @@ export default function AdminTaxonomy() {
                                 type="text"
                                 value={newName}
                                 onChange={(e) => setNewName(e.target.value)}
-                                placeholder={`New ${mode.slice(0, -1)} name...`}
+                                placeholder={`New ${singularMode} name...`}
                                 className="w-full pl-12 pr-6 py-4 rounded-2xl border-none shadow-sm focus:ring-2 focus:ring-indigo-500 outline-none"
                             />
                             {mode === "categories" ? (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FileText, Eye, Trash2 } from "lucide-react";
+import { FileText, Eye, Trash2, AlertTriangle, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import AdminSidebar from "./Sidebar";
@@ -8,6 +8,9 @@ import toast, { Toaster } from "react-hot-toast";
 export default function AdminArticles() {
     const [articles, setArticles] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    // New state for Modal
+    const [deleteModal, setDeleteModal] = useState({ show: false, slug: null, title: "" });
+
     const navigate = useNavigate();
 
     const fetchArticles = () => {
@@ -23,41 +26,71 @@ export default function AdminArticles() {
         fetchArticles();
     }, []);
 
-    const handleDelete = (slug) => {
-        toast((t) => (
-            <div className="flex flex-col gap-3">
-                <p className="font-medium text-slate-800">Delete this article permanently?</p>
-                <div className="flex gap-2">
-                    <button
-                        onClick={async () => {
-                            toast.dismiss(t.id);
-                            const loading = toast.loading("Deleting article...");
-                            try {
-                                await API.delete(`articles/${slug}/`);
-                                toast.success("Article removed", { slug: loading });
-                                fetchArticles();
-                            } catch (err) {
-                                toast.error("Error deleting article", { slug: loading });
-                            }
-                        }}
-                        className="bg-rose-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-rose-600"
-                    >
-                        Confirm
-                    </button>
-                    <button
-                        onClick={() => toast.dismiss(t.id)}
-                        className="bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-slate-300"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </div>
-        ), { position: 'top-center', duration: 5000 });
+    const confirmDelete = async () => {
+        const slug = deleteModal.slug;
+        setDeleteModal({ show: false, slug: null, title: "" });
+
+        const loading = toast.loading("Deleting article...");
+        try {
+            await API.delete(`articles/${slug}/`);
+            toast.success("Article removed", { id: loading });
+            fetchArticles();
+        } catch (err) {
+            toast.error("Error deleting article", { id: loading });
+        }
     };
 
     return (
         <div className="min-h-screen flex bg-slate-50 font-sans text-slate-900">
             <Toaster position="top-right" />
+
+            {/* DELETE MODAL */}
+            {deleteModal.show && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+                        onClick={() => setDeleteModal({ show: false, slug: null, title: "" })}
+                    />
+
+                    {/* Modal Content */}
+                    <div className="relative bg-white w-full max-w-md rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform transition-all">
+                        <div className="p-8">
+                            <div className="flex items-center justify-between mb-6">
+                                <div className="w-12 h-12 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-500">
+                                    <AlertTriangle className="w-6 h-6" />
+                                </div>
+                                <button
+                                    onClick={() => setDeleteModal({ show: false, slug: null, title: "" })}
+                                    className="p-2 hover:bg-slate-50 rounded-xl text-slate-400 transition-colors"
+                                >
+                                    <X className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            <h2 className="text-xl font-black text-slate-900 mb-2">Confirm Deletion</h2>
+                            <p className="text-slate-500 font-medium leading-relaxed">
+                                Are you sure you want to delete <span className="text-slate-900 font-bold">"{deleteModal.title}"</span>? This action cannot be undone.
+                            </p>
+                        </div>
+
+                        <div className="p-4 bg-slate-50 flex gap-3">
+                            <button
+                                onClick={() => setDeleteModal({ show: false, slug: null, title: "" })}
+                                className="flex-1 px-4 py-3 rounded-2xl text-sm font-bold text-slate-600 hover:bg-slate-200 transition-all"
+                            >
+                                Never mind
+                            </button>
+                            <button
+                                onClick={confirmDelete}
+                                className="flex-1 px-4 py-3 rounded-2xl text-sm font-bold bg-rose-500 text-white hover:bg-rose-600 shadow-lg shadow-rose-200 transition-all"
+                            >
+                                Delete Article
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <AdminSidebar
                 isSidebarOpen={isSidebarOpen}
@@ -65,7 +98,6 @@ export default function AdminArticles() {
             />
 
             <main className="flex-1 flex flex-col min-w-0">
-                {/* Mobile spacer for the fixed top nav */}
                 <div className="h-16 lg:hidden" />
 
                 <div className="p-6 md:p-10 lg:p-12 overflow-y-auto">
@@ -109,7 +141,7 @@ export default function AdminArticles() {
                                                 <Eye className="w-5 h-5" />
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(article.id)}
+                                                onClick={() => setDeleteModal({ show: true, slug: article.slug, title: article.title })}
                                                 className="p-2 hover:bg-white hover:text-rose-600 rounded-lg text-slate-400 transition-all shadow-sm hover:shadow"
                                                 title="Delete Article"
                                             >

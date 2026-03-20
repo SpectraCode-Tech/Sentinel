@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Login from "./auth/Login";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import JournalistDashboard from "./journalist/JournalistDashboard";
@@ -17,15 +18,37 @@ import ArticleReader from "./admin/Article";
 import NotFound from "./NotFound";
 import SidebarBlocksManagement from "./admin/SideBarBlocks";
 import EditorArticleReader from "./editor/EditorArticle";
+import { useAuth } from "./auth/ProtectedRoute";
 
 function App() {
+  // 1. Local state to track the role reactively
+  const [currentRole, setCurrentRole] = useState(localStorage.getItem("role"));
+
+  const roleTitles = {
+    ADMIN: "Administrator Portal",
+    EDITOR: "Editorial Dashboard",
+    JOURNALIST: "Newsroom Workspace",
+    GUEST: "Staff Portal"
+  };
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const role = localStorage.getItem("role");
+      setCurrentRole(role);
+      document.title = roleTitles[role] || "Staff Portal";
+    };
+
+    window.addEventListener("storage_updated", handleAuthChange);
+
+    handleAuthChange();
+
+    return () => window.removeEventListener("storage_updated", handleAuthChange);
+  }, [roleTitles]);
+
   return (
     <BrowserRouter>
       <Routes>
-
-        {/* Default route */}
-        {/* <Route path="/" element={<Navigate to="/login" />} /> */}
-
+        {/* Public Route */}
         <Route path="/" element={<Login />} />
 
         {/* Journalist Routes */}
@@ -111,36 +134,71 @@ function App() {
           }
         />
 
-        {/*Admin Routes*/}
-        
-        <Route path="/admin" element={<ProtectedRoute role="ADMIN">
-          <AdminDashboard />
-        </ProtectedRoute>} />
+        {/* Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/admin/sidebar-blocks" element={<ProtectedRoute role="ADMIN">
-          <SidebarBlocksManagement />
-        </ProtectedRoute>} />
+        <Route
+          path="/admin/sidebar-blocks"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <SidebarBlocksManagement />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/admin/articles/:slug" element={<ProtectedRoute role="ADMIN">
-          <ArticleReader />
-        </ProtectedRoute>} />
+        <Route
+          path="/admin/articles/:slug"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <ArticleReader />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/admin/articles" element={<ProtectedRoute role="ADMIN">
-          <AdminArticles />
-        </ProtectedRoute>} />
+        <Route
+          path="/admin/articles"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminArticles />
+            </ProtectedRoute>
+          }
+        />
 
-        <Route path="/admin/users" element={<ProtectedRoute role="ADMIN">
-          <UserManagement />
-        </ProtectedRoute>} />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <UserManagement />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route path="/admin/categories" element={<ProtectedRoute role="ADMIN">
-            <AdminCategories />
-          </ProtectedRoute>} />
-          
-          <Route path="/admin/advertisements" element={<ProtectedRoute role="ADMIN">
-            <AdsManagement />
-          </ProtectedRoute>} />
+        <Route
+          path="/admin/categories"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdminCategories />
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/admin/advertisements"
+          element={
+            <ProtectedRoute role="ADMIN">
+              <AdsManagement />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

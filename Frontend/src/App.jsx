@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Home from "./Pages/Home";
 import ArticleDetail from "./Pages/ArticleDetail";
 import SearchResults from "./Pages/SearchResults";
@@ -14,7 +13,6 @@ import { Toaster } from "react-hot-toast";
 import { NewsProvider } from "./Context/NewsContext";
 
 export default function App() {
-
   return (
     <NewsProvider>
     <BrowserRouter>

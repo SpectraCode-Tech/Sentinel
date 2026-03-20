@@ -21,7 +21,9 @@ export default function JournalistDashboard() {
     const handleLogout = () => {
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
+        window.dispatchEvent(new Event("storage_updated"));
         navigate("/");
+
     };
 
     useEffect(() => {

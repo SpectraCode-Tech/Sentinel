@@ -181,7 +181,6 @@ export default function ArticleDetail() {
           <aside className="lg:col-span-4 space-y-12">
             <div className="sticky top-8 space-y-8">
               <div className="bg-surface border border-border p-6 text-center">
-                <span className="text-[9px] uppercase tracking-widest text-gray-400 block mb-4 italic">Advertisement</span>
                 <AdSlot placement="sidebar" />
               </div>
               {/* Pass currentArticleId to SidebarBlocks if you have recommendations there */}

@@ -29,7 +29,9 @@ export default function AdminSidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
     const handleLogout = () => {
         localStorage.clear();
+        window.dispatchEvent(new Event("storage_updated"));
         navigate("/");
+
     };
 
     return (

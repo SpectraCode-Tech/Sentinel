@@ -4,13 +4,13 @@ import API from "../api/axios";
 import { ArrowLeft, Calendar, User, Loader2, Tag as TagIcon } from "lucide-react"; // Added Navbar for consistency
 
 export default function ArticleReader() {
-    const { id } = useParams();
+    const { slug } = useParams();
     const navigate = useNavigate();
     const [article, setArticle] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        API.get(`articles/${id}/`)
+        API.get(`articles/${slug}/`)
             .then(res => {
                 setArticle(res.data);
                 setLoading(false);
@@ -19,7 +19,7 @@ export default function ArticleReader() {
                 console.error(err);
                 setLoading(false);
             });
-    }, [id]);
+    }, [slug]);
 
     if (loading) return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-bg">

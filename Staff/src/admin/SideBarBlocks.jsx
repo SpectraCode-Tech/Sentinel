@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Layout, Eye, EyeOff, Edit2, Trash2, Plus, Loader2, X, AlertTriangle } from "lucide-react";
+import { Layout, Eye, EyeOff, Edit2, Trash2, Plus, Loader2, X, AlertTriangle, ArrowLeft } from "lucide-react"; // Added ArrowLeft
+import { useNavigate } from "react-router-dom"; // Added useNavigate
 import toast from "react-hot-toast";
 import api from "../api/axios";
 import Swal from "sweetalert2";
 
 export default function SidebarBlocksManagement() {
+    const navigate = useNavigate(); // Initialize navigation
     const [blocks, setBlocks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -73,7 +75,6 @@ export default function SidebarBlocksManagement() {
         }
     };
 
-    // --- Toast Confirmation Logic ---
     const handleDeleteRequest = (id) => {
         Swal.fire({
             title: "Delete this block?",
@@ -118,6 +119,15 @@ export default function SidebarBlocksManagement() {
 
     return (
         <div className="p-4 md:p-6 lg:p-10 max-w-7xl mx-auto">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-bold mb-6 transition-colors group"
+            >
+                <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                Back
+            </button>
+
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
@@ -137,7 +147,7 @@ export default function SidebarBlocksManagement() {
 
             {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-100 flex items-center justify-center p-4">
+                <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
                         <div className="p-5 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                             <h2 className="text-lg font-bold text-slate-900">{editingId ? 'Edit Block' : 'Create New Block'}</h2>
@@ -235,7 +245,6 @@ export default function SidebarBlocksManagement() {
                     </table>
                 </div>
 
-                {/* Mobile Card View (FIXED DELETE CALL HERE) */}
                 <div className="md:hidden divide-y divide-slate-100">
                     {blocks.map((block) => (
                         <div key={block.id} className="p-4 space-y-4">
@@ -260,7 +269,6 @@ export default function SidebarBlocksManagement() {
                                 <button onClick={() => handleOpenModal(block)} className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-indigo-50 rounded-xl text-indigo-600 text-xs font-bold border border-indigo-100">
                                     <Edit2 className="w-4 h-4" /> Edit
                                 </button>
-                                {/* Fixed call to handleDeleteRequest */}
                                 <button onClick={() => handleDeleteRequest(block.id)} className="p-2.5 bg-rose-50 rounded-xl text-rose-600 border border-rose-100">
                                     <Trash2 className="w-4 h-4" />
                                 </button>
