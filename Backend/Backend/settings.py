@@ -11,7 +11,7 @@ ROOT_URLCONF = "Backend.urls"
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [    
     "sentinel-ou6m.onrender.com",
@@ -80,7 +80,7 @@ AUTH_USER_MODEL = "accounts.User"
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
+        conn_max_age=60,
         ssl_require=True # Aiven requires SSL
     )
 }
