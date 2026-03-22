@@ -1,0 +1,3903 @@
+[
+{
+    "model": "sessions.session",
+    "pk": "sc4iqtey2mvams6r6vbwcw17m9tffiar",
+    "fields": {
+        "session_data": ".eJxVjDkOwjAQAP-yNbKyiY91SnreYK29Ng4gR8pRIf6OIqWAdmY0bwi8bzXsa17CJDACwuWXRU7P3A4hD273WaW5bcsU1ZGo067qNkt-Xc_2b1B5rTDCoClZTlpnm8WzsNeEPRnUEcUQkbHeFCoOs6CLzjpTSmewo8hD3zF8vtdcN1Y:1vyqBI:ZlHM2G2B_uuAJCjmxK2nMJYGZrE4LgtpstK_n3Z740A",
+        "expire_date": "2026-03-21T11:50:52.189Z"
+    }
+},
+{
+    "model": "accounts.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$1pIVm795Yp38TWtYMAvw3L$2pt4isdP3hF8M1Egw3VClKlPERQcRVtoDf/K5tqrGNQ=",
+        "last_login": "2026-03-07T11:50:52Z",
+        "is_superuser": true,
+        "first_name": "Oladimeji",
+        "last_name": "Rasaq",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2026-03-07T11:50:31Z",
+        "username": "admin",
+        "email": "dimejirsq08@gmail.com",
+        "role": "ADMIN",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$Dug3ZKIo2NbQKanN3SQWrS$hMGbQIaJe604zkJWoDILmIFnd5ttDZinW8OaPn+nfEY=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Lanre",
+        "last_name": "Rasaq",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-07T21:50:17Z",
+        "username": "Lanre",
+        "email": "lanrersq@gmail.com",
+        "role": "EDITOR",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$sE2oFTgNtiWfysTYUDpaZY$yRBQcyqFi1QYTtCd61MDccQWArnPbOklIut5XTGj93g=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Lamide",
+        "last_name": "Rasaq",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-07T21:52:12Z",
+        "username": "lamide",
+        "email": "lamidersq@gmail.com",
+        "role": "JOURNALIST",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$1zAQ1vlq95q2Rrjewj6JOH$DGu3i33oFFa8bHrLomuCLgWAlZ4Unq2JhOBZl8wMeG8=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "Dare",
+        "last_name": "Rasaq",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-07T21:54:23Z",
+        "username": "dare",
+        "email": "darersq@gmail.com",
+        "role": "READER",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "accounts.user",
+    "fields": {
+        "password": "pbkdf2_sha256$1200000$ih3HkKF1JPCDkMhz7RyWux$xmrocaZ53myzqPAoOFogJlu8zbmEjoug5KNP5V+M1nM=",
+        "last_login": null,
+        "is_superuser": false,
+        "first_name": "",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-03-18T17:24:31.722Z",
+        "username": "okay",
+        "email": "",
+        "role": "READER",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "news.category",
+    "pk": 12,
+    "fields": {
+        "name": "Politics",
+        "slug": "politics"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 13,
+    "fields": {
+        "name": "World",
+        "slug": "world"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 14,
+    "fields": {
+        "name": "National",
+        "slug": "national"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 15,
+    "fields": {
+        "name": "Local",
+        "slug": "local"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 16,
+    "fields": {
+        "name": "Investigative",
+        "slug": "investigative"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 17,
+    "fields": {
+        "name": "Legal",
+        "slug": "legal"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 18,
+    "fields": {
+        "name": "Economy",
+        "slug": "economy"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 19,
+    "fields": {
+        "name": "Markets",
+        "slug": "markets"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 20,
+    "fields": {
+        "name": "Tech",
+        "slug": "tech"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 21,
+    "fields": {
+        "name": "Real Estate",
+        "slug": "real-estate"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 22,
+    "fields": {
+        "name": "Personal Finance",
+        "slug": "personal-finance"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 23,
+    "fields": {
+        "name": "Energy",
+        "slug": "energy"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 24,
+    "fields": {
+        "name": "Health",
+        "slug": "health"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 25,
+    "fields": {
+        "name": "Science",
+        "slug": "science"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 26,
+    "fields": {
+        "name": "Environment",
+        "slug": "environment"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 27,
+    "fields": {
+        "name": "Education",
+        "slug": "education"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 28,
+    "fields": {
+        "name": "Culture",
+        "slug": "culture"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 29,
+    "fields": {
+        "name": "Arts",
+        "slug": "arts"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 30,
+    "fields": {
+        "name": "Style",
+        "slug": "style"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 31,
+    "fields": {
+        "name": "Food",
+        "slug": "food"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 32,
+    "fields": {
+        "name": "Travel",
+        "slug": "travel"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 33,
+    "fields": {
+        "name": "Wellness",
+        "slug": "wellness"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 34,
+    "fields": {
+        "name": "Books",
+        "slug": "books"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 35,
+    "fields": {
+        "name": "Music",
+        "slug": "music"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 36,
+    "fields": {
+        "name": "Television",
+        "slug": "television"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 37,
+    "fields": {
+        "name": "Sports",
+        "slug": "sports"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 38,
+    "fields": {
+        "name": "Soccer",
+        "slug": "soccer"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 39,
+    "fields": {
+        "name": "Basketball",
+        "slug": "basketball"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 40,
+    "fields": {
+        "name": "Motorsports",
+        "slug": "motorsports"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 41,
+    "fields": {
+        "name": "Tennis",
+        "slug": "tennis"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 42,
+    "fields": {
+        "name": "Opinion",
+        "slug": "opinion"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 43,
+    "fields": {
+        "name": "Editorial",
+        "slug": "editorial"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 44,
+    "fields": {
+        "name": "Letters",
+        "slug": "letters"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 45,
+    "fields": {
+        "name": "Obituaries",
+        "slug": "obituaries"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 46,
+    "fields": {
+        "name": "Weather",
+        "slug": "weather"
+    }
+},
+{
+    "model": "news.category",
+    "pk": 47,
+    "fields": {
+        "name": "Video",
+        "slug": "video"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 1,
+    "fields": {
+        "name": "Elections",
+        "slug": "elections"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 2,
+    "fields": {
+        "name": "White House",
+        "slug": "white-house"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 3,
+    "fields": {
+        "name": "Parliament",
+        "slug": "parliament"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 4,
+    "fields": {
+        "name": "Diplomacy",
+        "slug": "diplomacy"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 5,
+    "fields": {
+        "name": "Civil Rights",
+        "slug": "civil-rights"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 6,
+    "fields": {
+        "name": "Lobbying",
+        "slug": "lobbying"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 7,
+    "fields": {
+        "name": "Public Policy",
+        "slug": "public-policy"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 8,
+    "fields": {
+        "name": "Geopolitics",
+        "slug": "geopolitics"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 9,
+    "fields": {
+        "name": "Defense",
+        "slug": "defense"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 10,
+    "fields": {
+        "name": "NATO",
+        "slug": "nato"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 11,
+    "fields": {
+        "name": "Inflation",
+        "slug": "inflation"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 12,
+    "fields": {
+        "name": "Interest Rates",
+        "slug": "interest-rates"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 13,
+    "fields": {
+        "name": "Unemployment",
+        "slug": "unemployment"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 14,
+    "fields": {
+        "name": "Cryptocurrency",
+        "slug": "cryptocurrency"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 15,
+    "fields": {
+        "name": "Stock Market",
+        "slug": "stock-market"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 16,
+    "fields": {
+        "name": "Startups",
+        "slug": "startups"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 17,
+    "fields": {
+        "name": "Venture Capital",
+        "slug": "venture-capital"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 18,
+    "fields": {
+        "name": "Trade War",
+        "slug": "trade-war"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 19,
+    "fields": {
+        "name": "Logistics",
+        "slug": "logistics"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 20,
+    "fields": {
+        "name": "Artificial Intelligence",
+        "slug": "artificial-intelligence"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 21,
+    "fields": {
+        "name": "Cybersecurity",
+        "slug": "cybersecurity"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 22,
+    "fields": {
+        "name": "Social Media",
+        "slug": "social-media"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 23,
+    "fields": {
+        "name": "SaaS",
+        "slug": "saas"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 24,
+    "fields": {
+        "name": "Robotics",
+        "slug": "robotics"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 25,
+    "fields": {
+        "name": "Quantum Computing",
+        "slug": "quantum-computing"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 26,
+    "fields": {
+        "name": "Privacy",
+        "slug": "privacy"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 27,
+    "fields": {
+        "name": "Big Tech",
+        "slug": "big-tech"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 28,
+    "fields": {
+        "name": "Hardware",
+        "slug": "hardware"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 29,
+    "fields": {
+        "name": "Climate Change",
+        "slug": "climate-change"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 30,
+    "fields": {
+        "name": "Renewable Energy",
+        "slug": "renewable-energy"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 31,
+    "fields": {
+        "name": "SpaceX",
+        "slug": "spacex"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 32,
+    "fields": {
+        "name": "NASA",
+        "slug": "nasa"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 33,
+    "fields": {
+        "name": "Astronomy",
+        "slug": "astronomy"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 34,
+    "fields": {
+        "name": "Genetics",
+        "slug": "genetics"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 35,
+    "fields": {
+        "name": "Sustainability",
+        "slug": "sustainability"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 36,
+    "fields": {
+        "name": "Conservation",
+        "slug": "conservation"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 37,
+    "fields": {
+        "name": "Electric Vehicles",
+        "slug": "electric-vehicles"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 38,
+    "fields": {
+        "name": "Mental Health",
+        "slug": "mental-health"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 39,
+    "fields": {
+        "name": "Nutrition",
+        "slug": "nutrition"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 40,
+    "fields": {
+        "name": "Pandemic",
+        "slug": "pandemic"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 41,
+    "fields": {
+        "name": "Medical Research",
+        "slug": "medical-research"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 42,
+    "fields": {
+        "name": "Parenting",
+        "slug": "parenting"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 43,
+    "fields": {
+        "name": "Aging",
+        "slug": "aging"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 44,
+    "fields": {
+        "name": "Education Reform",
+        "slug": "education-reform"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 45,
+    "fields": {
+        "name": "Immigration",
+        "slug": "immigration"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 46,
+    "fields": {
+        "name": "Urban Planning",
+        "slug": "urban-planning"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 47,
+    "fields": {
+        "name": "Streaming",
+        "slug": "streaming"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 48,
+    "fields": {
+        "name": "Gaming",
+        "slug": "gaming"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 49,
+    "fields": {
+        "name": "Fashion Week",
+        "slug": "fashion-week"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 50,
+    "fields": {
+        "name": "Fine Dining",
+        "slug": "fine-dining"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 51,
+    "fields": {
+        "name": "Recipes",
+        "slug": "recipes"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 52,
+    "fields": {
+        "name": "Luxury",
+        "slug": "luxury"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 53,
+    "fields": {
+        "name": "Hospitality",
+        "slug": "hospitality"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 54,
+    "fields": {
+        "name": "Architecture",
+        "slug": "architecture"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 55,
+    "fields": {
+        "name": "Photography",
+        "slug": "photography"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 56,
+    "fields": {
+        "name": "Podcasts",
+        "slug": "podcasts"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 57,
+    "fields": {
+        "name": "Breaking News",
+        "slug": "breaking-news"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 58,
+    "fields": {
+        "name": "Exclusive",
+        "slug": "exclusive"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 59,
+    "fields": {
+        "name": "Fact Check",
+        "slug": "fact-check"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 60,
+    "fields": {
+        "name": "Special Report",
+        "slug": "special-report"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 61,
+    "fields": {
+        "name": "Long Read",
+        "slug": "long-read"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 62,
+    "fields": {
+        "name": "Analysis",
+        "slug": "analysis"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 63,
+    "fields": {
+        "name": "Developing Story",
+        "slug": "developing-story"
+    }
+},
+{
+    "model": "news.tag",
+    "pk": 64,
+    "fields": {
+        "name": "Press Release",
+        "slug": "press-release"
+    }
+},
+{
+    "model": "news.article",
+    "pk": 6,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Role of Culture in Society",
+        "slug": "the-role-of-culture-in-society-a1dc39",
+        "content": "Culture shapes identity, values, and social cohesion within communities. Traditions, rituals, language, and customs pass knowledge and heritage across generations. Festivals, ceremonies, and celebrations reinforce communal bonds and preserve cultural history. Cultural institutions, such as museums, libraries, and theaters, provide access to knowledge and creative expression. Respecting cultural diversity fosters mutual understanding, tolerance, and global cooperation. Engaging with culture enriches individual lives and strengthens societal connections.",
+        "excerpt": "Culture shapes identity, values, and social cohesion through traditions, language, and rituals. Engaging with culture preserves heritage and fosters community bonds.",
+        "author": [
+            "lamide"
+        ],
+        "category": 28,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.406Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.418Z",
+        "updated_at": "2026-03-14T11:07:25.418Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 7,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Globalization and Cultural Exchange",
+        "slug": "globalization-and-cultural-exchange-2bed2b",
+        "content": "Globalization influences cultural exchange, blending traditions, art forms, and practices across borders. Music, cuisine, fashion, and language evolve as societies interact. While cultural exchange encourages creativity and innovation, preserving local identity remains important. Communities balance adopting new influences with maintaining heritage. Education and media play critical roles in promoting awareness and appreciation of cultural diversity. Understanding culture strengthens empathy and global citizenship.",
+        "excerpt": "Globalization blends traditions and practices across borders, encouraging creativity while preserving local heritage.",
+        "author": [
+            "lamide"
+        ],
+        "category": 28,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.424Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.425Z",
+        "updated_at": "2026-03-14T11:07:25.425Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 8,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Celebrating Cultural Festivals",
+        "slug": "celebrating-cultural-festivals-0c021f",
+        "content": "Cultural festivals celebrate art, history, and community values. Events such as parades, concerts, and exhibitions showcase local talent and heritage. Tourism benefits from cultural activities, boosting local economies and promoting international understanding. Festivals encourage intergenerational participation, passing traditions to younger generations. Celebrating culture fosters pride, preserves identity, and strengthens communal bonds while enhancing social cohesion.",
+        "excerpt": "Cultural festivals showcase art, history, and heritage, fostering pride and economic growth through tourism and community participation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 28,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.432Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.434Z",
+        "updated_at": "2026-03-14T11:07:25.434Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 9,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Language and Cultural Identity",
+        "slug": "language-and-cultural-identity-633a62",
+        "content": "Language is central to culture, enabling communication, storytelling, and knowledge transfer. Linguistic diversity reflects regional identity, history, and worldview. Preserving endangered languages maintains cultural richness and supports heritage conservation. Education, documentation, and community programs play crucial roles in language preservation. Understanding multiple languages broadens perspectives and fosters cross-cultural communication, promoting global awareness and inclusion.",
+        "excerpt": "Language preserves cultural heritage and worldview, enabling communication, storytelling, and the transfer of knowledge across generations.",
+        "author": [
+            "lamide"
+        ],
+        "category": 28,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.440Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.442Z",
+        "updated_at": "2026-03-14T11:07:25.442Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 10,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Cultural Practices and Social Norms",
+        "slug": "cultural-practices-and-social-norms-67ad2c",
+        "content": "Cultural practices influence societal norms and ethical frameworks. Religion, philosophy, and social customs guide behavior, relationships, and decision-making. Cultural heritage informs public policies, educational priorities, and community initiatives. Engaging with cultural expressions, including music, dance, and literature, fosters creativity and critical thinking. Societies that value and respect culture ensure the preservation of identity, diversity, and historical knowledge for future generations.",
+        "excerpt": "Cultural practices influence ethics, societal norms, and behaviors, shaping public policies and personal values across communities.",
+        "author": [
+            "lamide"
+        ],
+        "category": 28,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.451Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.453Z",
+        "updated_at": "2026-03-14T11:07:25.453Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 11,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Evolution of Visual Arts",
+        "slug": "the-evolution-of-visual-arts-452fe4",
+        "content": "Visual arts, including painting, sculpture, and photography, have evolved with societal trends, technology, and cultural exchange. Artistic expression communicates ideas, emotions, and identities. Movements like impressionism, modernism, and contemporary art reflect social contexts and innovation. Museums, galleries, and digital platforms preserve and promote art. Encouraging creativity and accessibility enhances cultural literacy, inspires new generations, and contributes to economic and social vitality through cultural tourism and artistic industries.",
+        "excerpt": "Visual arts reflect culture, creativity, and societal change across history.",
+        "author": [
+            "lamide"
+        ],
+        "category": 29,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.461Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.464Z",
+        "updated_at": "2026-03-14T11:07:25.464Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 12,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Art and Technology",
+        "slug": "art-and-technology-9c3831",
+        "content": "Technology enables artists to explore digital painting, 3D modeling, virtual reality, and interactive installations. Collaboration across borders is easier through online platforms, while digital distribution expands audiences. Interactive and immersive art experiences engage viewers in new ways. Digital archives preserve works for future study and appreciation. The integration of art and technology broadens creative possibilities, democratizes access, and fosters innovation, allowing diverse voices to contribute to the global artistic landscape.",
+        "excerpt": "Digital tools transform artistic creation, collaboration, and accessibility worldwide.",
+        "author": [
+            "lamide"
+        ],
+        "category": 29,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.471Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.473Z",
+        "updated_at": "2026-03-14T11:07:25.473Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 13,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Art Education and Skill Development",
+        "slug": "art-education-and-skill-development-53384f",
+        "content": "Formal and informal art education cultivates skills in drawing, painting, sculpture, music, and performance. Exposure to diverse artistic traditions enhances cultural literacy and appreciation. Art fosters creativity, problem-solving, and communication skills applicable across disciplines. Schools, workshops, and online platforms provide accessible learning opportunities. Encouraging artistic practice builds confidence, self-expression, and career pathways in creative industries. Art education strengthens community engagement and enriches cultural experiences for society as a whole.",
+        "excerpt": "Art education nurtures creativity, critical thinking, and cultural awareness in learners.",
+        "author": [
+            "lamide"
+        ],
+        "category": 29,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.480Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.482Z",
+        "updated_at": "2026-03-14T11:07:25.482Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 14,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Public Art and Community Engagement",
+        "slug": "public-art-and-community-engagement-f21730",
+        "content": "Public art, including murals, sculptures, and installations, transforms shared spaces into cultural landmarks. It encourages dialogue, celebrates local history, and fosters civic pride. Community participation in public art projects enhances ownership and inclusivity. Temporary and permanent works stimulate tourism, creativity, and social engagement. Collaborative approaches ensure relevance and accessibility. Public art enriches the urban environment, strengthens social cohesion, and showcases creativity as a vital aspect of communal life.",
+        "excerpt": "Public art enhances urban spaces, promotes identity, and inspires community involvement.",
+        "author": [
+            "lamide"
+        ],
+        "category": 29,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.489Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.491Z",
+        "updated_at": "2026-03-14T11:07:25.491Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 15,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Business of Art",
+        "slug": "the-business-of-art-159e72",
+        "content": "The art industry encompasses galleries, auctions, online marketplaces, and licensing. Artists monetize works, gain exposure, and collaborate with brands and institutions. Market trends, collector demand, and digital platforms influence valuation and distribution. Investment in art supports cultural heritage preservation and economic activity. Understanding the intersection of creativity and commerce ensures artists receive fair compensation while expanding audience reach. The business of art combines aesthetic appreciation with financial and social sustainability.",
+        "excerpt": "Art markets, galleries, and digital platforms drive economic value and artist recognition.",
+        "author": [
+            "lamide"
+        ],
+        "category": 29,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.499Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.501Z",
+        "updated_at": "2026-03-14T11:07:25.501Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 16,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Dynamics of Modern Politics",
+        "slug": "the-dynamics-of-modern-politics-de6451",
+        "content": "Modern politics encompasses governance, policymaking, and civic engagement. Leaders navigate public opinion, legislative frameworks, and international relations to maintain societal stability. Elections, campaigns, and civic participation reflect democratic principles, while political debate shapes policy priorities. Political parties, advocacy groups, and media play critical roles in influencing governance outcomes. Understanding political systems enables citizens to make informed choices and hold leaders accountable, strengthening democracy and civic responsibility. Transparent, inclusive political processes promote societal trust and sustainable progress, while active participation fosters equity and representation across diverse communities.",
+        "excerpt": "Modern politics balances public opinion, policy-making, and leadership accountability, shaping national and global governance.",
+        "author": [
+            "lamide"
+        ],
+        "category": 12,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.510Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.512Z",
+        "updated_at": "2026-03-14T11:07:25.512Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 17,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Role of Political Parties",
+        "slug": "the-role-of-political-parties-b3fa41",
+        "content": "Political parties organize citizens, advocate policies, and represent diverse societal interests within government structures. They provide platforms for electoral competition, leadership selection, and policy debates. Parties facilitate governance by promoting coherent agendas, mobilizing voters, and coordinating legislative action. The effectiveness of parties depends on transparency, internal democracy, and responsiveness to constituents. Active political engagement strengthens party accountability, encourages policy innovation, and ensures that governance reflects the public’s needs. Political parties are fundamental to democratic systems, bridging citizens and institutions while shaping national and local priorities.",
+        "excerpt": "Political parties organize interests, shape policies, and facilitate governance, offering structured platforms for citizen representation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 12,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.520Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.522Z",
+        "updated_at": "2026-03-14T11:07:25.522Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 18,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Policy-Making in the 21st Century",
+        "slug": "policy-making-in-the-21st-century-d6ece7",
+        "content": "Policy-making today relies on data analysis, research, and public consultation. Governments develop regulations and programs to address complex societal issues such as healthcare, education, and infrastructure. Stakeholders, including citizens, NGOs, and private entities, contribute to shaping effective policy. Transparency, accountability, and adaptability are key principles, ensuring policies respond to evolving needs. Modern governance increasingly incorporates technology, digital platforms, and analytics to enhance decision-making. Sound policy-making fosters economic stability, social equity, and environmental sustainability, reflecting the responsibilities of leaders toward their constituents.",
+        "excerpt": "Modern policy-making integrates evidence, public input, and innovation to address societal challenges effectively.",
+        "author": [
+            "lamide"
+        ],
+        "category": 12,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.530Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.532Z",
+        "updated_at": "2026-03-14T11:07:25.532Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 19,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "International Politics and Diplomacy",
+        "slug": "international-politics-and-diplomacy-72d8fd",
+        "content": "International politics shapes relations between nations, influencing trade, security, and cultural exchange. Diplomacy, treaties, and negotiations resolve conflicts and build cooperation. Global organizations, alliances, and summits facilitate dialogue and shared problem-solving. International policies on climate, trade, and human rights affect domestic governance and global stability. Understanding global political dynamics empowers citizens, businesses, and governments to navigate opportunities and risks. Diplomacy strengthens international partnerships, fosters peace, and promotes mutual respect among nations while balancing strategic interests and ethical responsibilities.",
+        "excerpt": "Global political relations and diplomacy influence trade, security, and cultural exchange among nations.",
+        "author": [
+            "lamide"
+        ],
+        "category": 12,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.541Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.543Z",
+        "updated_at": "2026-03-14T11:07:25.543Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 20,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Impact of Political Media",
+        "slug": "the-impact-of-political-media-94e8de",
+        "content": "Political media plays a central role in informing citizens, analyzing policy, and influencing public opinion. News outlets, social media, and online platforms provide real-time updates and commentary. Media coverage can educate, mobilize, or polarize audiences, depending on accuracy, bias, and framing. Critical media literacy enables citizens to evaluate sources, understand agendas, and participate responsibly in political discourse. The interaction between media, politics, and public perception shapes electoral outcomes, policy debates, and societal priorities, emphasizing the need for ethical journalism and informed civic engagement.",
+        "excerpt": "Media coverage informs, influences, and sometimes polarizes political discourse, shaping public perception and engagement.",
+        "author": [
+            "lamide"
+        ],
+        "category": 12,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.551Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.554Z",
+        "updated_at": "2026-03-14T11:07:25.554Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 21,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Global Issues and Cooperation",
+        "slug": "global-issues-and-cooperation-9b76d3",
+        "content": "Global issues require cooperation among nations to address challenges that transcend borders, including climate change, pandemics, and economic instability. International organizations, treaties, and agreements facilitate collaboration on shared concerns. Diplomacy, humanitarian aid, and development programs enhance stability and prosperity. Global engagement ensures that nations pool resources, knowledge, and expertise to tackle complex problems. Citizens and governments alike benefit from awareness of international affairs, fostering informed decision-making, cross-cultural understanding, and proactive global citizenship.",
+        "excerpt": "International collaboration addresses pressing global challenges such as climate change, trade, and conflict resolution.",
+        "author": [
+            "lamide"
+        ],
+        "category": 13,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.563Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.565Z",
+        "updated_at": "2026-03-14T11:07:25.565Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 22,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Role of the United Nations",
+        "slug": "the-role-of-the-united-nations-d03115",
+        "content": "The United Nations serves as a central platform for international diplomacy, peacekeeping, and development initiatives. Member states collaborate on policies addressing conflict resolution, human rights, and sustainable development goals. Specialized agencies tackle health, education, and environmental challenges. The UN facilitates dialogue among diverse nations, balancing sovereignty with collective responsibility. Its influence extends to shaping norms, promoting justice, and coordinating humanitarian aid, underscoring the importance of multilateral engagement in solving global crises and fostering long-term stability.",
+        "excerpt": "The United Nations promotes peace, security, and development through diplomacy and multilateral cooperation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 13,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.573Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.575Z",
+        "updated_at": "2026-03-14T11:07:25.575Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 23,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Global Trade and Economics",
+        "slug": "global-trade-and-economics-5b9ede",
+        "content": "Global trade underpins economic interdependence, enabling countries to exchange goods, services, and resources efficiently. Trade agreements, tariffs, and regulations shape market access and competitiveness. Economic globalization facilitates investment, innovation, and cross-border collaboration. Businesses, governments, and consumers are impacted by global supply chains, currency fluctuations, and trade policies. Understanding international economics empowers decision-makers to navigate risks and opportunities. Balanced trade promotes prosperity, strengthens partnerships, and fosters mutual growth while addressing ethical, environmental, and social concerns.",
+        "excerpt": "International trade drives economic growth, interdependence, and competition among nations in a connected world.",
+        "author": [
+            "lamide"
+        ],
+        "category": 13,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.582Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.585Z",
+        "updated_at": "2026-03-14T11:07:25.585Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 24,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "International Conflict and Resolution",
+        "slug": "international-conflict-and-resolution-dc0f8e",
+        "content": "International conflicts arise from political, economic, or cultural tensions between nations or groups. Peaceful resolution involves negotiation, diplomacy, and mediation through organizations like the UN. Conflict management strategies aim to reduce violence, protect human rights, and promote sustainable solutions. Humanitarian assistance supports affected populations, while monitoring and accountability mechanisms reinforce compliance with agreements. Effective conflict resolution requires collaboration, cultural understanding, and long-term planning to foster stability, reconciliation, and regional development.",
+        "excerpt": "Conflict resolution relies on diplomacy, negotiation, and peacekeeping to maintain global stability.",
+        "author": [
+            "lamide"
+        ],
+        "category": 13,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.593Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.595Z",
+        "updated_at": "2026-03-14T11:07:25.595Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 25,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Cultural Exchange and Globalization",
+        "slug": "cultural-exchange-and-globalization-6d5edd",
+        "content": "Cultural globalization encourages the sharing of music, art, cuisine, and language across borders. Exchange programs, international media, and tourism promote cross-cultural understanding and collaboration. Exposure to diverse cultures inspires creativity, empathy, and innovation while broadening worldviews. Balancing global influence with local traditions ensures preservation of cultural identity. Cultural exchange strengthens diplomacy, education, and economic collaboration, enabling nations to learn from one another and build a more interconnected, respectful, and creative global community.",
+        "excerpt": "Global cultural exchange fosters understanding, innovation, and appreciation of diversity across nations.",
+        "author": [
+            "lamide"
+        ],
+        "category": 13,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.603Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.605Z",
+        "updated_at": "2026-03-14T11:07:25.605Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 26,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "National Development Strategies",
+        "slug": "national-development-strategies-9e82b3",
+        "content": "National development relies on strategic planning, policy formulation, and implementation of programs addressing economic, social, and environmental goals. Infrastructure development, healthcare, education, and social services are prioritized to enhance quality of life. Public-private partnerships and community engagement ensure effective delivery and accountability. Monitoring and evaluation allow governments to adjust strategies for efficiency. National development reflects a commitment to equitable growth, stability, and citizen welfare, fostering long-term prosperity and inclusive progress.",
+        "excerpt": "Governments employ policies and programs to promote economic growth, infrastructure, and social welfare nationwide.",
+        "author": [
+            "lamide"
+        ],
+        "category": 14,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.613Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.616Z",
+        "updated_at": "2026-03-14T11:07:25.616Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 27,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Importance of Civic Engagement",
+        "slug": "the-importance-of-civic-engagement-0f1a53",
+        "content": "Civic engagement empowers citizens to influence decision-making, hold leaders accountable, and contribute to community development. Voting, advocacy, volunteerism, and public consultations strengthen democratic processes. Active participation ensures diverse perspectives are represented, promoting equitable policies and social cohesion. Educating citizens on rights and responsibilities enhances informed decision-making. Civic engagement is vital for national stability, social trust, and responsive governance, fostering inclusive progress and a vibrant democracy.",
+        "excerpt": "Active citizen participation strengthens democracy, policy-making, and national accountability.",
+        "author": [
+            "lamide"
+        ],
+        "category": 14,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.624Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.626Z",
+        "updated_at": "2026-03-14T11:07:25.626Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 28,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "National Security and Policy",
+        "slug": "national-security-and-policy-a6714a",
+        "content": "National security encompasses protection of citizens, infrastructure, and resources from threats such as terrorism, cyberattacks, and natural disasters. Governments develop strategies, agencies, and regulations to ensure safety and resilience. Policy decisions balance security with civil liberties, economic growth, and international obligations. Collaboration between intelligence, law enforcement, and communities enhances effectiveness. National security policies safeguard sovereignty, stability, and public confidence, forming the foundation for sustainable development and citizen welfare.",
+        "excerpt": "Protecting citizens, infrastructure, and resources is central to national security and policy formulation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 14,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.633Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.636Z",
+        "updated_at": "2026-03-14T11:07:25.636Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 29,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Economic Policies for Growth",
+        "slug": "economic-policies-for-growth-a0736a",
+        "content": "National economic policies shape taxation, investment, industrial regulation, and fiscal management to foster growth. Governments use monetary and fiscal tools to stabilize inflation, create jobs, and promote competitiveness. Policy initiatives encourage entrepreneurship, innovation, and trade. Public institutions monitor compliance, provide infrastructure, and support workforce development. Effective economic policies balance short-term gains with long-term sustainability, ensuring prosperity, social equity, and resilience against global economic challenges.",
+        "excerpt": "National economic policies guide investment, industry, and fiscal management to stimulate growth and stability.",
+        "author": [
+            "lamide"
+        ],
+        "category": 14,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.643Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.645Z",
+        "updated_at": "2026-03-14T11:07:25.645Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 30,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Education as a National Priority",
+        "slug": "education-as-a-national-priority-2a84bf",
+        "content": "Education is foundational to national development, equipping citizens with knowledge, skills, and critical thinking. Governments invest in curricula, teacher training, and infrastructure to enhance learning outcomes. Inclusive access to education promotes social equity, economic mobility, and workforce readiness. Higher education, vocational training, and research programs drive innovation and technological advancement. Prioritizing education ensures long-term societal growth, informed citizenship, and competitive advantage in the global landscape.",
+        "excerpt": "Quality education empowers citizens, fuels innovation, and strengthens national development.",
+        "author": [
+            "lamide"
+        ],
+        "category": 14,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.654Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.656Z",
+        "updated_at": "2026-03-14T11:07:25.656Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 31,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Local Governance and Community Development",
+        "slug": "local-governance-and-community-development-527c15",
+        "content": "Local governance manages municipal services, infrastructure, and community initiatives. City councils, local agencies, and citizen committees address public needs, from sanitation to recreation. Transparent decision-making and public consultation ensure accountability. Community development programs promote social cohesion, economic opportunity, and quality of life. Strong local governance strengthens democracy, encourages citizen engagement, and creates resilient, vibrant communities.",
+        "excerpt": "Effective local governance empowers communities, delivering services and fostering participatory decision-making.",
+        "author": [
+            "lamide"
+        ],
+        "category": 15,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.664Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.667Z",
+        "updated_at": "2026-03-14T11:07:25.667Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 32,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Local Economy and Small Businesses",
+        "slug": "local-economy-and-small-businesses-04d27b",
+        "content": "Local economies thrive when small businesses, entrepreneurship, and local markets receive support. Municipal policies, incentives, and infrastructure investment stimulate commerce. Small enterprises provide employment, diversify services, and enhance community identity. Collaboration between local authorities, businesses, and citizens fosters sustainable growth and innovation. Nurturing local economies ensures economic resilience, social stability, and vibrant urban and rural communities.",
+        "excerpt": "Supporting small businesses strengthens local economies, job creation, and community prosperity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 15,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.675Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.677Z",
+        "updated_at": "2026-03-14T11:07:25.677Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 33,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Community Health Initiatives",
+        "slug": "community-health-initiatives-9634ef",
+        "content": "Community health initiatives provide essential services such as vaccinations, preventive screenings, and health education. Local clinics, outreach programs, and public campaigns increase awareness and access. Collaboration with NGOs, schools, and government agencies ensures comprehensive coverage. Preventive health strategies reduce disease burden and improve quality of life. Strong community health infrastructure strengthens resilience, enhances productivity, and promotes well-being at the local level.",
+        "excerpt": "Local health programs improve access to care, promote wellness, and prevent disease within communities.",
+        "author": [
+            "lamide"
+        ],
+        "category": 15,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.687Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.689Z",
+        "updated_at": "2026-03-14T11:07:25.689Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 34,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Local Infrastructure and Urban Planning",
+        "slug": "local-infrastructure-and-urban-planning-a3809d",
+        "content": "Urban planning and infrastructure development shape livable communities. Roads, public transport, utilities, and recreational spaces are designed to meet current and future needs. Participatory planning ensures citizen input in decision-making. Sustainable practices, zoning, and environmental considerations guide development. Well-planned infrastructure promotes economic activity, social interaction, and community resilience. Local governments play a crucial role in ensuring accessible, safe, and functional environments for all residents.",
+        "excerpt": "Strategic urban planning enhances transportation, housing, and public spaces, improving residents' quality of life.",
+        "author": [
+            "lamide"
+        ],
+        "category": 15,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.696Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.699Z",
+        "updated_at": "2026-03-14T11:07:25.699Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 35,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Local Education Programs",
+        "slug": "local-education-programs-f8888b",
+        "content": "Local education programs complement formal schooling by providing literacy classes, vocational training, and adult education. Schools, libraries, and community centers host initiatives that equip residents with skills for employment and personal growth. Partnerships with NGOs and local businesses enhance resources and opportunities. Investing in education at the community level fosters empowerment, social mobility, and sustainable development, ensuring that citizens contribute meaningfully to local and national progress.",
+        "excerpt": "Community-based education programs improve literacy, skills, and opportunities for youth and adults.",
+        "author": [
+            "lamide"
+        ],
+        "category": 15,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.707Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.709Z",
+        "updated_at": "2026-03-14T11:07:25.709Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 36,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Power of Investigative Journalism",
+        "slug": "the-power-of-investigative-journalism-80e442",
+        "content": "Investigative journalism digs deep into complex societal issues, exposing corruption, injustice, and hidden narratives. Reporters gather evidence, interview sources, and analyze data to produce accurate, impactful stories. Investigative work strengthens democracy by promoting transparency, accountability, and informed public debate. Ethical practices, meticulous research, and persistence are essential for credibility. By shedding light on hidden truths, investigative journalism empowers citizens, influences policy, and fosters social change.",
+        "excerpt": "Investigative journalism uncovers truth, holds power accountable, and informs the public on critical issues.",
+        "author": [
+            "lamide"
+        ],
+        "category": 16,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.719Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.721Z",
+        "updated_at": "2026-03-14T11:07:25.721Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 37,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Techniques in Investigative Reporting",
+        "slug": "techniques-in-investigative-reporting-bf6253",
+        "content": "Investigative reporters employ techniques such as public record analysis, data journalism, undercover investigations, and corroborating multiple sources. Technology enhances research through digital archives, analytics, and information tracking. Verifying accuracy and maintaining confidentiality are critical for integrity. Investigative reporting uncovers corruption, environmental hazards, and corporate misconduct, producing stories that drive reform and accountability. Effective reporting requires persistence, ethics, and analytical skills to reveal facts that impact society.",
+        "excerpt": "Investigative reporters use data analysis, document verification, and source interviews to uncover hidden information.",
+        "author": [
+            "lamide"
+        ],
+        "category": 16,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.728Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.731Z",
+        "updated_at": "2026-03-14T11:07:25.731Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 38,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Impact of Investigative Journalism on Society",
+        "slug": "impact-of-investigative-journalism-on-society-f037d4",
+        "content": "Investigative journalism shapes public policy, exposes corruption, and influences societal behavior. Stories revealing misconduct, fraud, or negligence provoke legal action and reforms. Public engagement and awareness rise when media uncovers critical issues. Investigative work promotes ethical governance, corporate responsibility, and social justice. The societal impact extends beyond immediate exposure, fostering long-term transparency, trust in institutions, and empowerment of citizens to demand accountability.",
+        "excerpt": "Investigative journalism fosters accountability, reforms policy, and empowers citizens through exposure of wrongdoing.",
+        "author": [
+            "lamide"
+        ],
+        "category": 16,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.739Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.741Z",
+        "updated_at": "2026-03-14T11:07:25.741Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 39,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Challenges in Investigative Reporting",
+        "slug": "challenges-in-investigative-reporting-2e6db9",
+        "content": "Investigative reporting is fraught with challenges including personal safety risks, limited funding, and legal threats. Journalists often confront political, corporate, or criminal resistance. Ethical dilemmas and source protection demand careful navigation. Despite obstacles, investigative reporting remains vital for exposing truths and promoting accountability. Collaboration, digital tools, and organizational support enhance investigative capacity. The profession requires courage, integrity, and dedication to serve the public interest effectively.",
+        "excerpt": "Investigative reporters face threats, resource constraints, and legal risks while uncovering sensitive information.",
+        "author": [
+            "lamide"
+        ],
+        "category": 16,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.749Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.751Z",
+        "updated_at": "2026-03-14T11:07:25.751Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 40,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Future of Investigative Journalism",
+        "slug": "future-of-investigative-journalism-843f0a",
+        "content": "The future of investigative journalism relies on technology, collaboration, and data-driven approaches. Digital platforms, AI analysis, and global networks enable journalists to uncover complex stories efficiently. Cross-border cooperation allows tackling multinational corruption, human rights abuses, and environmental issues. Audience engagement through interactive media fosters transparency and trust. Sustaining investigative journalism requires ethical standards, funding, and advocacy for press freedom, ensuring it continues to serve democracy and public interest globally.",
+        "excerpt": "Innovation, digital tools, and cross-border collaboration shape the evolution of investigative reporting worldwide.",
+        "author": [
+            "lamide"
+        ],
+        "category": 16,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.759Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.761Z",
+        "updated_at": "2026-03-14T11:07:25.761Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 41,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Role of Law in Society",
+        "slug": "the-role-of-law-in-society-91b55e",
+        "content": "Legal systems provide frameworks that maintain order, safeguard rights, and resolve disputes. Courts, law enforcement, and legal institutions enforce regulations and ensure accountability. Laws reflect societal values and ethical principles while balancing individual freedoms with collective responsibilities. Access to justice, transparency, and equitable application of laws are fundamental to social stability. Legal education and awareness empower citizens to navigate rights, responsibilities, and legal processes effectively, reinforcing trust in governance and public institutions.",
+        "excerpt": "Law maintains order, protects rights, and ensures justice, forming the backbone of stable societies.",
+        "author": [
+            "lamide"
+        ],
+        "category": 17,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.771Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.772Z",
+        "updated_at": "2026-03-14T11:07:25.772Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 42,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Understanding Civil and Criminal Law",
+        "slug": "understanding-civil-and-criminal-law-38b861",
+        "content": "Civil law addresses disputes between individuals, organizations, or government entities, focusing on remedies such as compensation or injunctions. Criminal law prosecutes offenses against society, aiming to punish, deter, and rehabilitate offenders. Courts, lawyers, and legal procedures ensure fairness and due process. Understanding the distinctions helps citizens navigate legal matters, protect rights, and participate in the justice system responsibly. Both domains are essential for maintaining order, protecting society, and upholding ethical standards.",
+        "excerpt": "Civil and criminal law serve different purposes: resolving disputes and punishing wrongdoing to uphold justice.",
+        "author": [
+            "lamide"
+        ],
+        "category": 17,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.780Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.783Z",
+        "updated_at": "2026-03-14T11:07:25.783Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 43,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Legal Reforms and Social Change",
+        "slug": "legal-reforms-and-social-change-478f13",
+        "content": "Legal reforms adapt laws and regulations to reflect societal evolution, technological advancements, and human rights principles. Reforms may address inequality, corruption, or outdated statutes. Policymakers, advocacy groups, and courts collaborate to ensure effective change. Transparent, inclusive reform processes strengthen public trust and promote justice. Progressive legal frameworks protect vulnerable populations, uphold civil liberties, and enhance social cohesion. Ongoing reform ensures that legal systems remain relevant, fair, and responsive to contemporary challenges.",
+        "excerpt": "Reforms modernize legal systems, promote equity, and address evolving societal needs and injustices.",
+        "author": [
+            "lamide"
+        ],
+        "category": 17,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.791Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.793Z",
+        "updated_at": "2026-03-14T11:07:25.793Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 44,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Importance of Legal Ethics",
+        "slug": "the-importance-of-legal-ethics-4dd251",
+        "content": "Legal ethics dictate professional conduct, responsibility, and adherence to justice principles. Lawyers, judges, and law students follow codes that prevent conflicts of interest, bias, or malpractice. Upholding confidentiality, honesty, and accountability strengthens trust in legal institutions. Ethical lapses erode public confidence and undermine societal fairness. Legal education emphasizes ethics alongside technical knowledge to prepare competent professionals who serve justice, protect rights, and maintain integrity within complex legal environments.",
+        "excerpt": "Ethical principles guide legal professionals, ensuring integrity, fairness, and public trust in the justice system.",
+        "author": [
+            "lamide"
+        ],
+        "category": 17,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.802Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.804Z",
+        "updated_at": "2026-03-14T11:07:25.804Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 45,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Access to Justice for All",
+        "slug": "access-to-justice-for-all-9cf2cd",
+        "content": "Access to justice is vital for fairness, equality, and social cohesion. Legal aid programs, public defenders, and community initiatives provide support for underserved populations. Removing barriers such as cost, language, or geographic limitations enhances inclusivity. Awareness campaigns and education empower citizens to assert rights and resolve disputes effectively. Equitable access reinforces trust in the legal system, ensures accountability, and enables citizens to participate fully in society, promoting justice as a shared societal value.",
+        "excerpt": "Ensuring legal accessibility empowers citizens, protects rights, and reinforces societal equity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 17,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.812Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.815Z",
+        "updated_at": "2026-03-14T11:07:25.815Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 46,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Understanding Economic Growth",
+        "slug": "understanding-economic-growth-427529",
+        "content": "Economic growth measures a country’s ability to produce goods and services, generating employment and wealth. Factors such as investment, infrastructure, technology, and human capital drive growth. Governments use fiscal and monetary policies to stimulate development and stability. Sustainable growth balances environmental concerns, social equity, and market efficiency. Understanding economic dynamics helps policymakers, businesses, and citizens make informed decisions that promote prosperity, innovation, and long-term societal well-being.",
+        "excerpt": "Economic growth reflects increased production, employment, and wealth, driving national prosperity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 18,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.826Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.828Z",
+        "updated_at": "2026-03-14T11:07:25.828Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 47,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Role of Fiscal Policy",
+        "slug": "the-role-of-fiscal-policy-6222cd",
+        "content": "Fiscal policy involves government decisions on spending, taxation, and borrowing to influence economic performance. Strategic allocation of resources stimulates growth, reduces unemployment, and stabilizes prices. Policies may target infrastructure, healthcare, or education to generate long-term benefits. Efficient fiscal management balances revenue collection with social priorities. Transparent, accountable fiscal strategies promote investor confidence, public trust, and economic resilience, ensuring equitable development across society.",
+        "excerpt": "Fiscal policy shapes the economy through government spending and taxation to stabilize growth and manage inflation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 18,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.837Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.840Z",
+        "updated_at": "2026-03-14T11:07:25.840Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 48,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Monetary Policy and Financial Stability",
+        "slug": "monetary-policy-and-financial-stability-3fc5b1",
+        "content": "Monetary policy, led by central banks, manages interest rates, liquidity, and credit to maintain financial stability. Controlling inflation, stimulating investment, and ensuring currency value are key objectives. Monetary tools include open market operations, reserve requirements, and discount rates. Effective policy promotes economic growth, employment, and investor confidence. Monitoring global trends, financial risks, and domestic needs ensures responsive, stable, and sustainable economic management, benefiting both businesses and citizens.",
+        "excerpt": "Central banks use monetary policy to regulate money supply, control inflation, and maintain economic stability.",
+        "author": [
+            "lamide"
+        ],
+        "category": 18,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.849Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.852Z",
+        "updated_at": "2026-03-14T11:07:25.852Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 49,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Global Economic Trends",
+        "slug": "global-economic-trends-9d3670",
+        "content": "Global economic trends influence national production, trade, and investment patterns. Factors such as commodity prices, currency exchange, technological advancement, and geopolitical events affect growth. Countries integrate into global markets through exports, imports, and foreign investment. Understanding these trends helps businesses and governments navigate risks and seize opportunities. Collaboration and adaptation ensure economic resilience, competitiveness, and sustainable development in an increasingly interconnected world economy.",
+        "excerpt": "International trade, investment, and policy shape national economies in a connected global market.",
+        "author": [
+            "lamide"
+        ],
+        "category": 18,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.862Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.865Z",
+        "updated_at": "2026-03-14T11:07:25.865Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 50,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Economic Inequality and Policy Solutions",
+        "slug": "economic-inequality-and-policy-solutions-0006c4",
+        "content": "Economic inequality impacts social cohesion, opportunity, and mobility. Policies including progressive taxation, social welfare, education, and labor reforms help reduce disparities. Equitable access to resources, credit, and markets empowers disadvantaged groups. Monitoring wealth distribution and policy outcomes ensures effectiveness. Reducing inequality strengthens economic resilience, fosters innovation, and promotes social justice. Inclusive economic strategies create a more balanced, prosperous society where citizens can participate fully in national development.",
+        "excerpt": "Addressing income inequality requires targeted policies, social programs, and inclusive economic strategies.",
+        "author": [
+            "lamide"
+        ],
+        "category": 18,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.875Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.878Z",
+        "updated_at": "2026-03-14T11:07:25.878Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 51,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Basics of Financial Markets",
+        "slug": "the-basics-of-financial-markets-223106",
+        "content": "Financial markets connect investors and borrowers, enabling capital flow across industries. Stock exchanges, bond markets, and commodity markets provide platforms for trade and investment. Efficient markets enhance liquidity, risk management, and economic stability. Market trends influence business decisions, consumer confidence, and policy planning. Understanding market mechanisms, regulations, and instruments equips investors and policymakers to make informed choices that support growth, innovation, and long-term financial stability.",
+        "excerpt": "Financial markets facilitate investment, liquidity, and capital allocation, driving economic growth.",
+        "author": [
+            "lamide"
+        ],
+        "category": 19,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.890Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.892Z",
+        "updated_at": "2026-03-14T11:07:25.892Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 52,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Stock Market Fundamentals",
+        "slug": "stock-market-fundamentals-e44871",
+        "content": "The stock market enables businesses to raise capital by issuing shares while offering investors potential returns through dividends and capital gains. Prices fluctuate based on performance, sentiment, and macroeconomic factors. Investors analyze fundamentals, technical indicators, and market trends to make decisions. Stock markets support economic growth by channeling funds into productive activities. Transparency, regulation, and investor education ensure efficiency, stability, and confidence in equity markets.",
+        "excerpt": "Stocks allow companies to raise capital while providing investors opportunities for growth and income.",
+        "author": [
+            "lamide"
+        ],
+        "category": 19,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.902Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.905Z",
+        "updated_at": "2026-03-14T11:07:25.905Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 53,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Bond Markets and Investment Strategies",
+        "slug": "bond-markets-and-investment-strategies-c55278",
+        "content": "Bond markets provide fixed-income investment options, allowing governments and corporations to raise funds for projects. Bonds offer predictable interest payments and are often considered lower risk than equities. Investors diversify portfolios by balancing bonds with stocks and other assets. Credit ratings, interest rates, and maturity periods influence bond attractiveness. Well-functioning bond markets support fiscal stability, infrastructure development, and financial planning for investors and institutions alike.",
+        "excerpt": "Bonds offer stable income streams and diversification for investors while funding public and private projects.",
+        "author": [
+            "lamide"
+        ],
+        "category": 19,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.913Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.915Z",
+        "updated_at": "2026-03-14T11:07:25.915Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 54,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Commodities and Global Trade",
+        "slug": "commodities-and-global-trade-575882",
+        "content": "Commodity markets facilitate trading of resources such as oil, metals, and agricultural products. Supply-demand dynamics, geopolitical events, and weather impact prices. Producers, traders, and investors use commodities for hedging, investment, and consumption planning. Commodity markets contribute to global economic stability and resource allocation efficiency. Monitoring market trends, storage, and transportation ensures smooth operations. Understanding commodities is vital for risk management, policy decisions, and economic forecasting.",
+        "excerpt": "Commodity markets link producers and consumers, influencing prices, trade flows, and global economies.",
+        "author": [
+            "lamide"
+        ],
+        "category": 19,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.922Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.924Z",
+        "updated_at": "2026-03-14T11:07:25.924Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 55,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Market Regulation and Investor Protection",
+        "slug": "market-regulation-and-investor-protection-a5c8c4",
+        "content": "Market regulation enforces rules to maintain transparency, prevent fraud, and protect investors. Regulatory bodies monitor compliance, trading practices, and disclosure requirements. Effective regulation enhances confidence, market stability, and economic growth. Investor education complements oversight, ensuring informed participation. Balanced policies prevent manipulation while fostering innovation and competition. Strong governance ensures markets function efficiently, equitably, and sustainably for all participants.",
+        "excerpt": "Regulatory frameworks ensure fair trading, transparency, and protection for investors and the economy.",
+        "author": [
+            "lamide"
+        ],
+        "category": 19,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.932Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.934Z",
+        "updated_at": "2026-03-14T11:07:25.934Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 56,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "The Evolution of Technology",
+        "slug": "the-evolution-of-technology-b93c42",
+        "content": "Technology has evolved rapidly, reshaping communication, industry, and daily life. From industrial machinery to digital platforms, innovation drives productivity and connectivity. Emerging fields like AI, robotics, and blockchain redefine work, commerce, and social interaction. Technological adaptation influences economic growth, education, and healthcare. Ethical considerations, cybersecurity, and sustainability guide responsible innovation. Understanding technology’s impact empowers individuals, businesses, and governments to leverage advancements for societal benefit while mitigating risks.",
+        "excerpt": "Technological innovation transforms society, economy, and communication, driving progress across industries.",
+        "author": [
+            "lamide"
+        ],
+        "category": 20,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.942Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.944Z",
+        "updated_at": "2026-03-14T11:07:25.944Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 57,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Artificial Intelligence in Daily Life",
+        "slug": "artificial-intelligence-in-daily-life-608c69",
+        "content": "Artificial intelligence powers applications in healthcare, finance, education, and entertainment. Machine learning, natural language processing, and computer vision enable predictive analytics, automation, and personalization. AI improves efficiency, reduces human error, and provides insights for decision-making. Ethical AI deployment, privacy safeguards, and transparency are essential for trust and responsible usage. Widespread AI adoption transforms workflows, consumer experiences, and innovation potential across society.",
+        "excerpt": "AI applications enhance efficiency, decision-making, and personalization across industries and services.",
+        "author": [
+            "lamide"
+        ],
+        "category": 20,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.952Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.954Z",
+        "updated_at": "2026-03-14T11:07:25.954Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 58,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Cybersecurity Challenges",
+        "slug": "cybersecurity-challenges-47dfbf",
+        "content": "Cybersecurity defends against unauthorized access, data breaches, and cybercrime. Organizations implement firewalls, encryption, multi-factor authentication, and continuous monitoring. Threats evolve with technology, including ransomware, phishing, and AI-driven attacks. Awareness, employee training, and incident response planning enhance resilience. Protecting sensitive information safeguards individuals, businesses, and national infrastructure. Cybersecurity is critical in maintaining trust, operational continuity, and secure digital transformation.",
+        "excerpt": "As technology advances, cybersecurity protects data, systems, and privacy from growing digital threats.",
+        "author": [
+            "lamide"
+        ],
+        "category": 20,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.960Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.962Z",
+        "updated_at": "2026-03-14T11:07:25.962Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 59,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Emerging Tech Trends",
+        "slug": "emerging-tech-trends-25b31f",
+        "content": "Emerging technologies like artificial intelligence, blockchain, and the Internet of Things revolutionize industries. AI enables automation and analytics, blockchain provides secure, decentralized systems, and IoT connects devices for efficiency. Adoption impacts healthcare, logistics, finance, and urban development. Early adaptation drives competitive advantage, innovation, and sustainable solutions. Monitoring trends, research, and regulatory frameworks ensures responsible implementation, maximizing societal and economic benefits.",
+        "excerpt": "Innovation in AI, blockchain, and IoT is shaping the future of industries and daily life.",
+        "author": [
+            "lamide"
+        ],
+        "category": 20,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.969Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.972Z",
+        "updated_at": "2026-03-14T11:07:25.972Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 60,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Technology and Education",
+        "slug": "technology-and-education-0acd57",
+        "content": "Technology transforms education through online learning platforms, interactive software, and digital classrooms. Students access resources anytime, while teachers employ analytics to track progress. Virtual labs, AI tutors, and multimedia content enhance comprehension and engagement. Technology fosters inclusivity, bridging gaps in access and opportunity. Integrating digital skills prepares learners for modern work environments and promotes lifelong learning. Responsible use of technology ensures that education benefits all students effectively and equitably.",
+        "excerpt": "Digital tools and platforms enhance learning, access, and engagement in modern education systems.",
+        "author": [
+            "lamide"
+        ],
+        "category": 20,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.980Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.983Z",
+        "updated_at": "2026-03-14T11:07:25.983Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 61,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Trends in Real Estate Development",
+        "slug": "trends-in-real-estate-development-62c4dc",
+        "content": "Real estate development responds to population growth, urban expansion, and market demand. Sustainable construction, smart buildings, and mixed-use developments are modern trends. Developers balance economic feasibility with environmental responsibility. Technology aids design, construction, and management efficiency. Real estate contributes to economic growth, employment, and community infrastructure. Awareness of trends helps investors, policymakers, and urban planners make informed decisions that enhance livability and property value.",
+        "excerpt": "Real estate development evolves with urbanization, sustainability, and technological integration.",
+        "author": [
+            "lamide"
+        ],
+        "category": 21,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:25.992Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:25.993Z",
+        "updated_at": "2026-03-14T11:07:25.993Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 62,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Residential Property Insights",
+        "slug": "residential-property-insights-aefa06",
+        "content": "Residential real estate addresses population housing needs and lifestyle preferences. Market analysis evaluates property prices, demand, and location advantages. Urban planning, zoning, and amenities influence investment decisions. Affordable housing initiatives and mortgage solutions enhance accessibility. Understanding residential trends benefits homeowners, investors, and policymakers, ensuring sustainable growth, community development, and improved quality of life.",
+        "excerpt": "Housing trends, affordability, and urban planning shape the residential real estate market.",
+        "author": [
+            "lamide"
+        ],
+        "category": 21,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.002Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.005Z",
+        "updated_at": "2026-03-14T11:07:26.005Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 63,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Commercial Real Estate Opportunities",
+        "slug": "commercial-real-estate-opportunities-75eea6",
+        "content": "Commercial real estate includes offices, retail, industrial, and mixed-use properties. Location, accessibility, and infrastructure impact value and profitability. Leasing, investment analysis, and market research guide decision-making. Technological integration, such as smart offices, enhances efficiency. Commercial real estate contributes to job creation, entrepreneurship, and urban development. Awareness of market dynamics and trends supports strategic planning for investors and businesses seeking growth opportunities.",
+        "excerpt": "Commercial properties drive business growth, investment, and urban economic activity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 21,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.013Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.015Z",
+        "updated_at": "2026-03-14T11:07:26.015Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 64,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Real Estate Investment Strategies",
+        "slug": "real-estate-investment-strategies-b206ca",
+        "content": "Real estate investment requires careful analysis of property value, market trends, and risk tolerance. Diversification across residential, commercial, and industrial assets mitigates exposure. Rental income, appreciation, and tax considerations inform strategy. Market research, due diligence, and financial planning enhance decision-making. Real estate investment supports wealth creation, economic development, and community growth. Knowledgeable investors leverage insights to maximize returns while managing market volatility effectively.",
+        "excerpt": "Investors balance risk, return, and market trends to build diversified real estate portfolios.",
+        "author": [
+            "lamide"
+        ],
+        "category": 21,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.025Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.027Z",
+        "updated_at": "2026-03-14T11:07:26.027Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 65,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Sustainable Real Estate Practices",
+        "slug": "sustainable-real-estate-practices-c71e6c",
+        "content": "Sustainable real estate emphasizes green building design, energy efficiency, and environmental stewardship. Developers integrate renewable energy, efficient materials, and waste reduction strategies. Certification programs like LEED promote industry standards. Sustainable properties reduce operational costs, enhance occupant well-being, and appeal to environmentally conscious investors. Emphasizing sustainability supports long-term property value, community health, and global environmental goals, reflecting responsible real estate practices.",
+        "excerpt": "Eco-friendly design and energy efficiency in real estate minimize environmental impact and enhance value.",
+        "author": [
+            "lamide"
+        ],
+        "category": 21,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.035Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.037Z",
+        "updated_at": "2026-03-14T11:07:26.037Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 66,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Budgeting for Financial Stability",
+        "slug": "budgeting-for-financial-stability-11fd6e",
+        "content": "Budgeting is a foundational personal finance skill, enabling individuals to track income, control spending, and prioritize savings. By allocating funds to essential needs, discretionary spending, and emergency funds, a budget ensures financial stability and reduces stress. Digital tools and apps simplify budgeting, providing real-time tracking and alerts. Regular review and adjustment improve accuracy and goal alignment. Consistent budgeting fosters financial discipline, supports investment planning, and empowers individuals to achieve short-term and long-term objectives, from debt reduction to wealth accumulation.",
+        "excerpt": "Creating and following a budget helps individuals manage expenses, save, and achieve financial goals.",
+        "author": [
+            "lamide"
+        ],
+        "category": 22,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.046Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.047Z",
+        "updated_at": "2026-03-14T11:07:26.047Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 67,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Investment Strategies for Beginners",
+        "slug": "investment-strategies-for-beginners-921da3",
+        "content": "Investing enables individuals to grow wealth and achieve financial goals. Beginners should understand risk tolerance, investment horizons, and diversification. Common options include stocks, bonds, mutual funds, and real estate. Diversification spreads risk across assets, reducing potential losses. Research, financial literacy, and professional advice guide informed decisions. Regular monitoring and rebalancing ensure investments align with goals. Responsible investing builds wealth over time, provides passive income, and enhances financial security, empowering individuals to plan for retirement, emergencies, and life milestones.",
+        "excerpt": "Understanding risk, diversification, and financial instruments helps new investors grow wealth responsibly.",
+        "author": [
+            "lamide"
+        ],
+        "category": 22,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.055Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.057Z",
+        "updated_at": "2026-03-14T11:07:26.057Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 68,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Managing Debt Effectively",
+        "slug": "managing-debt-effectively-6b52be",
+        "content": "Managing debt involves understanding obligations, interest rates, and repayment schedules. Prioritizing high-interest debts, consolidating loans, and negotiating terms can reduce financial burden. Budgeting and avoiding unnecessary borrowing help prevent debt accumulation. Financial education enhances awareness of credit, loans, and interest impacts. Proper debt management protects credit scores, minimizes stress, and preserves long-term financial flexibility. Combining repayment strategies with savings and investment planning ensures individuals maintain control over their finances while achieving financial goals.",
+        "excerpt": "Debt management requires planning, prioritization, and disciplined repayment strategies to maintain financial health.",
+        "author": [
+            "lamide"
+        ],
+        "category": 22,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.064Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.067Z",
+        "updated_at": "2026-03-14T11:07:26.067Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 69,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Saving for Retirement",
+        "slug": "saving-for-retirement-be69b2",
+        "content": "Retirement planning ensures individuals maintain financial independence later in life. Contributing to retirement accounts, pensions, or investment portfolios builds long-term wealth. Starting early allows compounding to maximize growth. Evaluating risk tolerance, inflation, and expected lifestyle informs contribution strategies. Diversifying savings across assets balances security and growth. Regular review and adjustments ensure goals remain achievable. Effective retirement planning reduces dependency, provides peace of mind, and enables individuals to enjoy retirement comfortably while maintaining financial security.",
+        "excerpt": "Early and consistent retirement savings secure financial independence and a comfortable future.",
+        "author": [
+            "lamide"
+        ],
+        "category": 22,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.074Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.076Z",
+        "updated_at": "2026-03-14T11:07:26.076Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 70,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Understanding Credit Scores",
+        "slug": "understanding-credit-scores-1de94c",
+        "content": "A credit score represents an individual’s creditworthiness, influencing borrowing terms and financial opportunities. Factors include payment history, debt levels, account age, and credit inquiries. Maintaining timely payments, low balances, and diverse credit types enhances scores. Regularly monitoring reports prevents errors and fraud. Strong credit facilitates access to loans, mortgages, and favorable interest rates, while poor credit limits options. Understanding and managing credit scores empowers individuals to make informed financial decisions and build long-term stability.",
+        "excerpt": "Credit scores reflect financial reliability and affect loan approval, interest rates, and financial opportunities.",
+        "author": [
+            "lamide"
+        ],
+        "category": 22,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.084Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.086Z",
+        "updated_at": "2026-03-14T11:07:26.086Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 71,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Renewable Energy Adoption",
+        "slug": "renewable-energy-adoption-d67322",
+        "content": "Renewable energy sources, including solar, wind, hydro, and geothermal, offer sustainable alternatives to fossil fuels. Adoption reduces greenhouse gas emissions, enhances energy security, and mitigates climate change. Governments, businesses, and households invest in renewable infrastructure, incentives, and technology. Technological innovation lowers costs and improves efficiency. Public awareness and policy support accelerate transition. Embracing renewable energy fosters environmental responsibility, economic opportunity, and long-term energy sustainability for communities and nations.",
+        "excerpt": "Switching to renewable energy reduces environmental impact and supports sustainable development.",
+        "author": [
+            "lamide"
+        ],
+        "category": 23,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.095Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.096Z",
+        "updated_at": "2026-03-14T11:07:26.096Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 72,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Energy Efficiency in Daily Life",
+        "slug": "energy-efficiency-in-daily-life-f8ba28",
+        "content": "Energy efficiency involves reducing consumption through efficient appliances, insulation, and mindful habits. Simple measures like LED lighting, smart thermostats, and regular maintenance cut energy waste. Industrial and commercial sectors adopt energy management systems to optimize operations. Improved efficiency lowers bills, conserves resources, and reduces environmental impact. Education and awareness encourage adoption. Energy efficiency contributes to sustainability, mitigates climate risks, and supports global efforts to reduce carbon emissions.",
+        "excerpt": "Energy efficiency minimizes waste, lowers costs, and supports environmental conservation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 23,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.104Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.106Z",
+        "updated_at": "2026-03-14T11:07:26.106Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 73,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Fossil Fuels and Environmental Impact",
+        "slug": "fossil-fuels-and-environmental-impact-9f1f06",
+        "content": "Fossil fuels, including coal, oil, and natural gas, power much of the global economy but produce significant carbon emissions. Air pollution, greenhouse gas accumulation, and environmental degradation are associated with fossil fuel consumption. Transitioning to renewable energy and adopting cleaner technologies mitigates these impacts. Policies, innovation, and behavioral changes encourage reduced reliance. Understanding environmental consequences motivates sustainable energy practices and supports global climate goals, protecting ecosystems and public health.",
+        "excerpt": "Dependence on fossil fuels drives pollution and climate change, prompting a shift to cleaner energy sources.",
+        "author": [
+            "lamide"
+        ],
+        "category": 23,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.113Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.115Z",
+        "updated_at": "2026-03-14T11:07:26.116Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 74,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Nuclear Energy: Pros and Cons",
+        "slug": "nuclear-energy-pros-and-cons-27b20d",
+        "content": "Nuclear energy provides high-output electricity with minimal carbon emissions. Nuclear reactors generate power through fission, offering reliability and scalability. However, radioactive waste disposal, safety risks, and high costs present challenges. Regulatory frameworks, technological innovation, and safety protocols aim to mitigate risks. Nuclear energy complements renewable sources in a diversified energy mix, supporting sustainability and energy security. Public understanding and balanced policy guide responsible utilization while addressing environmental and safety concerns.",
+        "excerpt": "Nuclear power generates large-scale electricity with low emissions but raises safety and waste concerns.",
+        "author": [
+            "lamide"
+        ],
+        "category": 23,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.123Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.125Z",
+        "updated_at": "2026-03-14T11:07:26.125Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 75,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Energy Policy and Sustainability",
+        "slug": "energy-policy-and-sustainability-2a1093",
+        "content": "Energy policy guides production, distribution, and consumption strategies to balance economic growth, environmental protection, and societal needs. Governments implement regulations, subsidies, and incentives to promote sustainable energy sources. Collaboration between public and private sectors fosters innovation in technology and infrastructure. Policies addressing efficiency, access, and emissions contribute to equitable and sustainable energy solutions. Strong energy policy ensures reliable power, environmental stewardship, and long-term resilience against global energy challenges.",
+        "excerpt": "National and global energy policies shape sustainable development, innovation, and access to power.",
+        "author": [
+            "lamide"
+        ],
+        "category": 23,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.133Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.135Z",
+        "updated_at": "2026-03-14T11:07:26.135Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 76,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Public Health Initiatives",
+        "slug": "public-health-initiatives-e26586",
+        "content": "Public health initiatives focus on disease prevention, health education, and access to medical services. Vaccination campaigns, hygiene programs, and awareness drives reduce illness prevalence. Collaboration among governments, NGOs, and healthcare providers ensures effective delivery. Healthy lifestyles, nutrition, and mental wellness are emphasized to enhance overall quality of life. Monitoring health trends guides policy decisions. Strong public health systems protect populations, improve life expectancy, and promote resilient communities.",
+        "excerpt": "Community health programs prevent disease, promote wellness, and improve quality of life.",
+        "author": [
+            "lamide"
+        ],
+        "category": 24,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.144Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.146Z",
+        "updated_at": "2026-03-14T11:07:26.146Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 77,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Mental Health Awareness",
+        "slug": "mental-health-awareness-83ae76",
+        "content": "Mental health is critical for overall well-being, yet stigma often limits treatment. Awareness campaigns, counseling services, and education reduce misconceptions and promote support. Early intervention and access to professional care prevent escalation of mental illnesses. Workplaces, schools, and communities foster supportive environments. Integrating mental health into public health policy ensures holistic care. Prioritizing mental wellness enhances productivity, relationships, and societal resilience, reflecting a comprehensive approach to health.",
+        "excerpt": "Addressing mental health challenges reduces stigma, encourages treatment, and improves well-being.",
+        "author": [
+            "lamide"
+        ],
+        "category": 24,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.155Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.157Z",
+        "updated_at": "2026-03-14T11:07:26.157Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 78,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Nutrition and Healthy Living",
+        "slug": "nutrition-and-healthy-living-773d06",
+        "content": "Nutrition underpins health, with balanced diets providing essential nutrients for growth, energy, and immunity. Regular physical activity, hydration, and adequate sleep support bodily functions. Public health campaigns encourage healthy habits to prevent obesity, diabetes, and cardiovascular diseases. Education on dietary choices, portion control, and food safety empowers individuals. Holistic approaches to nutrition and wellness foster long-term health, vitality, and quality of life.",
+        "excerpt": "Balanced diets, exercise, and lifestyle choices prevent chronic diseases and promote longevity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 24,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.166Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.168Z",
+        "updated_at": "2026-03-14T11:07:26.168Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 79,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Healthcare Innovation",
+        "slug": "healthcare-innovation-ef8c07",
+        "content": "Healthcare innovation integrates technology such as telemedicine, AI diagnostics, and wearable devices to enhance patient care. Electronic health records streamline treatment and monitoring. Research and development accelerate new therapies, vaccines, and medical devices. Innovation improves efficiency, accessibility, and outcomes in healthcare delivery. Collaboration between public institutions, private enterprises, and researchers ensures sustainable progress. Technological adoption transforms patient experiences, reduces costs, and advances global health standards.",
+        "excerpt": "Technological advancements improve diagnosis, treatment, and patient care across medical systems.",
+        "author": [
+            "lamide"
+        ],
+        "category": 24,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.176Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.178Z",
+        "updated_at": "2026-03-14T11:07:26.178Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 80,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Global Health Challenges",
+        "slug": "global-health-challenges-d01108",
+        "content": "Global health challenges such as pandemics, infectious diseases, and malnutrition require coordinated responses. International organizations, governments, and NGOs collaborate on surveillance, prevention, and treatment programs. Health equity, resource allocation, and public education address disparities. Research, vaccination, and emergency preparedness improve resilience. Understanding global health dynamics enables informed policy-making, promotes collaboration, and safeguards populations worldwide against emerging health threats.",
+        "excerpt": "Pandemics, infectious diseases, and health disparities demand international cooperation and policy solutions.",
+        "author": [
+            "lamide"
+        ],
+        "category": 24,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.187Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.189Z",
+        "updated_at": "2026-03-14T11:07:26.189Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 81,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Fashion Trends and Self-Expression",
+        "slug": "fashion-trends-and-self-expression-1df59d",
+        "content": "Fashion evolves through cultural influences, societal norms, and technological innovation. Clothing and accessories serve as personal expression and social signaling. Designers balance aesthetics, functionality, and sustainability. Trends emerge from runway shows, media, and digital platforms. Individual style integrates current trends with personal identity, promoting creativity and confidence. Awareness of fashion history and cultural context enriches appreciation and informs choices. Style is both a personal and cultural statement, influencing perception and communication.",
+        "excerpt": "Style reflects personality, culture, and social dynamics through clothing and accessories.",
+        "author": [
+            "lamide"
+        ],
+        "category": 30,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.198Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.200Z",
+        "updated_at": "2026-03-14T11:07:26.200Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 82,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Sustainable Fashion Practices",
+        "slug": "sustainable-fashion-practices-405b64",
+        "content": "Sustainable fashion emphasizes environmentally friendly materials, ethical labor practices, and circular design. Brands implement recycling, upcycling, and slow fashion to minimize waste. Consumers adopt mindful purchasing and care practices. Sustainability in fashion mitigates pollution, conserves resources, and ensures fair working conditions. Innovation in textiles, supply chains, and consumer engagement drives industry transformation. Embracing sustainable fashion balances style with responsibility, reflecting values aligned with global environmental and social priorities.",
+        "excerpt": "Eco-conscious fashion reduces environmental impact while promoting ethical production.",
+        "author": [
+            "lamide"
+        ],
+        "category": 30,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.208Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.210Z",
+        "updated_at": "2026-03-14T11:07:26.210Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 83,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Influence of Digital Media on Style",
+        "slug": "influence-of-digital-media-on-style-8cd58b",
+        "content": "Digital platforms amplify fashion trends through influencers, content creation, and online communities. Brands leverage social media for marketing, engagement, and direct sales. User-generated content and real-time feedback accelerate trend cycles. Online exposure empowers consumers to express identity and discover new styles. Social media analytics guide brand strategy, enhancing relevance and market reach. The digital revolution democratizes style, fostering global cultural exchange while influencing personal and collective fashion choices.",
+        "excerpt": "Social media shapes trends, brand visibility, and consumer behavior in fashion.",
+        "author": [
+            "lamide"
+        ],
+        "category": 30,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.219Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.221Z",
+        "updated_at": "2026-03-14T11:07:26.221Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 84,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Personal Grooming and Lifestyle",
+        "slug": "personal-grooming-and-lifestyle-99d2b5",
+        "content": "Personal grooming includes skincare, haircare, hygiene, and overall presentation. Grooming habits impact self-esteem, professional impression, and social interactions. Products, techniques, and lifestyle choices contribute to a polished appearance. Wellness practices, nutrition, and exercise influence physical presentation. Integrating grooming with fashion choices enhances individuality and public perception. Awareness and education on grooming empower individuals to express themselves confidently and maintain personal health and style.",
+        "excerpt": "Grooming routines complement fashion, enhancing confidence and personal presentation.",
+        "author": [
+            "lamide"
+        ],
+        "category": 30,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.228Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.230Z",
+        "updated_at": "2026-03-14T11:07:26.230Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 85,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Cultural Influence on Fashion",
+        "slug": "cultural-influence-on-fashion-c19d69",
+        "content": "Cultural heritage informs clothing design, patterns, and color symbolism. Fashion draws inspiration from traditional garments, regional textiles, and rituals. Cultural appreciation promotes diversity, creativity, and innovation in global fashion. Designers integrate elements respectfully to celebrate heritage while modernizing appeal. Cross-cultural exchange fosters global awareness and enriches style narratives. Understanding cultural influences ensures fashion honors tradition, expresses identity, and resonates with diverse audiences worldwide.",
+        "excerpt": "Traditional attire, symbolism, and heritage shape modern style and global trends.",
+        "author": [
+            "lamide"
+        ],
+        "category": 30,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.239Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.241Z",
+        "updated_at": "2026-03-14T11:07:26.241Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 86,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Global Culinary Trends",
+        "slug": "global-culinary-trends-33eddb",
+        "content": "Global culinary trends reflect fusion of cultures, health consciousness, and technological innovation. Chefs experiment with flavors, techniques, and ingredients to create unique experiences. Farm-to-table, plant-based, and sustainable sourcing influence menus. Food media and social platforms amplify trends, shaping consumer preferences. Culinary exploration enhances cultural understanding, promotes tourism, and stimulates creativity. The global food landscape evolves continually, blending tradition with modern culinary innovation to delight and nourish diverse populations.",
+        "excerpt": "International cuisines influence cooking, dining, and cultural experiences worldwide.",
+        "author": [
+            "lamide"
+        ],
+        "category": 31,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.250Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.253Z",
+        "updated_at": "2026-03-14T11:07:26.253Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 87,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Nutrition and Healthy Eating",
+        "slug": "nutrition-and-healthy-eating-c164b4",
+        "content": "Healthy eating emphasizes whole foods, vegetables, fruits, lean proteins, and healthy fats. Portion control, hydration, and meal planning prevent chronic illnesses like obesity, diabetes, and heart disease. Nutritional education fosters informed choices and sustainable habits. Food preparation methods, cultural preferences, and seasonal availability influence dietary patterns. Integrating taste, nutrition, and accessibility ensures adherence. Promoting healthy eating supports physical and mental well-being, enhances productivity, and contributes to overall quality of life.",
+        "excerpt": "Balanced diets, portion control, and nutrient-rich foods support long-term wellness.",
+        "author": [
+            "lamide"
+        ],
+        "category": 31,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.262Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.264Z",
+        "updated_at": "2026-03-14T11:07:26.264Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 88,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Food Sustainability and Ethics",
+        "slug": "food-sustainability-and-ethics-36ab06",
+        "content": "Sustainable food practices involve reducing waste, supporting local producers, and ethical treatment of animals. Organic farming, regenerative agriculture, and responsible fishing preserve ecosystems. Consumers are encouraged to adopt mindful consumption habits, minimize single-use packaging, and prioritize seasonal foods. Ethical considerations ensure fair wages, humane treatment, and community benefit. Combining sustainability with culinary enjoyment fosters a balanced relationship between nourishment, environmental stewardship, and social responsibility.",
+        "excerpt": "Ethical food sourcing and sustainable practices protect the environment and ensure fair production.",
+        "author": [
+            "lamide"
+        ],
+        "category": 31,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.280Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.283Z",
+        "updated_at": "2026-03-14T11:07:26.283Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 89,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Food Technology Innovations",
+        "slug": "food-technology-innovations-c0594d",
+        "content": "Food technology revolutionizes agriculture, processing, and cooking. Innovations include plant-based alternatives, lab-grown proteins, precision agriculture, and smart kitchen appliances. Technology ensures quality, reduces waste, and improves nutrition. Safety monitoring, digital tracking, and supply chain management enhance transparency. Culinary creativity expands through AI-assisted recipe development, cooking devices, and experimentation with textures and flavors. Technological integration balances efficiency, sustainability, and gastronomic innovation, transforming how food is produced, prepared, and enjoyed globally.",
+        "excerpt": "Advances in technology enhance production, safety, and culinary creativity.",
+        "author": [
+            "lamide"
+        ],
+        "category": 31,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.292Z",
+        "view_count": 0,
+        "created_at": "2026-03-14T11:07:26.294Z",
+        "updated_at": "2026-03-14T11:07:26.294Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.article",
+    "pk": 90,
+    "fields": {
+        "is_deleted": false,
+        "deleted_at": null,
+        "title": "Cultural Significance of Food",
+        "slug": "cultural-significance-of-food-3bea18",
+        "content": "Culinary traditions embody cultural identity, rituals, and social practices. Festivals, ceremonies, and family meals strengthen community bonds. Ingredients, preparation methods, and flavors convey history and regional uniqueness. Sharing food promotes hospitality, understanding, and cultural appreciation. Culinary storytelling preserves knowledge while inspiring contemporary reinterpretation. Recognizing food’s cultural significance fosters respect for diversity, encourages innovation, and enhances social cohesion, making cuisine a vital element of human experience.",
+        "excerpt": "Food reflects heritage, traditions, and social connections across societies.",
+        "author": [
+            "lamide"
+        ],
+        "category": 31,
+        "image": "",
+        "status": "published",
+        "publish_at": "2026-03-14T11:07:26.302Z",
+        "view_count": 1,
+        "created_at": "2026-03-14T11:07:26.305Z",
+        "updated_at": "2026-03-14T11:07:26.305Z",
+        "tags": []
+    }
+},
+{
+    "model": "news.articleview",
+    "pk": 1,
+    "fields": {
+        "article": 90,
+        "ip_address": "127.0.0.1",
+        "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36",
+        "viewed_at": "2026-03-14T11:27:12.305Z"
+    }
+},
+{
+    "model": "ads.advertisement",
+    "pk": 1,
+    "fields": {
+        "title": "heyyy",
+        "placement": "sidebar",
+        "image": "ads/Slide4.JPG",
+        "link": "https://www.oladimeji.com.ng",
+        "start_date": "2026-03-08T22:10:27Z",
+        "end_date": "2026-03-08T05:36:07Z",
+        "priority": 0,
+        "is_active": true,
+        "target_page": "all"
+    }
+},
+{
+    "model": "ads.advertisement",
+    "pk": 2,
+    "fields": {
+        "title": "bhhh",
+        "placement": "article",
+        "image": "ads/Slide4_zvmQ6yi.JPG",
+        "link": "https://www.oladimeji.com.ng",
+        "start_date": "2026-03-07T22:11:40Z",
+        "end_date": "2026-03-08T18:00:00Z",
+        "priority": 1,
+        "is_active": true,
+        "target_page": "all"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2026-03-07T21:49:34.170Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "1",
+        "object_repr": "admin",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Role\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2026-03-07T21:50:20.290Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "Lanre",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2026-03-07T21:51:16.595Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "2",
+        "object_repr": "Lanre",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email\", \"Role\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2026-03-07T21:52:15.606Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "lamide",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2026-03-07T21:52:49.643Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "3",
+        "object_repr": "lamide",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email\", \"Role\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2026-03-07T21:54:26.320Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "dare",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2026-03-07T21:55:00.630Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "4",
+        "object_repr": "dare",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"First name\", \"Last name\", \"Email\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2026-03-07T21:56:01.781Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "1",
+        "object_repr": "Politics",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2026-03-07T21:56:19.931Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "2",
+        "object_repr": "Gaming",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2026-03-07T21:58:03.996Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "3",
+        "object_repr": "Technology and Communication",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2026-03-07T21:58:28.110Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "1",
+        "object_repr": "Politics",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2026-03-07T21:58:36.613Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "2",
+        "object_repr": "Gaming",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2026-03-07T21:58:47.285Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "3",
+        "object_repr": "Technology and Communication",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2026-03-07T22:00:00.274Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "4",
+        "object_repr": "President",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2026-03-07T22:05:54.332Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "1",
+        "object_repr": "bhbhbbhb m",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2026-03-07T22:09:27.145Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "2",
+        "object_repr": "hearing",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2026-03-07T22:11:09.055Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "1",
+        "object_repr": "heyyy",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2026-03-07T22:12:15.001Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "2",
+        "object_repr": "bhhh",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2026-03-08T05:22:13.834Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "4",
+        "object_repr": "medicine",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+        "action_time": "2026-03-08T05:22:23.273Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "5",
+        "object_repr": "ellection",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+        "action_time": "2026-03-08T05:22:32.612Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "6",
+        "object_repr": "world news",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+        "action_time": "2026-03-08T05:22:43.211Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "7",
+        "object_repr": "mass-murder",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+        "action_time": "2026-03-08T05:22:51.325Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "8",
+        "object_repr": "killmonger",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+        "action_time": "2026-03-08T05:22:57.398Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "9",
+        "object_repr": "sydd",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+        "action_time": "2026-03-08T05:23:06.645Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "10",
+        "object_repr": "massacheusets",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+        "action_time": "2026-03-08T05:23:14.924Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "11",
+        "object_repr": "up up up",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+        "action_time": "2026-03-08T05:34:55.749Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "2",
+        "object_repr": "bhhh",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+        "action_time": "2026-03-08T05:35:46.156Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "1",
+        "object_repr": "heyyy",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Is active\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+        "action_time": "2026-03-08T05:36:12.665Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "1",
+        "object_repr": "heyyy",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"End date\", \"Is active\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+        "action_time": "2026-03-08T05:36:41.841Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "ads",
+            "advertisement"
+        ],
+        "object_id": "1",
+        "object_repr": "heyyy",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Start date\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "11",
+        "object_repr": "up up up",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "10",
+        "object_repr": "massacheusets",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "9",
+        "object_repr": "sydd",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "8",
+        "object_repr": "killmonger",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "7",
+        "object_repr": "mass-murder",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "6",
+        "object_repr": "world news",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "5",
+        "object_repr": "ellection",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "4",
+        "object_repr": "medicine",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "3",
+        "object_repr": "Technology and Communication",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "2",
+        "object_repr": "Gaming",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+        "action_time": "2026-03-08T12:31:40.772Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "category"
+        ],
+        "object_id": "1",
+        "object_repr": "Politics",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+        "action_time": "2026-03-08T12:31:51.899Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "4",
+        "object_repr": "President",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+        "action_time": "2026-03-08T12:31:51.899Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "3",
+        "object_repr": "Technology and Communication",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+        "action_time": "2026-03-08T12:31:51.899Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "2",
+        "object_repr": "Gaming",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+        "action_time": "2026-03-08T12:31:51.899Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "tag"
+        ],
+        "object_id": "1",
+        "object_repr": "Politics",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+        "action_time": "2026-03-08T13:39:54.549Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "2",
+        "object_repr": "hearing",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Category\", \"Tags\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+        "action_time": "2026-03-08T13:40:05.532Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "1",
+        "object_repr": "bhbhbbhb m",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Category\", \"Tags\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+        "action_time": "2026-03-14T09:23:00.347Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "3",
+        "object_repr": "nujij",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+        "action_time": "2026-03-14T09:23:28.685Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "4",
+        "object_repr": "b   b nbmbn",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+        "action_time": "2026-03-14T09:23:57.672Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "5",
+        "object_repr": "nnn",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 51,
+    "fields": {
+        "action_time": "2026-03-14T11:08:26.585Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "5",
+        "object_repr": "nnn",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 52,
+    "fields": {
+        "action_time": "2026-03-14T11:08:26.585Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "4",
+        "object_repr": "b   b nbmbn",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 53,
+    "fields": {
+        "action_time": "2026-03-14T11:08:26.586Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "3",
+        "object_repr": "nujij",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 54,
+    "fields": {
+        "action_time": "2026-03-14T11:08:26.586Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "2",
+        "object_repr": "hearing",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 55,
+    "fields": {
+        "action_time": "2026-03-14T11:08:26.586Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "news",
+            "article"
+        ],
+        "object_id": "1",
+        "object_repr": "bhbhbbhb m",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 56,
+    "fields": {
+        "action_time": "2026-03-18T17:24:34.504Z",
+        "user": [
+            "admin"
+        ],
+        "content_type": [
+            "accounts",
+            "user"
+        ],
+        "object_id": "5",
+        "object_repr": "okay",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+}
+]
