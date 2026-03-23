@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
+import cloudinary
 
 REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -80,6 +81,14 @@ CLOUDINARY_STORAGE = {
     'API_KEY': "274589483481546",
     'API_SECRET': "_hZNWMpUBmO4djmbKR_BgkHD618"
 }
+
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+    secure=True
+)
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
