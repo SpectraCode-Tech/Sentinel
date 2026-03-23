@@ -76,13 +76,10 @@ CHANNEL_LAYERS = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUD_NAME',),
-    'API_KEY': os.environ.get('API_KEY'),
-    'API_SECRET': os.environ.get('API_SECRET')
+    'CLOUD_NAME': "dbobp3qr4",
+    'API_KEY': 274589483481546,
+    'API_SECRET': "_hZNWMpUBmO4djmbKR_BgkHD618"
 }
-print(f"DEBUG CLOUDINARY: {os.environ.get('CLOUD_NAME')}")
-print(f"DEBUG CLOUDINARY: {os.environ.get('API_KEY')}")
-print(f"DEBUG CLOUDINARY: {os.environ.get('API_SECRET')}")
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 

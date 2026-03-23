@@ -17,7 +17,7 @@ export default function CompactCard({ article }) {
       <Link to={`/articles/${article.slug}`} className="block mb-3 overflow-hidden">
         <div className="relative aspect-video overflow-hidden bg-surface">
           <img
-            src={article.image || "https://via.placeholder.com/400x225"}
+            src={article.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy009LUOND9m_Fxvr7M49WGnjlObT5M4Yyw&s"}
             alt={article.title}
             className="w-full h-full object-cover grayscale-20% transition-transform duration-500 group-hover:scale-105 group-hover:grayscale-0"
           />
