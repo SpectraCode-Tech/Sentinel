@@ -80,6 +80,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': os.environ.get('API_KEY'),
     'API_SECRET': os.environ.get('API_SECRET')
 }
+print(f"DEBUG CLOUDINARY: {os.environ.get('CLOUD_NAME')}")
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
