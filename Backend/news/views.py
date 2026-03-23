@@ -1,7 +1,9 @@
 from datetime import timedelta
+import os
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
+from django.core.management import call_command
 
 from rest_framework import viewsets, permissions, filters
 from rest_framework.decorators import action
@@ -13,6 +15,7 @@ from .models import Article, Category, Tag, ArticleView
 from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 from .utils import get_client_ip
 from utils.email import send_email_async
+from django.db.models import Count
 
 User = get_user_model()
 
@@ -154,49 +157,46 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def trending(self, request):
+        # 1. Define the "Trending" window (e.g., last 7 days)
         time_threshold = timezone.now() - timedelta(days=7)
-        trending = Article.objects.filter(
-            status="published", is_deleted=False, publish_at__gte=time_threshold
-        ).order_by('-view_count')[:5]
+
+        # 2. Query articles based on RECENT views, not publish date
+        trending = (
+            Article.objects.filter(
+                status="published",
+                is_deleted=False,
+                # This looks at the 'viewed_at' timestamp inside the ArticleView model
+                ip_views__viewed_at__gte=time_threshold 
+            )
+            .annotate(recent_view_count=Count('ip_views', distinct=True))
+            .order_by('-recent_view_count')[:5]
+        )
+
+        # 3. Fallback: If no one read anything in 7 days, show the most popular of all time
+        if not trending.exists():
+            trending = Article.objects.filter(
+                status="published", 
+                is_deleted=False
+            ).order_by('-view_count')[:5]
+
         return Response(self.get_serializer(trending, many=True).data)
 
 
 
 def weekly_newsletter(request):
     """
-    Triggered via GET request. 
-    Use a tool like GitHub Actions or a Cron job to hit this URL once a week.
+    Instead of rewriting the logic, just trigger the 
+    Management Command we already fixed!
     """
-    if request.GET.get("key") != "secret123":
+    if request.GET.get("key") != os.environ.get("NEWSLETTER_KEY"):
         return JsonResponse({"error": "Unauthorized"}, status=403)
 
-    last_week = timezone.now() - timedelta(days=7)
-
-    # Fetch top 5 most viewed articles from the last 7 days
-    articles = Article.objects.filter(
-        status="published",
-        publish_at__gte=last_week
-    ).order_by('-view_count')[:5]
-
-    if not articles:
-        return JsonResponse({"message": "No new trending articles to send."})
-
-    # Prepare email content
-    content = "\n".join([f"🔥 {a.title} - https://sentinel.com/articles/{a.slug}" for a in articles])
-    
-    # Get all active user emails
-    emails = list(User.objects.exclude(email="").values_list('email', flat=True))
-
-    if emails:
-        send_email_async(
-            subject="📰 Your Sentinel Weekly: This Week's Top Stories",
-            message=f"Stay informed with the most-read stories on The Sentinel:\n\n{content}\n\nHappy reading!",
-            recipient_list=emails
-        )
-        return JsonResponse({"message": f"Newsletter dispatched to {len(emails)} users."})
-
-    return JsonResponse({"message": "No recipients found."})
-
+    try:
+        # This runs the 'py manage.py send_weekly_news' logic
+        call_command('send_weekly_news') 
+        return JsonResponse({"message": "Newsletter command triggered successfully."})
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
 # --- Simple ViewSets ---
 
 class CategoryViewSet(viewsets.ModelViewSet):

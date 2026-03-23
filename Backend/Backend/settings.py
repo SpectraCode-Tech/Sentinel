@@ -3,11 +3,17 @@ from pathlib import Path
 from datetime import timedelta
 import dj_database_url
 import cloudinary
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
-BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 ROOT_URLCONF = "Backend.urls"
+
+
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
