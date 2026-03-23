@@ -23,7 +23,7 @@ urlpatterns = [
     #Analytics
     path("api/analytics/", include("analytics.urls")),
     
-    path("api/weekly-newsletter/", include("weekly_newsletter")),
+    path("api/weekly-newsletter/", weekly_newsletter, name="newsletter-trigger"),
 ]
 
 
