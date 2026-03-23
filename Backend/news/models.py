@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
+from cloudinary.models import CloudinaryField
 from django.utils import timezone
 import uuid
 
@@ -47,7 +48,6 @@ class Tag(models.Model):
 
 
 class Article(SoftDeleteModel):
-
     class Status(models.TextChoices):
         DRAFT = "draft"
         REVIEW = "review"
@@ -66,7 +66,7 @@ class Article(SoftDeleteModel):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    image = models.ImageField(upload_to="articles/", null=True, blank=True)
+    image = CloudinaryField('image', folder="articles/", null=True, blank=True)
 
     status = models.CharField(max_length=20, choices=Status.choices, default=Status.DRAFT)
 

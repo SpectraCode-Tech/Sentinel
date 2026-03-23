@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     "channels",
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
 
     "accounts",
     "news",
@@ -72,6 +75,13 @@ CHANNEL_LAYERS = {
     }
 }
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'your_cloud_name',
+    'API_KEY': 'your_api_key',
+    'API_SECRET': 'your_api_secret'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ASGI_APPLICATION = "Backend.asgi.application"
 
