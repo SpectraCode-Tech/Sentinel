@@ -16,7 +16,6 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_replies(self, obj):
         replies = obj.replies.filter(status='approved')
-        
         return CommentSerializer(replies, many=True, context=self.context).data
 
     def validate(self, data):

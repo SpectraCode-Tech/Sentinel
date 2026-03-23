@@ -8,11 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
 ROOT_URLCONF = "Backend.urls"
 
-CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-
-
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
 DEBUG = True
@@ -136,6 +131,7 @@ SIMPLE_JWT = {
 }
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
