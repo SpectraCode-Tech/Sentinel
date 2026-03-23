@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     "channels",
-    'cloudinary_storage',
+    'django-cloudinary-storage',
     'django.contrib.staticfiles',
     'cloudinary',
 
@@ -76,9 +76,9 @@ CHANNEL_LAYERS = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'your_cloud_name',
-    'API_KEY': 'your_api_key',
-    'API_SECRET': 'your_api_secret'
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME',),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET')
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
