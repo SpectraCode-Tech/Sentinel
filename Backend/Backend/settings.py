@@ -84,7 +84,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 DATABASES = {
     'default': dj_database_url.config(
-        default="postgresql://pgadmin:4mXjmZOurXEw9FQfB7wCivpFclHMihjA@dpg-d6vuusfgi27c73f86160-a.oregon-postgres.render.com/sentineldb_cknw",
+        default=os.environ.get('DATABASE_URL'),
         ssl_require=True
     )
 }

@@ -1,6 +1,7 @@
 from datetime import timedelta
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 from rest_framework import viewsets, permissions, filters
 from rest_framework.decorators import action
@@ -89,31 +90,30 @@ class ArticleViewSet(viewsets.ModelViewSet):
                 )
 
     def perform_update(self, serializer):
-        # Capture old status before saving
         old_status = self.get_object().status
         article = serializer.save()
 
-        # 1. Automatic Timestamping for Publishing
+        # 1. Automatic Timestamping
         if article.status == "published" and not article.publish_at:
             article.publish_at = timezone.now()
             article.save(update_fields=['publish_at'])
 
-        # 2. Status Change Notifications
+        # 2. Author Notifications
         if old_status != article.status and article.author.email:
             if article.status == "published":
                 send_email_async(
                     subject="Article Approved 🎉",
-                    message=f"Your article '{article.title}' has been approved and published on The Sentinel.",
+                    message=f"Your article '{article.title}' is now live on The Sentinel.",
                     recipient_list=[article.author.email]
                 )
             elif article.status == "rejected":
                 send_email_async(
                     subject="Update on your Submission",
-                    message=f"Your article '{article.title}' was reviewed and is currently not accepted for publication.",
+                    message=f"Your article '{article.title}' was reviewed and is not accepted for publication.",
                     recipient_list=[article.author.email]
                 )
 
-        # 3. Manual Publication of Scheduled items
+        # 3. Handle Scheduled items
         if article.status == "scheduled" and article.publish_at:
             if article.publish_at <= timezone.now():
                 article.status = "published"
@@ -144,11 +144,9 @@ class ArticleViewSet(viewsets.ModelViewSet):
                 if exclude_id:
                     try:
                         existing_ids.append(int(exclude_id))
-                    except (ValueError, TypeError):
-                        pass
+                    except (ValueError, TypeError): pass
                 
-                extra_needed = 4 - len(recommendations)
-                extra = base_queryset.exclude(id__in=existing_ids).order_by('?')[:extra_needed]
+                extra = base_queryset.exclude(id__in=existing_ids).order_by('?')[:(4 - len(recommendations))]
                 recommendations.extend(list(extra))
 
         serializer = self.get_serializer(recommendations, many=True)
@@ -157,14 +155,49 @@ class ArticleViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def trending(self, request):
         time_threshold = timezone.now() - timedelta(days=7)
-        trending_articles = Article.objects.filter(
-            status="published",
-            is_deleted=False,
-            publish_at__gte=time_threshold
+        trending = Article.objects.filter(
+            status="published", is_deleted=False, publish_at__gte=time_threshold
         ).order_by('-view_count')[:5]
+        return Response(self.get_serializer(trending, many=True).data)
 
-        serializer = self.get_serializer(trending_articles, many=True)
-        return Response(serializer.data)
+
+
+def weekly_newsletter(request):
+    """
+    Triggered via GET request. 
+    Use a tool like GitHub Actions or a Cron job to hit this URL once a week.
+    """
+    if request.GET.get("key") != "secret123":
+        return JsonResponse({"error": "Unauthorized"}, status=403)
+
+    last_week = timezone.now() - timedelta(days=7)
+
+    # Fetch top 5 most viewed articles from the last 7 days
+    articles = Article.objects.filter(
+        status="published",
+        publish_at__gte=last_week
+    ).order_by('-view_count')[:5]
+
+    if not articles:
+        return JsonResponse({"message": "No new trending articles to send."})
+
+    # Prepare email content
+    content = "\n".join([f"🔥 {a.title} - https://sentinel.com/articles/{a.slug}" for a in articles])
+    
+    # Get all active user emails
+    emails = list(User.objects.exclude(email="").values_list('email', flat=True))
+
+    if emails:
+        send_email_async(
+            subject="📰 Your Sentinel Weekly: This Week's Top Stories",
+            message=f"Stay informed with the most-read stories on The Sentinel:\n\n{content}\n\nHappy reading!",
+            recipient_list=emails
+        )
+        return JsonResponse({"message": f"Newsletter dispatched to {len(emails)} users."})
+
+    return JsonResponse({"message": "No recipients found."})
+
+# --- Simple ViewSets ---
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
