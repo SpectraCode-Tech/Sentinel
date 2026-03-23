@@ -21,6 +21,7 @@ class ArticleSerializer(serializers.ModelSerializer):
         queryset=Tag.objects.all()
     )
 
+    image = serializers.ImageField(use_url=True, required=False, allow_null=True)
     class Meta:
         model = Article
         fields = [
