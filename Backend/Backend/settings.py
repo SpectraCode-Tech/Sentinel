@@ -53,9 +53,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     "channels",
+    'cloudinary',
     'cloudinary_storage',
     'django.contrib.staticfiles',
-    'cloudinary',
+    
 
     "accounts",
     "news",
@@ -141,7 +142,6 @@ SIMPLE_JWT = {
 }
 
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
