@@ -8,6 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Add this line to your settings.py
 ROOT_URLCONF = "Backend.urls"
 
+CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
 
@@ -60,6 +64,7 @@ INSTALLED_APPS = [
     "analytics",
     "ads",
     "comments",
+    "utils",
 ]
 
 CHANNEL_LAYERS = {
@@ -79,7 +84,7 @@ AUTH_USER_MODEL = "accounts.User"
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
+        default="postgresql://pgadmin:4mXjmZOurXEw9FQfB7wCivpFclHMihjA@dpg-d6vuusfgi27c73f86160-a.oregon-postgres.render.com/sentineldb_cknw",
         ssl_require=True
     )
 }

@@ -15,13 +15,8 @@ class CommentSerializer(serializers.ModelSerializer):
         read_only_fields = ['article', 'likes', 'reports', 'created_at', 'updated_at']
 
     def get_replies(self, obj):
-        # FIXED: Removed the 'if obj.parent is not None' check.
-        # This allows Reply B to show Reply C, and so on.
-        
-        # Only show approved replies to the public.
         replies = obj.replies.filter(status='approved')
         
-        # We pass the context along to ensure 'request' is available in nested levels
         return CommentSerializer(replies, many=True, context=self.context).data
 
     def validate(self, data):
