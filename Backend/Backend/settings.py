@@ -40,6 +40,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS = [
     "daphne",
+    'cloudinary_storage',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -53,7 +54,6 @@ INSTALLED_APPS = [
     'django_filters',
     "channels",
     'cloudinary',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
     
 
