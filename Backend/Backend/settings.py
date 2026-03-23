@@ -29,7 +29,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://sentinel-pi-one.vercel.app",
     "https://sentinel-staff.vercel.app",
-    "cloudinary.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -78,9 +77,9 @@ CHANNEL_LAYERS = {
 }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "dbobp3qr4",
-    'API_KEY': "274589483481546",
-    'API_SECRET': "_hZNWMpUBmO4djmbKR_BgkHD618"
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('API_KEY'),
+    'API_SECRET': os.environ.get('API_SECRET')
 }
 
 
