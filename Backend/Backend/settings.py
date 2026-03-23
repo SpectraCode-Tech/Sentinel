@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     "channels",
-    'django-cloudinary-storage',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
 
