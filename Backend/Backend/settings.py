@@ -5,7 +5,7 @@ import dj_database_url
 
 REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Add this line to your settings.py
+
 ROOT_URLCONF = "Backend.urls"
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
@@ -77,7 +77,7 @@ CHANNEL_LAYERS = {
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': "dbobp3qr4",
-    'API_KEY': 274589483481546,
+    'API_KEY': "274589483481546",
     'API_SECRET': "_hZNWMpUBmO4djmbKR_BgkHD618"
 }
 
