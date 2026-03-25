@@ -1,5 +1,6 @@
 from django.db import models
 from news.models import Article
+from cloudinary.models import CloudinaryField
 
 from django.db import models
 
@@ -16,7 +17,7 @@ class Advertisement(models.Model):
         choices=Placement.choices, 
         default=Placement.SIDEBAR
     )
-    image = models.ImageField(upload_to='ads/')
+    image = CloudinaryField('image', folder="ads/", null=True, blank=True)
     link = models.URLField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
