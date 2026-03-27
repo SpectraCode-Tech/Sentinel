@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail # ADD THIS
 from django.conf import settings        # ADD THIS
 from news.models import Article
-from utils.email import send_email_async
+from utils.email import send_email
 from django.db.models import Count
 
 User = get_user_model()
@@ -31,7 +31,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING("No trending articles found."))
             return
 
-        base_url = "https://sentinel-pi-one.vercel.app/articles" 
+        base_url = "https://thesentinel.oladimeji.com.ng/articles" 
         content = "\n".join([f"🔥 {a.title} - {base_url}/{a.slug}" for a in trending_articles])
         
         emails = list(User.objects.filter(is_active=True)
@@ -53,7 +53,7 @@ class Command(BaseCommand):
 
         # 4. Start the async thread for the real newsletter
         self.stdout.write(f"Starting background dispatch to {len(emails)} users...")
-        email_thread = send_email_async(
+        email_thread = send_email(
             subject="📰 The Sentinel Weekly: Top Stories",
             message=f"Stay informed with the most-read stories this week:\n\n{content}\n\nHappy reading!",
             recipient_list=emails

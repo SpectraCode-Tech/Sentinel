@@ -14,7 +14,7 @@ from analytics.models import ReadingHistory
 from .models import Article, Category, Tag, ArticleView
 from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 from .utils import get_client_ip
-from utils.email import send_email_async
+from utils.email import send_email
 from django.db.models import Count
 
 User = get_user_model()
@@ -86,7 +86,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
         if status == "review":
             editor_emails = User.objects.filter(role="EDITOR").exclude(email="").values_list('email', flat=True)
             if editor_emails:
-                send_email_async(
+                send_email(
                     subject="New Article Submission",
                     message=f"A new article '{article.title}' has been submitted for review by {self.request.user.username}.",
                     recipient_list=list(editor_emails)
@@ -104,13 +104,13 @@ class ArticleViewSet(viewsets.ModelViewSet):
         # 2. Author Notifications
         if old_status != article.status and article.author.email:
             if article.status == "published":
-                send_email_async(
+                send_email(
                     subject="Article Approved 🎉",
                     message=f"Your article '{article.title}' is now live on The Sentinel.",
                     recipient_list=[article.author.email]
                 )
             elif article.status == "rejected":
-                send_email_async(
+                send_email(
                     subject="Update on your Submission",
                     message=f"Your article '{article.title}' was reviewed and is not accepted for publication.",
                     recipient_list=[article.author.email]
@@ -188,7 +188,8 @@ def weekly_newsletter(request):
     Instead of rewriting the logic, just trigger the 
     Management Command we already fixed!
     """
-    if request.GET.get("key") != os.environ.get("NEWSLETTER_KEY"):
+    key = os.environ.get("NEWSLETTER_KEY")
+    if not key or request.GET.get("key") != key:
         return JsonResponse({"error": "Unauthorized"}, status=403)
 
     try:

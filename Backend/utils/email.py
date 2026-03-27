@@ -1,19 +1,51 @@
-from django.core.mail import EmailMessage
-import threading
-from django.conf import settings
+import os
+import resend
+import logging
+from django.core.mail import send_mail
 
-def send_email_async(subject, message, recipient_list):
-    def task():
-        # Using EmailMessage instead of send_mail for BCC support
-        email = EmailMessage(
-            subject=subject,
-            body=message,
-            from_email=settings.EMAIL_HOST_USER,
-            to=[settings.EMAIL_HOST_USER], # Send "To" yourself
-            bcc=recipient_list,            # Everyone else is hidden in BCC
-        )
-        email.send(fail_silently=True)
+logger = logging.getLogger(__name__)
 
-    thread = threading.Thread(target=task)
-    thread.start()
-    return thread # Return the thread so the caller can wait if needed
+resend.api_key = os.environ.get("RESEND_API_KEY")
+
+
+def send_email(subject, message, recipient_list):
+    """
+    Primary: Resend API
+    Fallback: Django SMTP
+    """
+
+    try:
+        # --- RESEND (Primary) ---
+        params = {
+            "from": "The Sentinel <onboarding@resend.dev>",  # change later
+            "to": recipient_list,
+            "subject": subject,
+            "html": f"""
+            <div style="font-family: Arial; padding:20px;">
+            <h2 style="color:#111;">The Sentinel</h2>
+            <p>{message}</p>
+            <hr/>
+            <small style="color:gray;">Trusted News. Unfiltered Truth.</small>
+            </div>
+            """,
+        }
+
+        resend.Emails.send(params)
+        return True
+
+    except Exception as e:
+        logger.error(f"Resend failed: {e}")
+
+        # --- FALLBACK (SMTP) ---
+        try:
+            send_mail(
+                subject=subject,
+                message=message,
+                from_email=None,
+                recipient_list=recipient_list,
+                fail_silently=False,
+            )
+            return True
+        except Exception as e:
+            logger.error(f"SMTP fallback failed: {e}")
+            return False

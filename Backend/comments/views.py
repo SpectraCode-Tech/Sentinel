@@ -5,7 +5,7 @@ from .serializers import CommentSerializer
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from utils.email import send_email_async
+from utils.email import send_email
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
@@ -49,7 +49,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             parent_user = comment.parent.user
             # Only email if the parent commenter isn't the one replying to themselves
             if parent_user.email and parent_user != self.request.user:
-                send_email_async(
+                send_email(
                     subject="New Reply to Your Comment",
                     message=f"{comment.user.username if comment.user else 'A guest'} replied:\n\n{comment.content}",
                     recipient_list=[parent_user.email]
