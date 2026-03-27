@@ -35,12 +35,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "https://sentinel-pi-one.vercel.app",
     "https://sentinel-staff.vercel.app",
+    "https://thesentinel.oladimeji.com.ng"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://sentinel-pi-one.vercel.app",
     "https://sentinel-staff.vercel.app",
     "https://sentinel-ou6m.onrender.com",
+    "https://thesentinel.oladimeji.com.ng"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
