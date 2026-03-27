@@ -7,7 +7,6 @@ export default function ArticleAdSlot({ articleId }) {
   useEffect(() => {
     fetchAdvertisements().then(res => {
       const now = new Date();
-
       const validAds = res.data.filter(a =>
         a.is_active &&
         a.placement === "article" &&
@@ -25,50 +24,50 @@ export default function ArticleAdSlot({ articleId }) {
   if (!ad) return null;
 
   return (
-    <div className="my-16 flex flex-col items-center">
-      {/* Editorial Ad Label */}
-      <div className="w-full flex items-center gap-4 mb-4">
-        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400 whitespace-nowrap">
-          Sponsored Content
+    <div className="my-16 w-full">
+      {/* Editorial Label */}
+      <div className="flex items-center gap-4 mb-3">
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em] text-gray-400">
+          Sponsored
         </span>
-        <div className="h-px w-full bg-border/50" />
+        <div className="h-px flex-1 bg-border/40" />
       </div>
 
-      <a 
-        href={ad.link} 
-        target="_blank" 
-        rel="noreferrer" 
-        className="group relative block w-full overflow-hidden border border-border bg-surface p-2 transition-all duration-500 hover:border-gray-400"
+      <a
+        href={ad.link}
+        target="_blank"
+        rel="noreferrer"
+        className="group relative flex flex-col md:flex-row items-center overflow-hidden border border-border bg-surface hover:border-accent/40 transition-all duration-500"
       >
-        <div className="relative overflow-hidden">
+        {/* Left/Top: Image Section (Banner Style) */}
+        <div className="w-full md:w-1/3 lg:w-1/4 h-48 md:h-32 overflow-hidden shrink-0">
           <img
             src={ad.image}
             alt={ad.title}
-            className="w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          {/* Subtle Overlay on Hover */}
-          <div className="absolute inset-0 bg-headline/5 opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
 
-        {ad.title && (
-          <div className="mt-4 px-2 pb-2">
-            <h5 className="font-serif text-xl font-bold text-headline leading-tight group-hover:text-accent transition-colors">
+        {/* Right/Bottom: Content Section */}
+        <div className="flex-1 p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="max-w-xl">
+            <h5 className="font-serif text-xl md:text-2xl font-bold text-headline leading-tight group-hover:text-accent transition-colors">
               {ad.title}
             </h5>
-            <div className="mt-2 flex items-center justify-between">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-gray-500">
-                Learn More
-              </span>
-              <span className="text-xl transition-transform duration-300 group-hover:translate-x-1 text-accent">
-                →
-              </span>
-            </div>
+            <p className="mt-1 text-sm text-gray-500 line-clamp-1">
+              {ad.description || "Discover more from our partners"}
+            </p>
           </div>
-        )}
+
+          {/* CTA Button */}
+          <div className="flex items-center gap-2 px-4 py-2 bg-headline text-white text-[10px] font-bold uppercase tracking-widest transition-all duration-300 group-hover:bg-accent shrink-0">
+            Learn More
+            <span className="text-lg leading-none transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </div>
+        </div>
       </a>
-      
-      {/* Bottom Border to close the section */}
-      <div className="w-full h-px bg-border/50 mt-8" />
     </div>
   );
 }
