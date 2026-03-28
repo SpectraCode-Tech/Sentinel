@@ -36,7 +36,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://sentinel-pi-one.vercel.app",
     "https://sentinel-staff.vercel.app",
     "https://thesentinel.oladimeji.com.ng",
-    "https://staff.oladimeji.com.ng"
+    "https://staff.oladimeji.com.ng",
+    "https://www.staff.oladimeji.com.ng",
+    "https://www.thesentinel.oladimeji.com.ng",
+    
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -45,6 +48,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://sentinel-ou6m.onrender.com",
     "https://thesentinel.oladimeji.com.ng",
     "https://staff.oladimeji.com.ng"
+    "https://www.staff.oladimeji.com.ng"
+    "https://www.thesentinel.oladimeji.com.ng"
 ]
 
 CORS_ALLOW_CREDENTIALS = True

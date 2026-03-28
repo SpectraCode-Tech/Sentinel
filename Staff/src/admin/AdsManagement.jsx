@@ -17,8 +17,6 @@ const AdsManagement = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [placementOptions, setPlacementOptions] = useState([]);
-
-    // Track if we are editing an existing ad
     const [editingId, setEditingId] = useState(null);
 
     const initialFormState = {
@@ -71,13 +69,12 @@ const AdsManagement = () => {
             title: ad.title || "",
             link: ad.link || "",
             placement: ad.placement || "",
-            // Format dates for datetime-local input (YYYY-MM-DDTHH:mm)
             start_date: ad.start_date ? ad.start_date.substring(0, 16) : "",
             end_date: ad.end_date ? ad.end_date.substring(0, 16) : "",
             priority: ad.priority || 0,
             target_page: ad.target_page || "all",
             is_active: ad.is_active,
-            image: null // Keep null unless user chooses a new file
+            image: null
         });
         setIsDrawerOpen(true);
     };
@@ -93,7 +90,6 @@ const AdsManagement = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (formData.start_date && formData.end_date) {
             if (new Date(formData.end_date) <= new Date(formData.start_date)) {
                 toast.error("The end date must be after the start date.");
@@ -141,7 +137,7 @@ const AdsManagement = () => {
     };
 
     const toggleStatus = async (e, ad) => {
-        e.stopPropagation(); // Stop card click
+        e.stopPropagation();
         try {
             await toggleAdStatus(ad.id, !ad.is_active);
             toast.success("Status updated");
@@ -152,7 +148,7 @@ const AdsManagement = () => {
     };
 
     const handleDelete = async (e, adId) => {
-        e.stopPropagation(); // Stop card click
+        e.stopPropagation();
         if (!window.confirm("Delete this ad?")) return;
         const toastId = toast.loading("Removing...");
         try {
@@ -382,14 +378,14 @@ const AdsManagement = () => {
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Visibility</label>
                                 <select
-                                    value={["all", "home", "category"].includes(formData.target_page) ? formData.target_page : "specific"}
+                                    value={["all", "home", "category", "article"].includes(formData.target_page) ? formData.target_page : "specific"}
                                     onChange={(e) => {
                                         const val = e.target.value;
                                         setFormData({ ...formData, target_page: val === "specific" ? "" : val });
                                     }}
                                     className="w-full bg-slate-50 border border-slate-100 rounded-xl p-3.5 outline-none font-medium"
                                 >
-                                    <option value="all">Everywhere (All Pages)</option>
+                                    <option value="all">Everywhere</option>
                                     <option value="home">Home Page Only</option>
                                     <option value="category">Category/Search Pages</option>
                                     <option value="article">All Articles</option>
@@ -397,8 +393,8 @@ const AdsManagement = () => {
                                 </select>
                             </div>
 
-                            {/* Show this extra input only if we aren't using a preset */}
-                            {!["all", "home", "category", "article"].includes(formData.target_page) || (formData.target_page === "") ? (
+                            {/* UPDATED CONDITIONAL LOGIC BELOW */}
+                            {!["all", "home", "category", "article"].includes(formData.target_page) ? (
                                 <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
                                     <label className="text-xs font-bold text-indigo-500 uppercase tracking-wider">Enter Article ID</label>
                                     <input
