@@ -3,7 +3,6 @@ import React, { createContext, useState, useContext } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    // Use a function inside useState to check localStorage ONLY once on load
     const [user, setUser] = useState(() => {
         const savedUser = localStorage.getItem("user_data");
         return savedUser ? JSON.parse(savedUser) : null;

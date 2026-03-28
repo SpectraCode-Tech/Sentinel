@@ -19,8 +19,6 @@ api.interceptors.request.use((config) => {
 // 3. Response Interceptor: Auth & Data Safety
 api.interceptors.response.use(
   (response) => {
-    // SAFETY GATE: If the backend returns HTML (a 404/500 page) instead of JSON,
-    // we throw an error here so the frontend doesn't try to .map() a string.
     const contentType = response.headers["content-type"];
     if (contentType && contentType.includes("text/html")) {
       return Promise.reject(
@@ -31,9 +29,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Clear storage and boot them to login
       localStorage.clear();
-      // Redirect to login only if not already there to prevent loops
       if (window.location.pathname !== "/") {
         window.location.href = "/";
       }
