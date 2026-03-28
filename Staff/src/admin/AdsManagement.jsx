@@ -378,34 +378,39 @@ const AdsManagement = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-6 pt-2">
+                        <div className="space-y-4 pt-2">
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Visibility</label>
                                 <select
-                                    value={formData.target_page}
-                                    onChange={(e) => setFormData({ ...formData, target_page: e.target.value })}
+                                    value={["all", "home", "category"].includes(formData.target_page) ? formData.target_page : "specific"}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        setFormData({ ...formData, target_page: val === "specific" ? "" : val });
+                                    }}
                                     className="w-full bg-slate-50 border border-slate-100 rounded-xl p-3.5 outline-none font-medium"
                                 >
-                                    <option value="all">Everywhere</option>
-                                    <option value="home">Home Page</option>
-                                    <option value="news_detail">Article Detail</option>
-                                    <option value="category">Category/Search</option>
+                                    <option value="all">Everywhere (All Pages)</option>
+                                    <option value="home">Home Page Only</option>
+                                    <option value="category">Category/Search Pages</option>
+                                    <option value="article">All Articles</option>
+                                    <option value="specific">Specific Article (by ID)</option>
                                 </select>
                             </div>
 
-                            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                                <div className="flex flex-col">
-                                    <span className="text-sm font-black text-slate-800">Status</span>
-                                    <span className="text-[10px] text-slate-500 font-bold uppercase">Active status</span>
+                            {/* Show this extra input only if we aren't using a preset */}
+                            {!["all", "home", "category", "article"].includes(formData.target_page) || (formData.target_page === "") ? (
+                                <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                                    <label className="text-xs font-bold text-indigo-500 uppercase tracking-wider">Enter Article ID</label>
+                                    <input
+                                        type="number"
+                                        placeholder="e.g. 12"
+                                        value={formData.target_page}
+                                        onChange={(e) => setFormData({ ...formData, target_page: e.target.value })}
+                                        className="w-full bg-indigo-50/50 border border-indigo-100 rounded-xl p-3.5 outline-none focus:border-indigo-500"
+                                    />
+                                    <p className="text-[10px] text-slate-400">Find the ID in the URL of the article or the News management list.</p>
                                 </div>
-                                <button
-                                    type="button"
-                                    onClick={() => setFormData({ ...formData, is_active: !formData.is_active })}
-                                    className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${formData.is_active ? "bg-indigo-600" : "bg-slate-200"}`}
-                                >
-                                    <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${formData.is_active ? "translate-x-6" : "translate-x-1"}`} />
-                                </button>
-                            </div>
+                            ) : null}
                         </div>
 
                         <button
