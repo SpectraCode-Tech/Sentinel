@@ -7,6 +7,9 @@ logger = logging.getLogger(__name__)
 
 resend.api_key = os.environ.get("RESEND_API_KEY")
 
+if not resend.api_key:
+    raise ValueError("RESEND_API_KEY is not set")
+
 
 def send_email(subject, message, recipient_list):
     """
@@ -15,22 +18,22 @@ def send_email(subject, message, recipient_list):
     """
 
     try:
-        # --- RESEND (Primary) ---
-        params = {
-            "from": "The Sentinel <onboarding@resend.dev>",  # change later
+        response = resend.Emails.send({
+            "from": "The Sentinel <news@thesentinel.oladimeji.com.ng>",
             "to": recipient_list,
             "subject": subject,
             "html": f"""
             <div style="font-family: Arial; padding:20px;">
-            <h2 style="color:#111;">The Sentinel</h2>
-            <p>{message}</p>
-            <hr/>
-            <small style="color:gray;">Trusted News. Unfiltered Truth.</small>
+                <h2 style="color:#111;">The Sentinel</h2>
+                <p>{message}</p>
+                <hr/>
+                <small style="color:gray;">Trusted News. Unfiltered Truth.</small>
             </div>
             """,
-        }
+            "text": message,
+        })
 
-        resend.Emails.send(params)
+        logger.info(f"Resend success: {response}")
         return True
 
     except Exception as e:
@@ -41,7 +44,7 @@ def send_email(subject, message, recipient_list):
             send_mail(
                 subject=subject,
                 message=message,
-                from_email=None,
+                from_email="The Sentinel <news@thesentinel.oladimeji.com.ng>",
                 recipient_list=recipient_list,
                 fail_silently=False,
             )
