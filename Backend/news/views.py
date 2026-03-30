@@ -232,7 +232,7 @@ def article_detail_seo(request, slug):
     canonical_url = request.build_absolute_uri()
 
     # 3. Path to your React index.html (Adjust 'static' if your build folder is named differently)
-    index_path = os.path.join(settings.BASE_DIR, 'static', 'index.html') 
+    index_path = os.path.join(settings.BASE_DIR, 'frontend', 'dist', 'index.html') 
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
