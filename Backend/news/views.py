@@ -1,5 +1,6 @@
 from datetime import timedelta
 import os
+from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
@@ -16,6 +17,10 @@ from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 from .utils import get_client_ip
 from utils.email import send_email
 from django.db.models import Count
+
+import re
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 User = get_user_model()
 
@@ -209,3 +214,37 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [permissions.AllowAny]
+    
+    
+def article_detail_seo(request, slug):
+    # 1. Fetch the article
+    article = get_object_or_404(Article, slug=slug, is_deleted=False, status="published")
+    
+    # 2. Prepare the metadata
+    title = f"{article.title} | Sentinel"
+    
+    # Strip HTML tags from content for a clean description snippet
+    clean_description = re.sub(r'<[^>]*>', '', article.content)
+    description = article.excerpt if article.excerpt else (clean_description[:155] + "...")
+    
+    # Absolute URLs are mandatory for OG tags to work
+    image_url = request.build_absolute_uri(article.image.url) if article.image else request.build_absolute_uri(settings.STATIC_URL + "og-default.jpg")
+    canonical_url = request.build_absolute_uri()
+
+    # 3. Path to your React index.html (Adjust 'static' if your build folder is named differently)
+    index_path = os.path.join(settings.BASE_DIR, 'static', 'index.html') 
+
+    try:
+        with open(index_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+
+        # 4. Replace placeholders defined in your React public/index.html
+        html_content = html_content.replace('__TITLE__', title)
+        html_content = html_content.replace('__DESCRIPTION__', description)
+        html_content = html_content.replace('__IMAGE__', image_url)
+        html_content = html_content.replace('__URL__', canonical_url)
+
+        return HttpResponse(html_content, content_type="text/html")
+    
+    except FileNotFoundError:
+        return HttpResponse("Frontend build not found. Verify static path.", status=500)
