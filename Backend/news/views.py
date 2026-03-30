@@ -246,7 +246,7 @@ def article_detail_seo(request, slug):
     canonical_url = request.build_absolute_uri()
 
     # --- Load React build ---
-    index_path = os.path.join(settings.BASE_DIR, 'build', 'index.html')
+    index_path = os.path.join(settings.BASE_DIR, 'dist', 'index.html')
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
