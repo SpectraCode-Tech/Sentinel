@@ -109,12 +109,7 @@ STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
-    "staticfiles": {
-        "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
-    },
 }
-
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
 
 ASGI_APPLICATION = "Backend.asgi.application"
 
@@ -129,9 +124,10 @@ DATABASES = {
 
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -173,13 +169,13 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles" # Where collectstatic will put files
-STATICFILES_DIRS = [
-    BASE_DIR / "static", # This is where we 'cp' the React index.html to
-]
+STATIC_URL = '/assets/'
 
-WHITENOISE_USE_FINDERS = True
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'dist', 'assets'),  # ✅ Vite assets
+]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

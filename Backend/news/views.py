@@ -244,28 +244,27 @@ def article_detail_seo(request, slug):
         )
 
     canonical_url = request.build_absolute_uri()
-
-    # --- Load React build ---    
-    possible_paths = [
-        os.path.join(settings.BASE_DIR, 'staticfiles', 'index.html'), # WhiteNoise default
-        os.path.join(settings.BASE_DIR, 'static', 'index.html'),      # Standard static
-        os.path.join(settings.BASE_DIR, '..', 'Frontend', 'dist', 'index.html'), # Vite local build
-    ]
     
-    index_path = None
-    for path in possible_paths:
-        if os.path.exists(path):
-            index_path = path
-            break
+    # FIX: These were under-indented (4 spaces needed)
+    possible_paths = [
+        os.path.join(settings.BASE_DIR, 'dist', 'index.html'),           # default
+        os.path.join(settings.BASE_DIR, 'Frontend', 'dist', 'index.html'),
+        os.path.join(settings.BASE_DIR, 'static', 'index', 'index.html')
+    ]
+
+    index_path = next((p for p in possible_paths if os.path.exists(p)), None)
 
     if not index_path:
-        # This helps you debug by showing exactly where it looked
         looked_in = ", ".join(possible_paths)
         return HttpResponse(f"Frontend build not found. Looked in: {looked_in}", status=500)
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
+
+        # IMPORTANT: Add the asset path fix here to avoid the 404/MIME errors we discussed
+        html_content = html_content.replace('href="assets/', 'href="/assets/')
+        html_content = html_content.replace('src="assets/', 'src="/assets/')
 
         # --- Replace placeholders ---
         html_content = html_content.replace('__TITLE__', title)
