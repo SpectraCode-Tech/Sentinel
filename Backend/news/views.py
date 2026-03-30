@@ -268,7 +268,7 @@ def article_detail_seo(request, slug):
             html_content = f.read()
 
         # --- Replace placeholders ---
-        content = content.replace('__TITLE__', article.title)
+        html_content = html_content.replace('__TITLE__', title)
         html_content = html_content.replace('__DESCRIPTION__', description)
         html_content = html_content.replace('__IMAGE__', image_url)
         html_content = html_content.replace('__URL__', canonical_url)
