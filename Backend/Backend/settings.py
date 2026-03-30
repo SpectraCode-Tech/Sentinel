@@ -47,9 +47,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://sentinel-staff.vercel.app",
     "https://sentinel-ou6m.onrender.com",
     "https://thesentinel.oladimeji.com.ng",
-    "https://staff.oladimeji.com.ng",
-    "https://www.staff.oladimeji.com.ng",
-    "https://www.thesentinel.oladimeji.com.ng",
+    "https://staff.oladimeji.com.ng"
+    "https://www.staff.oladimeji.com.ng"
+    "https://www.thesentinel.oladimeji.com.ng"
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -105,16 +105,7 @@ cloudinary.config(
     secure=True
 )
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ASGI_APPLICATION = "Backend.asgi.application"
 
@@ -129,10 +120,9 @@ DATABASES = {
 
 
 MIDDLEWARE = [
-
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -144,7 +134,7 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'staticfiles')],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -174,14 +164,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-STATIC_URL = '/assets/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static"  # ✅ Vite assets
-]
-
+STATIC_URL = "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 

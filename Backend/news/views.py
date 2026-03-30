@@ -1,6 +1,5 @@
 from datetime import timedelta
 import os
-from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
@@ -17,10 +16,6 @@ from .serializers import ArticleSerializer, CategorySerializer, TagSerializer
 from .utils import get_client_ip
 from utils.email import send_email
 from django.db.models import Count
-
-import re
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
 
 User = get_user_model()
 
@@ -214,68 +209,3 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [permissions.AllowAny]
-    
-    
-def article_detail_seo(request, slug):
-    article = get_object_or_404(
-        Article,
-        slug=slug,
-        is_deleted=False,
-        status="published"
-    )
-
-    # --- Metadata ---
-    title = f"{article.title} | The Sentinel - Your Source for News"
-
-    clean_description = re.sub(r'<[^>]+>', '', article.content or "")
-    clean_description = re.sub(r'\s+', ' ', clean_description).strip()
-
-    description = (
-        article.excerpt
-        if article.excerpt
-        else (clean_description[:155] + "...")
-    )
-
-    if article.image:
-        image_url = request.build_absolute_uri(article.image.url)
-    else:
-        image_url = request.build_absolute_uri(
-            settings.STATIC_URL + "og-default.jpg"
-        )
-
-    canonical_url = request.build_absolute_uri()
-    
-    # FIX: These were under-indented (4 spaces needed)
-    possible_paths = [
-        os.path.join(settings.BASE_DIR, 'dist', 'index.html'),           # default
-        os.path.join(settings.BASE_DIR, 'Frontend', 'dist', 'index.html'),
-        os.path.join(settings.BASE_DIR, 'static', 'index', 'index.html')
-    ]
-
-    index_path = next((p for p in possible_paths if os.path.exists(p)), None)
-
-    if not index_path:
-        looked_in = ", ".join(possible_paths)
-        return HttpResponse(f"Frontend build not found. Looked in: {looked_in}", status=500)
-
-    try:
-        with open(index_path, 'r', encoding='utf-8') as f:
-            html_content = f.read()
-
-        # IMPORTANT: Add the asset path fix here to avoid the 404/MIME errors we discussed
-        html_content = html_content.replace('href="assets/', 'href="/assets/')
-        html_content = html_content.replace('src="assets/', 'src="/assets/')
-
-        # --- Replace placeholders ---
-        html_content = html_content.replace('__TITLE__', title)
-        html_content = html_content.replace('__DESCRIPTION__', description)
-        html_content = html_content.replace('__IMAGE__', image_url)
-        html_content = html_content.replace('__URL__', canonical_url)
-
-        response = HttpResponse(html_content, content_type="text/html")
-        response["Cache-Control"] = "no-cache"
-
-        return response
-
-    except FileNotFoundError:
-        return HttpResponse("Frontend build not found.", status=500)
