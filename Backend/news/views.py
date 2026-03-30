@@ -245,10 +245,23 @@ def article_detail_seo(request, slug):
 
     canonical_url = request.build_absolute_uri()
 
-    # --- Load React build ---
-    index_path = os.path.join(settings.BASE_DIR, 'dist', 'index.html')
-    print("INDEX PATH:", index_path)
-    print("FILE EXISTS:", os.path.exists(index_path))
+    # --- Load React build ---    
+    possible_paths = [
+        os.path.join(settings.BASE_DIR, 'staticfiles', 'index.html'), # WhiteNoise default
+        os.path.join(settings.BASE_DIR, 'static', 'index.html'),      # Standard static
+        os.path.join(settings.BASE_DIR, 'frontend', 'dist', 'index.html'), # Vite local build
+    ]
+    
+    index_path = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            index_path = path
+            break
+
+    if not index_path:
+        # This helps you debug by showing exactly where it looked
+        looked_in = ", ".join(possible_paths)
+        return HttpResponse(f"Frontend build not found. Looked in: {looked_in}", status=500)
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
