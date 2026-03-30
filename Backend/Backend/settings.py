@@ -47,9 +47,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://sentinel-staff.vercel.app",
     "https://sentinel-ou6m.onrender.com",
     "https://thesentinel.oladimeji.com.ng",
-    "https://staff.oladimeji.com.ng"
-    "https://www.staff.oladimeji.com.ng"
-    "https://www.thesentinel.oladimeji.com.ng"
+    "https://staff.oladimeji.com.ng",
+    "https://www.staff.oladimeji.com.ng",
+    "https://www.thesentinel.oladimeji.com.ng",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -113,6 +113,8 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
     },
 }
+
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
 
 ASGI_APPLICATION = "Backend.asgi.application"
 
