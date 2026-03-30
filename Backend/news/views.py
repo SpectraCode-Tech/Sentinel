@@ -247,6 +247,8 @@ def article_detail_seo(request, slug):
 
     # --- Load React build ---
     index_path = os.path.join(settings.BASE_DIR, 'dist', 'index.html')
+    print("INDEX PATH:", index_path)
+    print("FILE EXISTS:", os.path.exists(index_path))
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
