@@ -47,9 +47,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://sentinel-staff.vercel.app",
     "https://sentinel-ou6m.onrender.com",
     "https://thesentinel.oladimeji.com.ng",
-    "https://staff.oladimeji.com.ng"
-    "https://www.staff.oladimeji.com.ng"
-    "https://www.thesentinel.oladimeji.com.ng"
+    "https://staff.oladimeji.com.ng",
+    "https://www.staff.oladimeji.com.ng",
+    "https://www.thesentinel.oladimeji.com.ng",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -165,8 +165,9 @@ SIMPLE_JWT = {
 }
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' # Or your provider

@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8" />
     <title>{{ article.title }}</title>
 
+    <!-- Open Graph -->
     <meta property="og:title" content="{{ article.title }}" />
     <meta property="og:description" content="{{ article.summary }}" />
     <meta property="og:image" content="{{ article.image.url }}" />
     <meta property="og:url" content="https://thesentinel.oladimeji.com.ng/articles/{{ article.slug }}" />
     <meta property="og:type" content="article" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ article.title }}" />
+    <meta name="twitter:description" content="{{ article.summary }}" />
+    <meta name="twitter:image" content="{{ article.image.url }}" />
 </head>
 
 <body>
     <script>
+        // Redirect real users to React frontend
         window.location.href = "https://thesentinel.oladimeji.com.ng/articles/{{ article.slug }}";
     </script>
 </body>

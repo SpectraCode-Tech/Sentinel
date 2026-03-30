@@ -4,7 +4,7 @@ from accounts.views import CustomLoginView
 from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
-from news.views import weekly_newsletter
+from news.views import weekly_newsletter, article_preview
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -24,6 +24,8 @@ urlpatterns = [
     path("api/analytics/", include("analytics.urls")),
     
     path("api/weekly-newsletter/", weekly_newsletter, name="newsletter-trigger"),
+    
+    path("articles/<slug:slug>/", article_preview),
 ]
 
 
