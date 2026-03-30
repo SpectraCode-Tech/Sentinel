@@ -13,6 +13,7 @@ REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost:6379')
 
 ROOT_URLCONF = "Backend.urls"
 
+STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 
 SECRET_KEY = "Z3vi7gVR4c8mDjhZEcSRylwoLVHw7m-0TK-NtsyZfC8"
