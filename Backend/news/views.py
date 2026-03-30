@@ -217,34 +217,51 @@ class TagViewSet(viewsets.ModelViewSet):
     
     
 def article_detail_seo(request, slug):
-    # 1. Fetch the article
-    article = get_object_or_404(Article, slug=slug, is_deleted=False, status="published")
-    
-    # 2. Prepare the metadata
-    title = f"{article.title} | Sentinel"
-    
-    # Strip HTML tags from content for a clean description snippet
-    clean_description = re.sub(r'<[^>]*>', '', article.content)
-    description = article.excerpt if article.excerpt else (clean_description[:155] + "...")
-    
-    # Absolute URLs are mandatory for OG tags to work
-    image_url = request.build_absolute_uri(article.image.url) if article.image else request.build_absolute_uri(settings.STATIC_URL + "og-default.jpg")
+    article = get_object_or_404(
+        Article,
+        slug=slug,
+        is_deleted=False,
+        status="published"
+    )
+
+    # --- Metadata ---
+    title = f"{article.title} | The Sentinel - Your Source for News"
+
+    clean_description = re.sub(r'<[^>]+>', '', article.content or "")
+    clean_description = re.sub(r'\s+', ' ', clean_description).strip()
+
+    description = (
+        article.excerpt
+        if article.excerpt
+        else (clean_description[:155] + "...")
+    )
+
+    if article.image:
+        image_url = request.build_absolute_uri(article.image.url)
+    else:
+        image_url = request.build_absolute_uri(
+            settings.STATIC_URL + "og-default.jpg"
+        )
+
     canonical_url = request.build_absolute_uri()
 
-    # 3. Path to your React index.html (Adjust 'static' if your build folder is named differently)
-    index_path = os.path.join(settings.BASE_DIR, 'static', 'index.html') 
+    # --- Load React build ---
+    index_path = os.path.join(settings.BASE_DIR, 'build', 'index.html')
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
 
-        # 4. Replace placeholders defined in your React public/index.html
-        content = content.replace('__TITLE__', 'The Sentinel - Your Source for News')
-        content = content.replace('__DESCRIPTION__', 'Breaking news and in-depth reporting.')
+        # --- Replace placeholders ---
+        html_content = html_content.replace('__TITLE__', title)
+        html_content = html_content.replace('__DESCRIPTION__', description)
         html_content = html_content.replace('__IMAGE__', image_url)
         html_content = html_content.replace('__URL__', canonical_url)
 
-        return HttpResponse(html_content, content_type="text/html")
-    
+        response = HttpResponse(html_content, content_type="text/html")
+        response["Cache-Control"] = "no-cache"
+
+        return response
+
     except FileNotFoundError:
-        return HttpResponse("Frontend build not found. Verify static path.", status=500)
+        return HttpResponse("Frontend build not found.", status=500)
