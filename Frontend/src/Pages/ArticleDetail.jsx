@@ -128,13 +128,13 @@ export default function ArticleDetail() {
               </h1>
 
               {/* UPDATED: Metadata Bar with Share Button */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between py-6 border-y border-border gap-4 mb-10">
+              <div className="flex flex-row md:items-center justify-between py-6 border-y border-border gap-4 mb-10">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl uppercase">
+                  <div className="w-8 h-8 bg-headline rounded-full flex items-center justify-center text-white font-serif italic text-xl uppercase">
                     {article.author_name?.charAt(0) || "S"}
                   </div>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-tight text-headline">
+                    <p className="text-[10px] font-bold uppercase tracking-tight text-headline">
                       By {article.author_name || "Staff Reporter"}
                     </p>
                     <p className="text-[10px] text-gray-500 font-serif italic">Sentinel Staff</p>
