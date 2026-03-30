@@ -1,9 +1,10 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from accounts.views import CustomLoginView
 from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 from news.views import weekly_newsletter, article_detail_seo
 
 urlpatterns = [
@@ -25,7 +26,9 @@ urlpatterns = [
     
     path("api/weekly-newsletter/", weekly_newsletter, name="newsletter-trigger"),
     
-    path("articles/<slug:slug>/", article_detail_seo, name="article_detail_seo")
+    path("articles/<slug:slug>/", article_detail_seo, name="article_detail_seo"),
+    
+    re_path(r'^.*$', TemplateView.as_view(template_name="index.html")),
 ]
 
 
