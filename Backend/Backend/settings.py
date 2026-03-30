@@ -105,7 +105,14 @@ cloudinary.config(
     secure=True
 )
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
+    },
+}
 
 ASGI_APPLICATION = "Backend.asgi.application"
 
@@ -165,6 +172,13 @@ SIMPLE_JWT = {
 }
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles" # Where collectstatic will put files
+STATICFILES_DIRS = [
+    BASE_DIR / "static", # This is where we 'cp' the React index.html to
+]
+
+WHITENOISE_USE_FINDERS = True
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
