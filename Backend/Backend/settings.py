@@ -179,7 +179,7 @@ STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'dist', 'assets'),  # ✅ Vite assets
+    BASE_DIR / "static"  # ✅ Vite assets
 ]
 
 MEDIA_URL = "/media/"

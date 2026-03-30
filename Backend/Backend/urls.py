@@ -4,6 +4,7 @@ from accounts.views import CustomLoginView
 from rest_framework_simplejwt.views import TokenRefreshView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from news.views import weekly_newsletter, article_detail_seo
 
@@ -28,10 +29,10 @@ urlpatterns = [
 
 # ✅ Catch-all (but exclude static files)
 urlpatterns += [
-    re_path(
-        r'^(?!api/|admin/|assets/|media/|favicon\.ico).*$',
-        article_detail_seo
-    ),
+re_path(
+    r'^(?!api/|admin/|assets/|static/|media/|articles/|favicon\.ico).*$', 
+    TemplateView.as_view(template_name="index.html")
+)
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
