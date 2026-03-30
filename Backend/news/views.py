@@ -232,15 +232,15 @@ def article_detail_seo(request, slug):
     canonical_url = request.build_absolute_uri()
 
     # 3. Path to your React index.html (Adjust 'static' if your build folder is named differently)
-    index_path = os.path.join(settings.BASE_DIR, 'frontend', 'dist', 'index.html') 
+    index_path = os.path.join(settings.BASE_DIR, 'static', 'index.html') 
 
     try:
         with open(index_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
 
         # 4. Replace placeholders defined in your React public/index.html
-        html_content = html_content.replace('__TITLE__', title)
-        html_content = html_content.replace('__DESCRIPTION__', description)
+        content = content.replace('__TITLE__', 'The Sentinel - Your Source for News')
+        content = content.replace('__DESCRIPTION__', 'Breaking news and in-depth reporting.')
         html_content = html_content.replace('__IMAGE__', image_url)
         html_content = html_content.replace('__URL__', canonical_url)
 
