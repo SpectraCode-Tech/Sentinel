@@ -249,7 +249,7 @@ def article_detail_seo(request, slug):
     possible_paths = [
         os.path.join(settings.BASE_DIR, 'staticfiles', 'index.html'), # WhiteNoise default
         os.path.join(settings.BASE_DIR, 'static', 'index.html'),      # Standard static
-        os.path.join(settings.BASE_DIR, '..', 'frontend', 'dist', 'index.html'), # Vite local build
+        os.path.join(settings.BASE_DIR, '..', 'Frontend', 'dist', 'index.html'), # Vite local build
     ]
     
     index_path = None
