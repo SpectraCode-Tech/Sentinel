@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ article.title }}</title>
+
+    <meta property="og:title" content="{{ article.title }}" />
+    <meta property="og:description" content="{{ article.summary }}" />
+    <meta property="og:image" content="{{ article.image.url }}" />
+    <meta property="og:url" content="https://thesentinel.oladimeji.com.ng/articles/{{ article.slug }}" />
+    <meta property="og:type" content="article" />
+</head>
+
+<body>
+    <script>
+        window.location.href = "https://thesentinel.oladimeji.com.ng/articles/{{ article.slug }}";
+    </script>
+</body>
+
+</html>

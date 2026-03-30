@@ -17,6 +17,8 @@ from .utils import get_client_ip
 from utils.email import send_email
 from django.db.models import Count
 
+from django.shortcuts import render, get_object_or_404
+
 User = get_user_model()
 
 class ArticleViewSet(viewsets.ModelViewSet):
@@ -209,3 +211,8 @@ class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = [permissions.AllowAny]
+    
+
+def article_preview(request, slug):
+    article = get_object_or_404(Article, slug=slug)
+    return render(request, "preview.html", {"article": article})
