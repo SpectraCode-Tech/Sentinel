@@ -115,7 +115,8 @@ AUTH_USER_MODEL = "accounts.User"
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
-        ssl_require=True
+        ssl_require=True,
+        engine='django_cockroachdb'
     )
 }
 
