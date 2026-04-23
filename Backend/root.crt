@@ -1,45 +1,169 @@
------BEGIN CERTIFICATE-----
-MIIFazCCA1OgAwIBAgIRAIIQz7DSQONZRGPgu2OCiwAwDQYJKoZIhvcNAQELBQAw
-TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
-cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMTUwNjA0MTEwNDM4
-WhcNMzUwNjA0MTEwNDM4WjBPMQswCQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJu
-ZXQgU2VjdXJpdHkgUmVzZWFyY2ggR3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBY
-MTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAK3oJHP0FDfzm54rVygc
-h77ct984kIxuPOZXoHj3dcKi/vVqbvYATyjb3miGbESTtrFj/RQSa78f0uoxmyF+
-0TM8ukj13Xnfs7j/EvEhmkvBioZxaUpmZmyPfjxwv60pIgbz5MDmgK7iS4+3mX6U
-A5/TR5d8mUgjU+g4rk8Kb4Mu0UlXjIB0ttov0DiNewNwIRt18jA8+o+u3dpjq+sW
-T8KOEUt+zwvo/7V3LvSye0rgTBIlDHCNAymg4VMk7BPZ7hm/ELNKjD+Jo2FR3qyH
-B5T0Y3HsLuJvW5iB4YlcNHlsdu87kGJ55tukmi8mxdAQ4Q7e2RCOFvu396j3x+UC
-B5iPNgiV5+I3lg02dZ77DnKxHZu8A/lJBdiB3QW0KtZB6awBdpUKD9jf1b0SHzUv
-KBds0pjBqAlkd25HN7rOrFleaJ1/ctaJxQZBKT5ZPt0m9STJEadao0xAH0ahmbWn
-OlFuhjuefXKnEgV4We0+UXgVCwOPjdAvBbI+e0ocS3MFEvzG6uBQE3xDk3SzynTn
-jh8BCNAw1FtxNrQHusEwMFxIt4I7mKZ9YIqioymCzLq9gwQbooMDQaHWBfEbwrbw
-qHyGO0aoSCqI3Haadr8faqU9GY/rOPNk3sgrDQoo//fb4hVC1CLQJ13hef4Y53CI
-rU7m2Ys6xt0nUW7/vGT1M0NPAgMBAAGjQjBAMA4GA1UdDwEB/wQEAwIBBjAPBgNV
-HRMBAf8EBTADAQH/MB0GA1UdDgQWBBR5tFnme7bl5AFzgAiIyBpY9umbbjANBgkq
-hkiG9w0BAQsFAAOCAgEAVR9YqbyyqFDQDLHYGmkgJykIrGF1XIpu+ILlaS/V9lZL
-ubhzEFnTIZd+50xx+7LSYK05qAvqFyFWhfFQDlnrzuBZ6brJFe+GnY+EgPbk6ZGQ
-3BebYhtF8GaV0nxvwuo77x/Py9auJ/GpsMiu/X1+mvoiBOv/2X/qkSsisRcOj/KK
-NFtY2PwByVS5uCbMiogziUwthDyC3+6WVwW6LLv3xLfHTjuCvjHIInNzktHCgKQ5
-ORAzI4JMPJ+GslWYHb4phowim57iaztXOoJwTdwJx4nLCgdNbOhdjsnvzqvHu7Ur
-TkXWStAmzOVyyghqpZXjFaH3pO3JLF+l+/+sKAIuvtd7u+Nxe5AW0wdeRlN8NwdC
-jNPElpzVmbUq4JUagEiuTDkHzsxHpFKVK7q4+63SM1N95R1NbdWhscdCb+ZAJzVc
-oyi3B43njTOQ5yOf+1CceWxG1bQVs5ZufpsMljq4Ui0/1lvh+wjChP4kqKOJ2qxq
-4RgqsahDYVvTH9w7jXbyLeiNdd8XM2w9U/t7y0Ff/9yi0GE44Za4rF2LN9d11TPA
-mRGunUHBcnWEvgJBQl9nJEiU0Zsnvgc/ubhPgXRR4Xq37Z0j4r7g1SgEEzwxA57d
-emyPxgcYxn/eR44/KJ4EBs+lVDR3veyJm+kXQ99b21/+jh5Xos1AnX5iItreGCc=
------END CERTIFICATE-----
------BEGIN CERTIFICATE-----
-MIICGzCCAaGgAwIBAgIQQdKd0XLq7qeAwSxs6S+HUjAKBggqhkjOPQQDAzBPMQsw
-CQYDVQQGEwJVUzEpMCcGA1UEChMgSW50ZXJuZXQgU2VjdXJpdHkgUmVzZWFyY2gg
-R3JvdXAxFTATBgNVBAMTDElTUkcgUm9vdCBYMjAeFw0yMDA5MDQwMDAwMDBaFw00
-MDA5MTcxNjAwMDBaME8xCzAJBgNVBAYTAlVTMSkwJwYDVQQKEyBJbnRlcm5ldCBT
-ZWN1cml0eSBSZXNlYXJjaCBHcm91cDEVMBMGA1UEAxMMSVNSRyBSb290IFgyMHYw
-EAYHKoZIzj0CAQYFK4EEACIDYgAEzZvVn4CDCuwJSvMWSj5cz3es3mcFDR0HttwW
-+1qLFNvicWDEukWVEYmO6gbf9yoWHKS5xcUy4APgHoIYOIvXRdgKam7mAHf7AlF9
-ItgKbppbd9/w+kHsOdx1ymgHDB/qo0IwQDAOBgNVHQ8BAf8EBAMCAQYwDwYDVR0T
-AQH/BAUwAwEB/zAdBgNVHQ4EFgQUfEKWrt5LSDv6kviejM9ti6lyN5UwCgYIKoZI
-zj0EAwMDaAAwZQIwe3lORlCEwkSHRhtFcP9Ymd70/aTSVaYgLXTWNLxBo1BfASdW
-tL4ndQavEi51mI38AjEAi/V3bNTIZargCyzuFJ0nN6T5U6VR5CmD1/iQMVtCnwr1
-/q4AaOeMSQ+2b1tbFfLn
------END CERTIFICATE-----
+<!doctype html><!--[if lt IE 7]> <html lang="en" class="ie6" > <![endif]--><!--[if IE 7]>    <html lang="en" class="ie7" > <![endif]--><!--[if IE 8]>    <html lang="en" class="ie8" > <![endif]--><!--[if IE 9]>    <html lang="en" class="ie9" > <![endif]--><!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class=""><!--<![endif]--><head><meta charset="utf-8"/><title>CockroachDB Cloud</title><link rel="shortcut icon" href="/assets/favicon.ico"/><script>// Add a script element to the dom
+      function loadScript(script) {
+        document.head.appendChild(script);
+      }</script><script>var host = window.location.host;
+
+      window.loadCookieConsent = !window.Cypress;
+
+      if (window.loadCookieConsent) {
+
+        var isTestEnv = host === "management-staging.crdb.io" ||
+          host === "management-preprod.crdb.io" ||
+          host === "localhost:7900" ||
+          host === "localhost:8081";
+
+        var consentScriptTemplateId = '019b8eea-4d8d-7ce4-9c1f-dd840736b79f';
+        if (isTestEnv) {
+          consentScriptTemplateId += '-test';
+        }
+
+        var script = document.createElement('script');
+        script.src = `https://cdn.cookielaw.org/consent/${consentScriptTemplateId}/otSDKStub.js`;
+        script.type = 'text/javascript';
+        script.charset = 'UTF-8';
+        script.setAttribute('data-language', "en");
+        script.setAttribute('data-domain-script', consentScriptTemplateId);
+
+        loadScript(script);
+
+        // OptanonWrapper can be used to conditionally load scripts or execute
+        // javascript depending on the consent categories that were chosen.
+        // It is executed by OneTrust on each page load and whenever the user
+        // modifies their consent in the Preference Center. Per OneTrust
+        // docs, opt-out actions (Active to Inactive) only reflect on page refresh,
+        // so we reload the page to immediately apply consent changes.
+        // However, we skip reload for: (1) the initial call on page load to avoid
+        // infinite loops, and (2) when new users make their initial selection since
+        // Segment already waits for consent before loading.
+        // See https://my.onetrust.com/s/article/UUID-518074a1-a6da-81c3-be52-bae7685d9c94?language=en_US#idm2935
+        let isFirstCall = true;
+        let shouldReloadOnNextCall = false;
+        window.OptanonWrapper = () => {
+          if (isFirstCall) {
+            // First call on page load - check if user already made a selection previously.
+            // If yes (returning user), we'll reload on their next preference change.
+            // If no (new user), we'll skip reload on their initial selection.
+            shouldReloadOnNextCall = window.OneTrust?.IsAlertBoxClosed();
+            isFirstCall = false;
+          } else {
+            // Subsequent calls triggered by user changing preferences
+            if (shouldReloadOnNextCall) {
+              // Either a returning user or a new user changing after initial selection - reload
+              window.location.reload();
+            } else {
+              // New user making initial selection - skip reload but enable it for future changes
+              shouldReloadOnNextCall = true;
+            }
+          }
+        }
+      }</script><script defer="defer" src="/assets/common.c44f450070e77215f34b.js"></script><script defer="defer" src="/assets/application.f9fa40654e1b931cc229.js"></script><link rel="preload" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&display=swap" as="style" onload="this.rel='stylesheet'"><link href="/assets/application.6279f18087eb0fa07fcd.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'"/><script src="https://cdn.jsdelivr.net/npm/@segment/analytics-consent-wrapper-onetrust@1.1.3/dist/umd/analytics-onetrust.umd.js" integrity="sha384-ZfcsAx1x7muBdnigLXYDf60HLhesYq26ml8RlUC8nybmvoJ3z9AujMUd8yos84Fv" crossorigin="anonymous"></script><script>(function(){
+        // Create a queue, but don't obliterate an existing one!
+        var analytics = window.analytics = window.analytics || [];
+
+        // If the real analytics.js is already on the page return.
+        if (analytics.initialize) return;
+
+        // If the snippet was invoked already show an error.
+        if (analytics.invoked) {
+          if (window.console && console.error) {
+            console.error('Segment snippet included twice.');
+          }
+          return;
+        }
+
+        // Invoked flag, to make sure the snippet
+        // is never invoked twice.
+        analytics.invoked = true;
+
+        // A list of the methods in Analytics.js to stub.
+        analytics.methods = [
+          'trackSubmit',
+          'trackClick',
+          'trackLink',
+          'trackForm',
+          'pageview',
+          'identify',
+          'reset',
+          'group',
+          'track',
+          'ready',
+          'alias',
+          'debug',
+          'page',
+          'once',
+          'off',
+          'on',
+          'addSourceMiddleware',
+          'addIntegrationMiddleware',
+          'setAnonymousId',
+          'addDestinationMiddleware',
+        ];
+
+        // Define a factory to create stubs. These are placeholders
+        // for methods in Analytics.js so that you never have to wait
+        // for it to load to actually record data. The `method` is
+        // stored as the first argument, so we can replay the data.
+        analytics.factory = function(method){
+          return function(){
+            var args = Array.prototype.slice.call(arguments);
+            args.unshift(method);
+            analytics.push(args);
+            return analytics;
+          };
+        };
+
+        // For each of our methods, generate a queueing stub.
+        for (var i = 0; i < analytics.methods.length; i++) {
+          var key = analytics.methods[i];
+          analytics[key] = analytics.factory(key);
+        }
+
+        // Define a method to load Analytics.js from our CDN,
+        // and that will be sure to only ever load it once.
+        analytics.load = function(settings, options){
+          // Create an async script element based on your key.
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.async = true;
+          // This is the only thing modified from the provided snippet:
+          // https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/quickstart/#step-1-copy-the-snippet
+          var host = window.location.host;
+          if (host.split(":")[0] !== "localhost") {
+               var consoleHost = host;
+              // The segment script is only available on CC console domain.
+              // So if host is SU, then update the host to corresponding console host.
+              if(host === "superuser-management-staging.crdb.io") {
+                consoleHost = "management-staging.crdb.io"
+              } else if (host === "su.cockroachlabs.cloud") {
+                consoleHost = "cockroachlabs.cloud"
+              }
+
+            script.src = `https://marketing.${consoleHost}/segment/load`;
+          } else {
+            
+            script.src = 'http://localhost:7909/segment/load';
+            
+          }
+
+          loadScript(script)
+          analytics._loadOptions = options;
+        };
+
+        // Add a version to keep track of what's in the wild.
+        analytics.SNIPPET_VERSION = '4.15.3';
+
+        // Load Segment.
+        if (!window.Cypress) {
+          if (window.loadCookieConsent) {
+            if (window['withOneTrust']) {
+              withOneTrust(analytics).load()
+            } else {
+              console.error("expecting withOneTrust to be defined, but it wasn't, falling back to normal analytics")
+              analytics.load()
+            }
+          }
+          else {
+            analytics.load()
+          }
+        }
+      })();</script></head><body><div id="app"></div><iframe id="instrumentation-tunnel" style="display: none;" width="0" height="0" tabindex="-1" aria-hidden="true" sandbox="allow-scripts allow-same-origin" src="https://www.cockroachlabs.com/instrumentation/tunnel.html"/></body></html>
