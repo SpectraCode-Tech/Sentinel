@@ -67,7 +67,7 @@ export default function ArticleDetail() {
     const shareData = {
       title: article.title,
       text: `Read "${article.title}" on The Sentinel`,
-      url: `https://sentinel-ou6m.onrender.com/${article.slug}`,
+      url: `https://sentinel-ou6m.onrender.com/articles/${article.slug}`,
     };
 
     try {
