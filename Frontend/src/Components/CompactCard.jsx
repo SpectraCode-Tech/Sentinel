@@ -14,7 +14,7 @@ export default function CompactCard({ article }) {
       </span>
 
       {/* Scaled Down Image */}
-      <Link to={`/articles/${article.slug}`} className="block mb-3 overflow-hidden">
+      <Link to={`/${article.slug}`} className="block mb-3 overflow-hidden">
         <div className="relative aspect-video overflow-hidden bg-surface">
           <img
             src={article.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy009LUOND9m_Fxvr7M49WGnjlObT5M4Yyw&s"}
@@ -25,7 +25,7 @@ export default function CompactCard({ article }) {
       </Link>
 
       {/* Smaller Headline - fixed size to prevent bleeding */}
-      <Link to={`/articles/${article.slug}`} className="block mb-2">
+      <Link to={`/${article.slug}`} className="block mb-2">
         <h3 className="text-headline font-serif text-lg font-bold leading-tight group-hover:text-accent transition-colors line-clamp-2">
           {article.title}
         </h3>

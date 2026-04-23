@@ -26,7 +26,7 @@ export default function ArticleCard({ article }) {
       </div>
 
       {/* Article Image Wrapper */}
-      <Link to={`/articles/${article.slug}`} className="block mb-4 overflow-hidden">
+      <Link to={`/${article.slug}`} className="block mb-4 overflow-hidden">
         <div className="relative aspect-video overflow-hidden bg-surface">
           <img
             src={article.image || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWy009LUOND9m_Fxvr7M49WGnjlObT5M4Yyw&s"} 
@@ -37,7 +37,7 @@ export default function ArticleCard({ article }) {
         </div>
       </Link>
 
-      <Link to={`/articles/${article.slug}`} className="block">
+      <Link to={`/${article.slug}`} className="block">
         <h2 className="text-headline font-serif text-2xl md:text-3xl font-black leading-tight mb-3 group-hover:text-accent transition-colors decoration-accent/20 underline-offset-4 group-hover:underline">
           {article.title}
         </h2>

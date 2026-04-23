@@ -20,7 +20,7 @@ export default function TrendingSidebar() {
             </h3>
             <div className="space-y-6">
                 {trending.map((article, index) => (
-                    <Link key={article.slug} to={`/articles/${article.slug}`} className="group flex text-left gap-4">
+                    <Link key={article.slug} to={`/${article.slug}`} className="group flex text-left gap-4">
                         <span className="text-3xl font-serif font-black text-accent/20 group-hover:text-accent transition-colors">
                             0{index + 1}
                         </span>
