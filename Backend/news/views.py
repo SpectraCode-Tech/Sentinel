@@ -2,8 +2,9 @@ from datetime import timedelta
 import os
 from django.utils import timezone
 from django.contrib.auth import get_user_model
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.core.management import call_command
+from .models import Article
 
 from rest_framework import viewsets, permissions, filters
 from rest_framework.decorators import action
@@ -216,3 +217,32 @@ class TagViewSet(viewsets.ModelViewSet):
 def article_preview(request, slug):
     article = get_object_or_404(Article, slug=slug)
     return render(request, "preview.html", {"article": article})
+
+
+def article_og_view(request, slug):
+    try:
+        article = Article.objects.get(slug=slug, status="published")
+    except Article.DoesNotExist:
+        return HttpResponse("Not Found", status=404)
+    image_url = request.build_absolute_uri(article.image.url) if article.image else ""
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>{article.title}</title>
+        <meta property="og:title" content="{article.title}" />
+        <meta property="og:description" content="{article.excerpt}" />
+        <meta property="og:image" content="{image_url}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="https://thesentinel.oladimeji.com.ng/articles/{article.slug}" />
+        <meta name="twitter:card" content="summary_large_image" />
+    </head>
+    
+    <body>
+        <script>
+            window.location.href = "https://thesentinel.oladimeji.com.ng/articles/{article.slug}";
+        </script>
+    </body>
+    </html>
+    """
+    return HttpResponse(html)

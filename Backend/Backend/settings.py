@@ -112,12 +112,31 @@ ASGI_APPLICATION = "Backend.asgi.application"
 
 AUTH_USER_MODEL = "accounts.User"
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'),
+#         ssl_require=True
+#     )
+# }
+
+import os
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django_cockroachdb',
+        'NAME': 'defaultdb',
+        'USER': 'dimeji',
+        'PASSWORD': 'n9KIyFwbeOeAYSQAf7PCeQ',
+        'HOST': 'sentinel-25306.j77.aws-eu-central-1.cockroachlabs.cloud',
+        'PORT': '26257',
+        'OPTIONS': {
+            'sslmode': 'verify-full',
+            'sslrootcert': os.path.expandvars(r'%APPDATA%\postgresql\root.crt'), 
+            'options': '--cluster=sentinel-25306', 
+        },
+    }
 }
+
 
 
 MIDDLEWARE = [
