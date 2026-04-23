@@ -131,7 +131,7 @@ DATABASES = {
         'PORT': '26257',
         'OPTIONS': {
             'sslmode': 'verify-full',
-            'sslrootcert': "system", 
+            'sslrootcert': os.path.join(BASE_DIR, 'root.crt'), 
             'options': '--cluster=sentinel-25306', 
         },
     }
