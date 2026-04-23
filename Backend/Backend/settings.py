@@ -131,7 +131,7 @@ DATABASES = {
         'PORT': '26257',
         'OPTIONS': {
             'sslmode': 'verify-full',
-            'sslrootcert': os.path.expandvars(r'%APPDATA%\postgresql\root.crt'), 
+            'sslrootcert': "system", 
             'options': '--cluster=sentinel-25306', 
         },
     }
