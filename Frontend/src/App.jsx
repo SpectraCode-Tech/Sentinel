@@ -47,7 +47,7 @@ export default function App() {
         />
 
         <Route
-          path="/articles/:slug"
+          path="/:slug"
           element={
               <ArticleDetail />
           }

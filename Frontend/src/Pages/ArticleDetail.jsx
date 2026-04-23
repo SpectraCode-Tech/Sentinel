@@ -66,15 +66,15 @@ export default function ArticleDetail() {
   const handleShare = async () => {
     const shareData = {
       title: article.title,
-      text: `Read "${article.title}" on Sentinel`,
-      url: window.location.href,
+      text: `Read "${article.title}" on The Sentinel`,
+      url: `https://sentinel-ou6m.onrender.com/${article.slug}`,
     };
 
     try {
       if (navigator.share) {
         await navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(window.location.href);
+        await navigator.clipboard.writeText(shareData.url);
         alert("Link copied to clipboard!"); // Replace with toast if available
       }
     } catch (err) {
