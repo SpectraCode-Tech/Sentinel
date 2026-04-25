@@ -79,7 +79,8 @@ class Article(SoftDeleteModel):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
+            short_title = " ".join(self.title.split()[:5])
+            base_slug = slugify(short_title)
             self.slug = f"{base_slug}-{uuid.uuid4().hex[:6]}"
         super().save(*args, **kwargs)
 
